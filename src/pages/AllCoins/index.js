@@ -1,18 +1,13 @@
-import React from 'react';
+import React from 'react'
 
 class AllCoins extends React.Component {
-  
-
-    render() {
-      
-      
+  render() {
     return (
-      <>
-        <div><h1>This is the All Coins Page</h1></div>
-      </>
-      
+      <div>
+        <h1>This is the All Coins Page</h1>
+      </div>
     )
   }
 }
 
-export default AllCoins;
+export default AllCoins
