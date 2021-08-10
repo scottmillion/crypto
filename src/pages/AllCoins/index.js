@@ -1,5 +1,8 @@
 import React from 'react'
 import axios from 'axios'
+import {calculatePercentChange} from 'utils/calculatePercentChange'
+import LineChart from 'components/Chart'
+
 
 class AllCoins extends React.Component {
   state = {
@@ -81,7 +84,8 @@ class AllCoins extends React.Component {
   render() {
     return (
       <>
-        <div>
+        <LineChart />
+        {/* <div>
         {!this.state.global && <div>Loading Global API...</div>}
           {this.state.global && <div>
             <h1>Made it</h1>
@@ -111,22 +115,29 @@ class AllCoins extends React.Component {
                   <div>{index + 1}</div>
                   <div><img src={profile.image.thumb} alt={profile.name} />{profile.name} ({profile.symbol.toUpperCase()})</div>
                   <div>${profile.market_data.current_price.usd}</div>
-                  <div>1 Hour: {((chart.hourly.prices[chart.hourly.prices.length - 1][1] - chart.hourly.prices[chart.hourly.prices.length - 2][1]) / chart.hourly.prices[chart.hourly.prices.length - 1][1] * 100).toFixed(2)}%</div>
-                  <div>24 Hour: {((chart.hourly.prices[chart.hourly.prices.length - 1][1] - chart.hourly.prices[0][1]) / chart.hourly.prices[chart.hourly.prices.length - 1][1] * 100).toFixed(2)}%</div>
-                  <div>7 Day Change: {((chart.daily.prices[chart.daily.prices.length - 1][1] - chart.daily.prices[0][1]) / chart.daily.prices[chart.daily.prices.length - 1][1] * 100).toFixed(2)}%</div>
-                  
+                  <div>1 Hour: {calculatePercentChange(chart.hourly.prices[chart.hourly.prices.length - 1][1], chart.hourly.prices[chart.hourly.prices.length - 2][1])}</div>
+
+                  <div>24 Hour: {calculatePercentChange(chart.hourly.prices[chart.hourly.prices.length - 1][1], chart.hourly.prices[0][1])}</div>
+                 
+                  <div>7 Day Change: {calculatePercentChange(chart.daily.prices[chart.daily.prices.length - 1][1], chart.daily.prices[0][1])}%</div>
+
                   <div>24 Hour Volume {chart.daily.total_volumes[chart.daily.total_volumes.length - 1][1]}</div>
                   <div>Market Cap {chart.daily.market_caps[chart.daily.market_caps.length - 1][1]}</div>
-                  <div>Circulating / Total Supply</div>
+                  <div>Circulating: {profile.market_data.circulating_supply}</div>
+                  <div>Total Supply: {profile.market_data.total_supply}</div>
                   <div>Last 7 Day Chart</div>
+
+                  
                 </li>)
               })}
+              
             </ul>
           )}
 
           
           <h1>This is the All Coins Page</h1>
-        </div>
+          
+        </div> */}
       </>
     )
   }
