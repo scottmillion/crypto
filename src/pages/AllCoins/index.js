@@ -6,7 +6,6 @@ import LineChart from 'components/Chart'
 
 class AllCoins extends React.Component {
   state = {
-    global: null,
     profileDataLoaded: false,
     marketChartDataLoaded: false,
     coins: {
@@ -21,16 +20,6 @@ class AllCoins extends React.Component {
       "litecoin": {}
     }
         
-  }
-
-  getGlobalData = async () => {
-    try {
-      const { data } = await axios('https://api.coingecko.com/api/v3/global')
-      this.setState({ global: data.data })
-    } catch(error) {
-      console.log("Global API Error!")
-      console.log(error);
-    }
   }
 
   getProfileData = async (coinIds) => {
@@ -72,7 +61,6 @@ class AllCoins extends React.Component {
 
 
   componentDidMount() {
-    this.getGlobalData();
     this.getMarketChartData(Object.keys(this.state.coins));
     this.getProfileData(Object.keys(this.state.coins));
   }
@@ -84,24 +72,9 @@ class AllCoins extends React.Component {
   render() {
     return (
       <>
-        <LineChart />
-        {/* <div>
-        {!this.state.global && <div>Loading Global API...</div>}
-          {this.state.global && <div>
-            <h1>Made it</h1>
-            <ul>
-              <li> Coins: {this.state.global.active_cryptocurrencies}</li>
-              <li> Exchange: {this.state.global.markets}</li>
-              <li> Total Market Cap: {Math.round(this.state.global.total_market_cap.usd)}</li>
-              <li> Total Volume: {Math.round(this.state.global.total_volume.usd)}</li>
-              <li> BTC Market Cap %: {Math.round(this.state.global.market_cap_percentage.btc)}%</li>
-              <li> Eth Market Cap %: {Math.round(this.state.global.market_cap_percentage.eth)}%</li>
-            </ul>
-            
-            
-            
-            </div>}
-            
+      <h1>This is the All Coins Page</h1>
+        {/* <LineChart /> */}
+        <div>            
             {!this.state.profileDataLoaded && <div>Loading Profile API...</div>}
             {!this.state.marketChartDataLoaded && <div>Loading Market Chart API...</div>}
            {this.state.profileDataLoaded && this.state.marketChartDataLoaded && (
@@ -135,9 +108,9 @@ class AllCoins extends React.Component {
           )}
 
           
-          <h1>This is the All Coins Page</h1>
           
-        </div> */}
+          
+        </div>
       </>
     )
   }
