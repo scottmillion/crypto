@@ -9,11 +9,13 @@ import AllCoins from "pages/AllCoins"
 import Coin from "pages/Coin"
 import axios from 'axios'
 import { GlobalStyle } from "App.styles";
+import { prettierNumber } from "utils/prettierNumber";
 
 
 class App extends React.Component {
   state = {
-    global: null
+    global: null,
+    currency: 'usd'
   }
 
   getGlobalData = async () => {
@@ -31,7 +33,9 @@ class App extends React.Component {
 
   }
 
-
+  handleChange() {
+    
+  }
 
   render(){
   return (
@@ -51,8 +55,8 @@ class App extends React.Component {
           </div>
           <div className="nav-right">
             <div>
-            <input type="text" value="Search..."/>
-            <img/>
+            <input type="text" value="Search..." onChange={this.handleChange}/>
+            <img src="" alt=""/>
             </div>
             <div className="nav-right-select-container">
               <select name="cars" id="cars">
@@ -66,28 +70,29 @@ class App extends React.Component {
             
           </div>
         </nav>
-        <div>
+        <div className="nav-under-container">
+        <div className="nav-under">
         {!this.state.global && <div>Loading Global API...</div>}
           {this.state.global && <div>
-            <h1>Nav</h1>
             <ul>
-              <li> Coins: {this.state.global.active_cryptocurrencies}</li>
-              <li> Exchange: {this.state.global.markets}</li>
-              <li> Total Market Cap: {Math.round(this.state.global.total_market_cap.usd)}</li>
-              <li> Total Volume: {Math.round(this.state.global.total_volume.usd)}</li>
-              <li> BTC Market Cap %: {Math.round(this.state.global.market_cap_percentage.btc)}%</li>
-              <li> Eth Market Cap %: {Math.round(this.state.global.market_cap_percentage.eth)}%</li>
+              <li>Coins {this.state.global.active_cryptocurrencies}</li>
+              <li>Exchange {this.state.global.markets}</li>
+              <li>• ${prettierNumber(Math.round(this.state.global.total_market_cap[this.state.currency]))}</li>
+              <li>• ${prettierNumber(Math.round(this.state.global.total_volume[this.state.currency]))}</li>
+              <li>{Math.round(this.state.global.market_cap_percentage.btc)}%</li>
+              <li>{Math.round(this.state.global.market_cap_percentage.eth)}%</li>
             </ul>
             
             
-            <hr/>
+            
             </div>}
+            </div>
         </div>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route exact path="/" component={AllCoins} />
+          <Route exact path="/" component={() => <AllCoins currency={this.state.currency}/>} />
           <Route exact path="/coin/:name" component={Coin} />
         </Switch>
       </div>

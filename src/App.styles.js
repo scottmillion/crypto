@@ -98,4 +98,38 @@ export const GlobalStyle = createGlobalStyle`
     margin-right: 25px;
   }
 
+  .nav-under-container {
+    width: 100%;
+    display: flex; 
+    justify-content: center;
+    padding-bottom: 25px;
+  }
+
+  .nav-under {
+    width: 906px;
+    height: 55px;
+    background: #191B1F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+
+  .nav-under ul {
+    padding: 0;
+    display: flex;
+    list-style: none;
+  }
+
+  .nav-under ul > li {
+    font-size: 17px;
+    padding-right: 16px;
+    padding-left: 16px;
+    
+  }
+
+
+
+
 `;
