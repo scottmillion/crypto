@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: 'Poppins', sans-serif;
-    background-image: linear-gradient(to bottom right, #14703c, #000000);
+    background: linear-gradient(to bottom right, #14703c, #000000 50%);
     background-size: cover;
     background-attachment: fixed;
     min-height: 100vh;
@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 
   .container {
     margin-top: 66px;
-    margin-bottom: 118px;
+    margin-bottom: 88px;
     margin-right: 120px;
     margin-left: 120px;
     max-width: 1920px;

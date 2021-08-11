@@ -2,11 +2,12 @@ import React from 'react'
 import axios from 'axios'
 // import LineChart from 'components/Chart'
 import { prettierNumber } from 'utils/prettierNumber'
+import { Img, Cell, ContentContainer, CoinContainer, Row, Container } from './AllCoins.css'
 
 
 class AllCoins extends React.Component {
   state = {
-    data: null
+    data: null,
   }
 
   getData = async () => {
@@ -23,40 +24,48 @@ class AllCoins extends React.Component {
     this.getData();
   }
 
+  fontWeightBold = 700;
+  labels = ["#", "Name", "", "Price", "1h%", "24h%", "7d%", "24h Volume/Market Cap", "Circulating/Total Supply", "Last 7 Day"];
+  labelsFontSize = 16;
+  paddingLeft = [0, 36, 8, 15, 35, 38, 45, 52, 42, 44];
+  rowsFontSize = 19;
+  widths = [12, 34, 210, 80, 60, 60, 60, 230, 230, 200];
+
   render() {
     return (
-      <>
-      
-      <h1>This is the All Coins Page</h1>
-        {/* <LineChart /> */}
-        <div>            
+      <Container>
+          <ContentContainer>
+          <div>CHARTS</div>
             {!this.state.data && <div>Loading Data API...</div>}
+            <h1>Your overview</h1>
            {this.state.data && (
-            <ul>
+            
+            
+            <CoinContainer>
+                <Row>
+                  {this.widths.map((width, index) => <Cell width={width} paddingLeft={this.paddingLeft[index]} weight={this.fontWeightBold} size={this.labelsFontSize}>{this.labels[index]}</Cell>)}
+                </Row>
               {this.state.data.map((coin, index) => {
-                return (<li key={index + coin.name}>
-                  <div>{index + 1}</div>
-                  <div><img src={coin.image} alt={coin.name} />{coin.name} ({coin.symbol.toUpperCase()})</div>
-                  <div>${prettierNumber(coin.current_price)}</div>
-                  <div>1 Hour: {coin.price_change_percentage_1h_in_currency.toFixed(2)}%</div>
-                  <div>24 Hour: {coin.price_change_percentage_24h_in_currency.toFixed(2)}%</div>
-                  <div>7 Day Change: {coin.price_change_percentage_7d_in_currency.toFixed(2)}%</div>
-                  <div>24 Hour Volume {prettierNumber(coin.total_volume)}</div>
-                  <div>Market Cap {prettierNumber(coin.market_cap)}</div>
-                  <div>Circulating: {prettierNumber(coin.circulating_supply.toFixed())}</div>
-                  <div>Total Supply: {(coin.total_supply && prettierNumber(coin.total_supply.toFixed())) || "Infinite"}</div>
-                  <div>Last 7 Day Chart</div>
-                </li>)
+                return (
+                <Row key={index + coin.name}>
+                  <Cell width={this.widths[0]} paddingLeft={this.paddingLeft[0]}>{index + 1}</Cell>
+                  <Cell width={this.widths[1]} paddingLeft={this.paddingLeft[1]}><Img src={coin.image} alt={coin.name} /></Cell>
+                  <Cell width={this.widths[2]} paddingLeft={this.paddingLeft[2]}>{coin.name} ({coin.symbol.toUpperCase()})</Cell>
+                  <Cell width={this.widths[3]} paddingLeft={this.paddingLeft[3]}>${prettierNumber(coin.current_price.toFixed())}</Cell>
+                  <Cell width={this.widths[4]} paddingLeft={this.paddingLeft[4]}>{coin.price_change_percentage_1h_in_currency.toFixed(2)}%</Cell>
+                  <Cell width={this.widths[5]} paddingLeft={this.paddingLeft[5]}>{coin.price_change_percentage_24h_in_currency.toFixed(2)}%</Cell>
+                  <Cell width={this.widths[6]} paddingLeft={this.paddingLeft[6]}>{coin.price_change_percentage_7d_in_currency.toFixed(2)}%</Cell>
+                  <Cell width={this.widths[7]} paddingLeft={this.paddingLeft[7]}>{prettierNumber(coin.total_volume)} / {prettierNumber(coin.market_cap)}</Cell>
+                  <Cell width={this.widths[8]} paddingLeft={this.paddingLeft[8]}>{prettierNumber(coin.circulating_supply.toFixed())} / {(coin.total_supply && prettierNumber(coin.total_supply.toFixed())) || "Infinite"}</Cell>
+                  
+                  <Cell width={this.widths[9]} paddingLeft={this.paddingLeft[9]}>Last 7 Day Chart</Cell>
+                </Row>)
               })}
               
-            </ul>
+            </CoinContainer>
           )}
-
-          
-          
-          
-        </div>
-      </>
+        </ContentContainer>
+      </Container>
     )
   }
 }
