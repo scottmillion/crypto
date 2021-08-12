@@ -82,10 +82,10 @@ class App extends React.Component {
         <Nav>
         <NavLeft>
           <NavLeftUl>
-            <NavLeftLi background={"#2C2F36"}>
+            <NavLeftLi background={"#2C2F36"} key={"first-li"}>
               <Link to="/" style={{ textDecoration: 'none', color: "white" }}>Coins</Link>
             </NavLeftLi>
-            <NavLeftLi>
+            <NavLeftLi key={"second-li"}>
               <Link to="/" style={{ textDecoration: 'none', color: "white" }}>Portfolio</Link>
             </NavLeftLi>
           </NavLeftUl>
@@ -99,7 +99,7 @@ class App extends React.Component {
               <CurrencySymbol>{this.state.currencySymbol}</CurrencySymbol>
               <Select name="currency" id="current-currency" onChange={this.handleChangeCurrency}>
                 {Object.keys(this.currencyList).map((currency) => {
-                  return <option value={currency}>{this.currencyList[currency].name}</option>
+                  return <option value={currency} key={currency + "uniq"}>{this.currencyList[currency].name}</option>
                 })
                 }
               </Select>

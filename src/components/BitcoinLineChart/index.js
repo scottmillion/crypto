@@ -1,4 +1,3 @@
-  
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
@@ -34,10 +33,10 @@ const options = {
   },
 };
 
-const LineChart = (props) => (
+const BitcoinLineChart = (props) => (
   <>
     <Line data={data} options={options} />
   </>
 );
 
-export default LineChart;
+export default BitcoinLineChart;
