@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const H1 = styled.h1`
+  font-size: 1.4rem;
+  font-weight: 500;
+`;
+
 export const Container = styled.div`
   width: 100%;
   display: flex;

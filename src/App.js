@@ -10,12 +10,16 @@ import Coin from "pages/Coin"
 import axios from 'axios'
 import { GlobalStyle } from "App.styles";
 import { prettierNumber } from "utils/prettierNumber";
-
+import search from './images/search.png';
+import mode from './images/mode.png';
+import { Container, CurrencyImage, CurrencySymbol, Mode, Nav, NavLeft, NavLeftUl, NavLeftLi, NavRight, NavRightInput, NavRightInputContainer, NavRightSelectContainer, NavUnder, NavUnderContainer, NavUnderUl, NavUnderLi, Select, SelectArrow} from 'App.css'
 
 class App extends React.Component {
   state = {
     global: null,
-    currency: 'usd'
+    currency: 'usd',
+    currencySymbol: "$",
+    value: ''
   }
 
   getGlobalData = async () => {
@@ -33,69 +37,100 @@ class App extends React.Component {
 
   }
 
-  handleChange() {
+  handleChange = (e) => {
+    const value = e.target.value;
+    this.setState({value});
     
   }
+
+  handleChangeCurrency = (e) => {
+    const currency = e.target.value
+    const currencySymbol = this.currencyList[currency].symbol;
+    this.setState({currency, currencySymbol})
+  }
+
+  
+
+  currencyList = {
+    "usd": {
+      name: "USD",
+      symbol: "$"
+    },
+    "gbp": {
+      name: "GBP",
+      symbol: "£"
+    },
+    "eur": {
+      name: "EUR",
+      symbol: "€"
+    },
+    "btc": {
+      name: "BTC",
+      symbol: "₿"
+    },
+    "eth": {
+      name: "ETH",
+      symbol: "Ξ"
+    }
+  } 
 
   render(){
   return (
     <Router>
        <GlobalStyle />
-      <div className="container">
-        <nav>
-        <div className="nav-left">
-          <ul>
-            <li>
-              <Link to="/">Coins</Link>
-            </li>
-            <li>
-              <Link to="/">Portfolio</Link>
-            </li>
-          </ul>
-          </div>
-          <div className="nav-right">
-            <div>
-            <input type="text" value="Search..." onChange={this.handleChange}/>
-            <img src="" alt=""/>
-            </div>
-            <div className="nav-right-select-container">
-              <select name="cars" id="cars">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
-            </div>
-            <button>D/L</button>
-            
-          </div>
-        </nav>
-        <div className="nav-under-container">
-        <div className="nav-under">
-        {!this.state.global && <div>Loading Global API...</div>}
-          {this.state.global && <div>
-            <ul>
-              <li>Coins {this.state.global.active_cryptocurrencies}</li>
-              <li>Exchange {this.state.global.markets}</li>
-              <li>• ${prettierNumber(Math.round(this.state.global.total_market_cap[this.state.currency]))}</li>
-              <li>• ${prettierNumber(Math.round(this.state.global.total_volume[this.state.currency]))}</li>
-              <li>{Math.round(this.state.global.market_cap_percentage.btc)}%</li>
-              <li>{Math.round(this.state.global.market_cap_percentage.eth)}%</li>
-            </ul>
-            
-            
-            
-            </div>}
-            </div>
-        </div>
+      <Container>
+        <Nav>
+        <NavLeft>
+          <NavLeftUl>
+            <NavLeftLi background={"#2C2F36"}>
+              <Link to="/" style={{ textDecoration: 'none', color: "white" }}>Coins</Link>
+            </NavLeftLi>
+            <NavLeftLi>
+              <Link to="/" style={{ textDecoration: 'none', color: "white" }}>Portfolio</Link>
+            </NavLeftLi>
+          </NavLeftUl>
+          </NavLeft>
+          <NavRight>
+            <NavRightInputContainer>
+              <CurrencyImage src={search} alt="search"/>
+              <NavRightInput type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
+            </NavRightInputContainer>
+            <NavRightSelectContainer>
+              <CurrencySymbol>{this.state.currencySymbol}</CurrencySymbol>
+              <Select name="currency" id="current-currency" onChange={this.handleChangeCurrency}>
+                {Object.keys(this.currencyList).map((currency) => {
+                  return <option value={currency}>{this.currencyList[currency].name}</option>
+                })
+                }
+              </Select>
+              <SelectArrow>⏷</SelectArrow>
+            </NavRightSelectContainer>
+            <Mode><img src={mode} alt="mode"/></Mode>           
+          </NavRight>
+        </Nav>
 
+        <NavUnderContainer>
+          <NavUnder>
+            {!this.state.global && <div>Loading Global API...</div>}
+            {this.state.global && <div>
+              <NavUnderUl>
+                <NavUnderLi>Coins {this.state.global.active_cryptocurrencies}</NavUnderLi>
+                <NavUnderLi>Exchange {this.state.global.markets}</NavUnderLi>
+                <NavUnderLi>• ${prettierNumber(Math.round(this.state.global.total_market_cap[this.state.currency]))}</NavUnderLi>
+                <NavUnderLi>• ${prettierNumber(Math.round(this.state.global.total_volume[this.state.currency]))}</NavUnderLi>
+                <NavUnderLi>{Math.round(this.state.global.market_cap_percentage.btc)}%</NavUnderLi>
+                <NavUnderLi>{Math.round(this.state.global.market_cap_percentage.eth)}%</NavUnderLi>
+              </NavUnderUl>
+            </div>}
+          </NavUnder>
+        </NavUnderContainer>
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route exact path="/" component={() => <AllCoins currency={this.state.currency}/>} />
+          <Route exact path="/" component={() => <AllCoins currency={this.state.currency} symbol={this.state.currencySymbol}/>} />
           <Route exact path="/coin/:name" component={Coin} />
         </Switch>
-      </div>
+      </Container>
     </Router>
   );}
 }
