@@ -10,11 +10,6 @@ export const Cell = styled.div`
  align-items: center;
 `;
 
-export const ChartWrap = styled.div`
-  width: 116px;
-  height: 33px;
-`;
-
 export const CoinContainer = styled.div`
   /* outline: 1px solid blue; */
   background: #191B1F;

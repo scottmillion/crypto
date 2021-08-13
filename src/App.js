@@ -103,7 +103,7 @@ class App extends React.Component {
                 })
                 }
               </Select>
-              <SelectArrow>⏷</SelectArrow>
+              <SelectArrow>&#9207;</SelectArrow>
             </NavRightSelectContainer>
             <Mode><img src={mode} alt="mode"/></Mode>           
           </NavRight>

@@ -1,14 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    margin-top: 66px;
-    margin-bottom: 88px;
-    margin-right: 120px;
-    margin-left: 120px;
-    max-width: 1920px;
     background: #1F2128;
     border: 10px solid #191B1F;
-    border-radius: 25px;
 `;
 
 export const CurrencyImage = styled.img`
@@ -30,7 +24,7 @@ export const CurrencySymbol = styled.div`
 `;
 
 export const Mode = styled.div`
-      display: flex;
+    display: flex;
     height: 35px;
     border-radius: 20px;
     background: #2C2F36;
@@ -65,33 +59,34 @@ export const NavLeftLi = styled.li`
 export const NavLeftUl = styled.ul`
     list-style: none;
     padding: 0;
-    padding-left: 95px;
+    padding-left: 102px;
 `;
 
 export const NavRight = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    padding-right: 3px;
+    padding-right: 10px;
 `;
 
 export const NavRightInputContainer = styled.div``;
 
 export const NavRightInput = styled.input`
-    width: 452px;
+    background: #2C2F36;
+    color: white;
+    width: 450px;
     height: 63px;
+    padding: 0;
+    padding-left: 60px;
+    margin-right: 27px;
     border: 2px solid #191B1F;
     border-radius: 20px;
-    background: #2C2F36;
-    padding: 0;
-    margin-right: 27px;
-    color: white;
     font-size: 1.1rem;
-    padding-left: 58px;
+    
     &::placeholder {
       color: inherit;
       font-weight: 700;
-     font-size: 1.1rem;
+      font-size: 1.1rem;
     }
     &:focus {
       outline: none;
@@ -102,7 +97,7 @@ export const NavRightInput = styled.input`
 
 export const NavRightSelectContainer = styled.div`
 position: relative;
-    margin-right: 25px;
+    margin-right: 28px;
     display: flex;
     flex-wrap: nowrap;
     width: 115px;
