@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Cell = styled.div`
  /* outline: 1px solid green; */
+ color: ${(props) => props.number ? (props.number < 0 ? "#FE1040" : "#00FC2A") : ''};
  font-size: ${(props) => props.size || '18'}px;
  font-weight: ${(props) => props.weight};
  height: 60px;
@@ -39,6 +40,7 @@ export const H1 = styled.h1`
 export const Img = styled.img`
   width: 34px;
   height: 34px;
+  margin-right: 8px;
 `;
 
 export const Row = styled.div`
@@ -48,6 +50,4 @@ export const Row = styled.div`
  align-items: center;
  justify-content: space-around;
 `;
-
-
 

@@ -131,6 +131,8 @@ export const NavUnderLi = styled.li`
     font-size: 1rem;
     padding-right: 16px;
     padding-left: 16px;
+    display: flex;
+    align-items: center;
 `;
 
 export const NavUnderUl = styled.ul`
@@ -163,5 +165,33 @@ export const SelectArrow = styled.div`
     pointer-events: none; 
 `;
 
+export const  PercentDisplay = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: 55px;
+  height: 14px;
+  background: linear-gradient(to right,  #fff 0%, #fff ${(props) => props.percent - 10}%, #2172E5 ${(props) => props.percent - 10}%, #2172E5 100%);
+  border-radius: 7px;
+  margin-left: 10px;
+  > * {
+    margin-left: calc(${(props) => props.percent}% - 14px);
+  }
+`;
+
+export const  Circle = styled.div`
+    height: 14px;
+    width: 14px;
+    background: white;
+    border-radius: 7px;
+`;
 
 
+export const NavUnderImg = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: ${(props) => props.marginRight}px;
+    > img {
+        width: 70%;
+    }
+`;

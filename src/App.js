@@ -12,8 +12,8 @@ import { GlobalStyle } from "App.styles";
 import { prettierNumber } from "utils/prettierNumber";
 import search from './images/search.png';
 import mode from './images/mode.png';
-import { Container, CurrencyImage, CurrencySymbol, Mode, Nav, NavLeft, NavLeftUl, NavLeftLi, NavRight, NavRightInput, NavRightInputContainer, NavRightSelectContainer, NavUnder, NavUnderContainer, NavUnderUl, NavUnderLi, Select, SelectArrow} from 'App.css'
-
+import { Circle, Container, CurrencyImage, CurrencySymbol, Mode, Nav, NavLeft, NavLeftUl, NavLeftLi, NavRight, NavRightInput, NavRightInputContainer, NavRightSelectContainer, NavUnder, NavUnderContainer, NavUnderImg, NavUnderUl, NavUnderLi, PercentDisplay, Select, SelectArrow} from 'App.css'
+import { keyGen } from "utils/keyGen";
 class App extends React.Component {
   state = {
     global: null,
@@ -75,6 +75,7 @@ class App extends React.Component {
   } 
 
   render(){
+
   return (
     <Router>
        <GlobalStyle />
@@ -82,10 +83,10 @@ class App extends React.Component {
         <Nav>
         <NavLeft>
           <NavLeftUl>
-            <NavLeftLi background={"#2C2F36"} key={"first-li"}>
+            <NavLeftLi background={"#2C2F36"} key={keyGen()}>
               <Link to="/" style={{ textDecoration: 'none', color: "white" }}>Coins</Link>
             </NavLeftLi>
-            <NavLeftLi key={"second-li"}>
+            <NavLeftLi key={keyGen()}>
               <Link to="/" style={{ textDecoration: 'none', color: "white" }}>Portfolio</Link>
             </NavLeftLi>
           </NavLeftUl>
@@ -99,7 +100,7 @@ class App extends React.Component {
               <CurrencySymbol>{this.state.currencySymbol}</CurrencySymbol>
               <Select name="currency" id="current-currency" onChange={this.handleChangeCurrency}>
                 {Object.keys(this.currencyList).map((currency) => {
-                  return <option value={currency} key={currency + "uniq"}>{this.currencyList[currency].name}</option>
+                  return <option value={currency} key={keyGen()}>{this.currencyList[currency].name}</option>
                 })
                 }
               </Select>
@@ -117,9 +118,30 @@ class App extends React.Component {
                 <NavUnderLi>Coins {this.state.global.active_cryptocurrencies}</NavUnderLi>
                 <NavUnderLi>Exchange {this.state.global.markets}</NavUnderLi>
                 <NavUnderLi>• ${prettierNumber(Math.round(this.state.global.total_market_cap[this.state.currency]))}</NavUnderLi>
-                <NavUnderLi>• ${prettierNumber(Math.round(this.state.global.total_volume[this.state.currency]))}</NavUnderLi>
-                <NavUnderLi>{Math.round(this.state.global.market_cap_percentage.btc)}%</NavUnderLi>
-                <NavUnderLi>{Math.round(this.state.global.market_cap_percentage.eth)}%</NavUnderLi>
+                <NavUnderLi>
+                  • ${prettierNumber(Math.round(this.state.global.total_volume[this.state.currency]))}
+                  <PercentDisplay percent={Math.round(this.state.global.total_volume[this.state.currency] / this.state.global.total_market_cap[this.state.currency])}>
+                    <Circle />
+                  </PercentDisplay>
+                </NavUnderLi>
+                <NavUnderLi>
+                  <NavUnderImg marginRight="3">
+                    <img src="https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579" alt="btc thumb"/>
+                  </NavUnderImg>
+                  {Math.round(this.state.global.market_cap_percentage.btc)}%
+                  <PercentDisplay percent={Math.round(this.state.global.market_cap_percentage.btc)}>
+                    <Circle />
+                  </PercentDisplay>
+                </NavUnderLi>
+                <NavUnderLi>
+                  <NavUnderImg marginRight="-1">
+                    <img src="https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880" alt="eth thumb"/>
+                  </NavUnderImg>
+                  {Math.round(this.state.global.market_cap_percentage.eth)}%
+                  <PercentDisplay percent={Math.round(this.state.global.market_cap_percentage.eth)}>
+                    <Circle />
+                  </PercentDisplay>
+                </NavUnderLi>
               </NavUnderUl>
             </div>}
           </NavUnder>
