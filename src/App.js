@@ -98,7 +98,7 @@ class App extends React.Component {
             </NavRightInputContainer>
             <NavRightSelectContainer>
               <CurrencySymbol>{this.state.currencySymbol}</CurrencySymbol>
-              <Select name="currency" id="current-currency" onChange={this.handleChangeCurrency}>
+              <Select name="currency" id="current-currency" value={this.state.currency} onChange={this.handleChangeCurrency}>
                 {Object.keys(this.currencyList).map((currency) => {
                   return <option value={currency} key={keyGen()}>{this.currencyList[currency].name}</option>
                 })
@@ -117,9 +117,9 @@ class App extends React.Component {
               <NavUnderUl>
                 <NavUnderLi>Coins {this.state.global.active_cryptocurrencies}</NavUnderLi>
                 <NavUnderLi>Exchange {this.state.global.markets}</NavUnderLi>
-                <NavUnderLi>• ${prettierNumber(Math.round(this.state.global.total_market_cap[this.state.currency]))}</NavUnderLi>
+                <NavUnderLi>• {this.state.currencySymbol}{prettierNumber(Math.round(this.state.global.total_market_cap[this.state.currency]))}</NavUnderLi>
                 <NavUnderLi>
-                  • ${prettierNumber(Math.round(this.state.global.total_volume[this.state.currency]))}
+                  • {this.state.currencySymbol}{prettierNumber(Math.round(this.state.global.total_volume[this.state.currency]))}
                   <PercentDisplay percent={Math.round(this.state.global.total_volume[this.state.currency] / this.state.global.total_market_cap[this.state.currency])}>
                     <Circle />
                   </PercentDisplay>

@@ -52,7 +52,7 @@ const CoinListChart = (props) => {
     ],
   };
   data.datasets[0].data = props.prices;
-  data.datasets[0].borderColor = `${props.prices[0] > props.prices[props.prices.length - 1] ? "#FE1040" : "#00FC2A"}`;
+  data.datasets[0].borderColor = `${props.priceChange < 0 ? "#FE1040" : "#00FC2A"}`;
   return <Line data={data} options={options} style={{backgroundColor: "#191B1F"}}/>;
 }
 

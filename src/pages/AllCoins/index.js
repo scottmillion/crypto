@@ -84,9 +84,13 @@ class AllCoins extends React.Component {
                     width={this.widths[3]} 
                     number={coin.price_change_percentage_1h_in_currency}
                   >
-                    <Arrow content={getArrow(coin.price_change_percentage_1h_in_currency)} />
-                    {Math.abs(coin.price_change_percentage_1h_in_currency.toFixed(2))}
-                    %
+                    {(this.props.currency !== coin.symbol && (
+                        <>
+                          <Arrow content={getArrow(coin.price_change_percentage_1h_in_currency)} />
+                          {Math.abs(coin.price_change_percentage_1h_in_currency.toFixed(2))}% 
+                        </>
+                      )) || <span>-</span>
+                    }
                   </Cell>
                   
                   <Cell 
@@ -94,9 +98,13 @@ class AllCoins extends React.Component {
                     width={this.widths[4]}
                     number={coin.price_change_percentage_24h_in_currency}
                   > 
-                    <Arrow content={getArrow(coin.price_change_percentage_24h_in_currency)} />
-                    {Math.abs(coin.price_change_percentage_24h_in_currency.toFixed(2))}
-                    %
+                    {(this.props.currency !== coin.symbol && (
+                        <>
+                          <Arrow content={getArrow(coin.price_change_percentage_24h_in_currency)} />
+                          {Math.abs(coin.price_change_percentage_24h_in_currency.toFixed(2))}%
+                        </>
+                      )) || <span>-</span>
+                    }
                   </Cell>
                   
                   <Cell 
@@ -104,9 +112,15 @@ class AllCoins extends React.Component {
                     width={this.widths[5]} 
                     number={coin.price_change_percentage_7d_in_currency}
                   >
-                    <Arrow content={getArrow(coin.price_change_percentage_7d_in_currency)} />
-                    {Math.abs(coin.price_change_percentage_7d_in_currency.toFixed(2))}
-                    %
+                    {(this.props.currency !== coin.symbol && (
+                        <>
+                          <Arrow content={getArrow(coin.price_change_percentage_7d_in_currency)} />
+                          {Math.abs(coin.price_change_percentage_7d_in_currency.toFixed(2))}%
+                        </>
+                      )) || <span>-</span>
+                    }
+                    
+                    
                   </Cell>
                   
                   <Cell 
@@ -131,7 +145,7 @@ class AllCoins extends React.Component {
                     key={keyGen()} 
                     width={this.widths[8]} 
                   >
-                    <CoinListChart prices={coin.sparkline_in_7d.price} />
+                    <CoinListChart prices={coin.sparkline_in_7d.price} priceChange={coin.price_change_percentage_7d_in_currency} />
                   </Cell>
                 </Row>)
               })}

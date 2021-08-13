@@ -45,7 +45,7 @@ export const Img = styled.img`
 
 export const Row = styled.div`
  /* outline: 1px solid red; */
- padding-left: 28px;
+ padding: 0px 28px;
  display: flex;
  align-items: center;
  justify-content: space-around;
