@@ -1,21 +1,13 @@
 import axios from 'axios';
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
+
 
 const options = {
   plugins: {
     legend: {
       display: false,
-      
   }
-  },
-  elements: {
-    point:{
-        radius: 0
-    },
-    line: {
-      tension: .4
-    }
   },
   scales: {
     y: {
@@ -32,10 +24,6 @@ const options = {
         display: false,
       },
       ticks: {
-        autoSkip: true,
-        maxTicksLimit: 14,
-        maxRotation: 0,
-        minRotation: 0
         
       },
       
@@ -44,7 +32,8 @@ const options = {
   },
 };
 
-class BitcoinLineChart extends React.Component {
+
+class BitcoinBarChart extends React.Component {
   state = {
     dataPoints: [],
     dataLabels: [],
@@ -53,28 +42,30 @@ class BitcoinLineChart extends React.Component {
 
   getPrices = async () => {
     try {
-      const { data } = await axios(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=39&interval=daily`);
-      
-      const prices = data.prices;
+      const { data } = await axios(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=22&interval=daily`);
+      console.log(data);
+      const volumes = data.total_volumes;
       const dataPoints = [];
       const dataLabels = [];
-      prices.forEach(price => {
-        let myDay = new Date(price[0]).getDate().toString();
+      volumes.forEach(volume => {
+        let myDay = new Date(volume[0]).getDate().toString();
         if (myDay.length === 1) { myDay = "0" + myDay };
         dataLabels.push(myDay);
-        dataPoints.push(price[1]);
+        dataPoints.push(volume[1]);
       })
       this.setState({ dataPoints, dataLabels });
+
+
+
+      
     } catch(error) {
-      console.log("Error in getPrices API!");
+      console.log("Error in getVolume API!");
       console.log(error);
     }
   }
 
   componentDidMount() {
     this.getPrices();
-    
-
     const canvas = document.querySelector('canvas');
     var ctx = canvas.getContext('2d');
     var gradient = ctx.createLinearGradient(0, 0, 0, 400);
@@ -83,27 +74,26 @@ class BitcoinLineChart extends React.Component {
     this.setState({gradient})
   }
   render(){
+    console.log(this.state);
     const data = {
       labels: this.state.dataLabels,
       datasets: [
         {
-          label: 'Price',
+          label: 'Volume',
           data: this.state.dataPoints,
-          fill: true,
-          // backgroundColor: 'red',
-          backgroundColor: this.state.gradient,
-          // backgroundImage: 'linear-gradient(red, yellow)',
-          // 414547
-          borderColor: 'rgba(0, 255, 95, 0.56)',
-          
+          backgroundColor: 'rgb(33, 114, 229)',
+          borderRadius: 4,
+          borderWidth: 0,
         },
       ],
     };
 
   return(
   <>
-    <Line data={data} options={options} />
+    <Bar data={data} options={options} />
   </>)};
 };
 
-export default BitcoinLineChart;
+export default BitcoinBarChart;
+
+

@@ -11,6 +11,59 @@ export const Cell = styled.div`
  align-items: center;
 `;
 
+export const ChartPrice = styled.div` 
+  width: 80%;   
+  margin-top: 7%;
+  margin-bottom: 4%;
+  margin-left: 9%;
+`;
+
+export const ChartVolume = styled.div` 
+  width: 80%;
+  margin-top: 7%;
+  margin-bottom: 4%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const ChartContainerPrice = styled.div`
+  position: relative;
+  width: 48%;
+  background: #191B1F;
+  border-radius: 20px;
+`;
+
+export const ChartContainerVolume = styled.div`
+  position: relative;
+  width: 48%;
+  background: #191B1F;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+`;
+
+
+export const ChartsContainer = styled.div`
+  /* outline: 1px solid blue; */
+  margin-top: 14px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ChartLegendPrice = styled.div` 
+  position: absolute;
+  margin-top: 17px;
+  margin-left: 21px;
+`;
+
+export const ChartLegendVolume = styled.div` 
+  position: absolute;
+  margin-top: 17px;
+  width: 95%;  
+`;
+
+
 export const CoinContainer = styled.div`
   /* outline: 1px solid blue; */
   background: #191B1F;
@@ -41,6 +94,16 @@ export const Img = styled.img`
   width: 34px;
   height: 34px;
   margin-right: 8px;
+`;
+
+export const LegendNormal = styled.div`
+  font-size: .9rem;
+`;
+
+export const LegendLarge = styled.div`
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 2.7rem;
 `;
 
 export const Row = styled.div`

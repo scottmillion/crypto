@@ -2,8 +2,9 @@ import React from 'react'
 import axios from 'axios'
 // import LineChart from 'components/Chart'
 import { prettierNumber } from 'utils/prettierNumber'
-import { Cell, CoinContainer, Container, ContentContainer, H1, Img, Row } from './AllCoins.css'
-// import BitcoinLineChart from 'components/BitcoinLineChart'
+import { Cell, ChartPrice, ChartVolume, ChartsContainer, ChartContainerPrice, ChartContainerVolume, ChartLegendPrice, ChartLegendVolume, CoinContainer, Container, ContentContainer, H1, Img, LegendLarge, LegendNormal, Row } from './AllCoins.css'
+import BitcoinLineChart from 'components/BitcoinLineChart'
+import BitcoinBarChart from 'components/BitcoinBarChart'
 import CoinListChart from 'components/CoinListChart'
 import { keyGen } from 'utils/keyGen'
 import { getArrow } from 'utils/getArrow'
@@ -35,16 +36,38 @@ class AllCoins extends React.Component {
   labelsFontSize = 16;
   rowsFontSize = 19;
   widths = [18, 280, 80, 80, 80, 80, 230, 230, 110];
-
+  today = new Date();
+  monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
  
   render() {
     
-
+    
     return (
       <Container>
           <ContentContainer>
           <H1>Your overview</H1>         
-          <div>CHARTS</div>
+          <ChartsContainer>
+            <ChartContainerPrice>
+              <ChartLegendPrice>
+                <LegendNormal>BTC</LegendNormal>
+                <LegendLarge>$12.233 mln</LegendLarge>
+                <LegendNormal>{this.monthNames[this.today.getMonth()]} {this.today.getDate()}, {this.today.getFullYear()}</LegendNormal>
+              </ChartLegendPrice>
+              <ChartPrice>
+                <BitcoinLineChart/>
+              </ChartPrice>
+            </ChartContainerPrice>
+            <ChartContainerVolume>
+            <ChartLegendVolume>
+                <LegendNormal>Volume 24h</LegendNormal>
+                <LegendLarge>$807.24 bln</LegendLarge>
+                <LegendNormal>{this.monthNames[this.today.getMonth()]} {this.today.getDate()}, {this.today.getFullYear()}</LegendNormal>
+              </ChartLegendVolume>
+              <ChartVolume><BitcoinBarChart/></ChartVolume>
+            </ChartContainerVolume>
+          </ChartsContainer>
             {!this.state.data && <div>Loading Data API...</div>}
             
            {this.state.data && (
@@ -145,7 +168,7 @@ class AllCoins extends React.Component {
                     key={keyGen()} 
                     width={this.widths[8]} 
                   >
-                    <CoinListChart prices={coin.sparkline_in_7d.price} priceChange={coin.price_change_percentage_7d_in_currency} />
+                    <CoinListChart prices={coin.sparkline_in_7d.price.filter((_, index) => index % 8 === 0)} priceChange={coin.price_change_percentage_7d_in_currency} />
                   </Cell>
                 </Row>)
               })}
