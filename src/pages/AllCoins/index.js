@@ -1,15 +1,17 @@
-import React from 'react'
-import axios from 'axios'
-// import LineChart from 'components/Chart'
-import { prettierNumber } from 'utils/prettierNumber'
-import { Cell, ChartPrice, ChartVolume, ChartsContainer, ChartContainerPrice, ChartContainerVolume, ChartLegendPrice, ChartLegendVolume, CoinContainer, Container, ContentContainer, H1, Img, LegendLarge, LegendNormal, Row } from './AllCoins.css'
-import BitcoinLineChart from 'components/BitcoinLineChart'
-import BitcoinBarChart from 'components/BitcoinBarChart'
-import CoinListChart from 'components/CoinListChart'
-import { keyGen } from 'utils/keyGen'
-import { getArrow } from 'utils/getArrow'
-import Arrow from 'components/Arrow'
+import React from 'react';
+import axios from 'axios';
+import { Cell, ChartPrice, ChartVolume, ChartsContainer, ChartContainerPrice, ChartContainerVolume, ChartLegendPrice, ChartLegendVolume, CoinContainer, Container, ContentContainer, H1, Img, LegendLarge, LegendNormal, Row } from './AllCoins.css';
+import BitcoinLineChart from 'components/BitcoinLineChart';
+import BitcoinBarChart from 'components/BitcoinBarChart';
+import CoinListChart from 'components/CoinListChart';
+import { keyGen } from 'utils/keyGen';
+import { getArrow } from 'utils/getArrow';
+import { formatChartNumber } from 'utils/formatChartNumber';
+import { convertLargeNumber } from 'utils/convertLargeNumber';
+import Arrow from 'components/Arrow';
+import { shorterNumber } from 'utils/shorterNumber';
 
+import { formatCurrency } from "@coingecko/cryptoformat";
 
 
 class AllCoins extends React.Component {
@@ -35,145 +37,133 @@ class AllCoins extends React.Component {
   labels = ["#", "Name", "Price", "1h%", "24h%", "7d%", "24h Volume/Market Cap", "Circulating/Total Supply", "Last 7 Day"];
   labelsFontSize = 16;
   rowsFontSize = 19;
-  widths = [18, 280, 80, 80, 80, 80, 230, 230, 110];
+  widths = [18, 280, 130, 90, 90, 90, 220, 220, 110];
   today = new Date();
   monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
  
   render() {
-    
-    
+    const data = this.state.data;
     return (
       <Container>
           <ContentContainer>
           <H1>Your overview</H1>         
-          <ChartsContainer>
-            <ChartContainerPrice>
-              <ChartLegendPrice>
-                <LegendNormal>BTC</LegendNormal>
-                <LegendLarge>$12.233 mln</LegendLarge>
-                <LegendNormal>{this.monthNames[this.today.getMonth()]} {this.today.getDate()}, {this.today.getFullYear()}</LegendNormal>
-              </ChartLegendPrice>
-              <ChartPrice>
-                <BitcoinLineChart/>
-              </ChartPrice>
-            </ChartContainerPrice>
-            <ChartContainerVolume>
-            <ChartLegendVolume>
-                <LegendNormal>Volume 24h</LegendNormal>
-                <LegendLarge>$807.24 bln</LegendLarge>
-                <LegendNormal>{this.monthNames[this.today.getMonth()]} {this.today.getDate()}, {this.today.getFullYear()}</LegendNormal>
-              </ChartLegendVolume>
-              <ChartVolume><BitcoinBarChart/></ChartVolume>
-            </ChartContainerVolume>
-          </ChartsContainer>
-            {!this.state.data && <div>Loading Data API...</div>}
+          
+           {!data && <div>Loading Data API...</div>}
             
-           {this.state.data && (
+           {data && (
+             <>
+              <ChartsContainer>
+              <ChartContainerPrice>
+                <ChartLegendPrice>
+                  <LegendNormal>BTC</LegendNormal>
+                  <LegendLarge>{this.props.currencySymbol}{formatChartNumber(data.filter(item => item.id === "bitcoin")[0].current_price)}</LegendLarge>
+                  <LegendNormal>{this.monthNames[this.today.getMonth()]} {this.today.getDate()}, {this.today.getFullYear()}</LegendNormal>
+                </ChartLegendPrice>
+                <ChartPrice>
+                  <BitcoinLineChart currency={this.props.currency}/>
+                </ChartPrice>
+              </ChartContainerPrice>
+              <ChartContainerVolume>
+              <ChartLegendVolume>
+                  <LegendNormal>Volume 24h</LegendNormal>
+                  <LegendLarge>{this.props.currencySymbol}{formatChartNumber(data.filter(item => item.id === "bitcoin")[0].total_volume)}</LegendLarge>
+                  <LegendNormal>{this.monthNames[this.today.getMonth()]} {this.today.getDate()}, {this.today.getFullYear()}</LegendNormal>
+                </ChartLegendVolume>
+                <ChartVolume>
+                  <BitcoinBarChart currency={this.props.currency}/>
+                </ChartVolume>
+              </ChartContainerVolume>
+            </ChartsContainer>
+
             <CoinContainer>
                 <Row>
                   {this.widths.map((width, index) => <Cell key={keyGen()} width={width} weight={this.fontWeightBold} size={this.labelsFontSize}>{this.labels[index]}</Cell>)}
                 </Row>
-              {this.state.data.map((coin, index) => {
+              {data.map((coin, index) => {
+                const widths = this.widths;
+                const { 
+                  circulating_supply,
+                  current_price,
+                  image,
+                  market_cap,
+                  name,
+                  symbol,
+                  total_supply,
+                  total_volume,
+                  price_change_percentage_1h_in_currency: hourChange, 
+                  price_change_percentage_24h_in_currency: twentyFourHourChange, 
+                  price_change_percentage_7d_in_currency: sevenDayChange, 
+                  sparkline_in_7d: sevenDayPriceList
+                  } = coin;
                 return (
                 <Row key={keyGen()}>
 
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[0]} 
-                  >
+                  <Cell key={keyGen()} width={widths[0]}>
                     {index + 1}
                   </Cell>
                   
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[1]} 
-                  >
-                    <Img src={coin.image} alt={coin.name} />
-                    {coin.name} ({coin.symbol.toUpperCase()})
+                  <Cell key={keyGen()} width={widths[1]}>
+                    <Img src={image} alt={name} />
+                    {name} ({symbol.toUpperCase()})
                   </Cell>
                   
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[2]} 
-                  >
-                    {this.props.symbol}
-                    {prettierNumber(coin.current_price.toFixed())}
+                  <Cell key={keyGen()} width={widths[2]} >
+                    {convertLargeNumber(formatCurrency(current_price, this.props.currency, "en"))}
                   </Cell>
                   
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[3]} 
-                    number={coin.price_change_percentage_1h_in_currency}
-                  >
-                    {(this.props.currency !== coin.symbol && (
+                  <Cell key={keyGen()} width={widths[3]} number={hourChange}>
+                    {(this.props.currency !== symbol && (
                         <>
-                          <Arrow content={getArrow(coin.price_change_percentage_1h_in_currency)} />
-                          {Math.abs(coin.price_change_percentage_1h_in_currency.toFixed(2))}% 
+                          <Arrow content={getArrow(hourChange)} />
+                          {Math.abs(hourChange.toFixed(2))}% 
                         </>
                       )) || <span>-</span>
                     }
                   </Cell>
                   
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[4]}
-                    number={coin.price_change_percentage_24h_in_currency}
-                  > 
+                  <Cell key={keyGen()} width={widths[4]} number={twentyFourHourChange}> 
                     {(this.props.currency !== coin.symbol && (
                         <>
-                          <Arrow content={getArrow(coin.price_change_percentage_24h_in_currency)} />
-                          {Math.abs(coin.price_change_percentage_24h_in_currency.toFixed(2))}%
+                          <Arrow content={getArrow(twentyFourHourChange)} />
+                          {Math.abs(twentyFourHourChange.toFixed(2))}%
                         </>
                       )) || <span>-</span>
                     }
                   </Cell>
                   
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[5]} 
-                    number={coin.price_change_percentage_7d_in_currency}
-                  >
-                    {(this.props.currency !== coin.symbol && (
+                  <Cell key={keyGen()} width={widths[5]} number={sevenDayChange}>
+                    {(this.props.currency !== symbol && (
                         <>
-                          <Arrow content={getArrow(coin.price_change_percentage_7d_in_currency)} />
-                          {Math.abs(coin.price_change_percentage_7d_in_currency.toFixed(2))}%
+                          <Arrow content={getArrow(sevenDayChange)} />
+                          {Math.abs(sevenDayChange.toFixed(2))}%
                         </>
                       )) || <span>-</span>
-                    }
-                    
-                    
+                    }                    
                   </Cell>
                   
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[6]} 
-                  >
-                    {prettierNumber(coin.total_volume)}
+                  <Cell key={keyGen()} width={widths[6]} >
+                    {/* {convertLargeNumber(formatCurrency(current_price, this.props.currency, "en"))} */}
+                    {shorterNumber(formatCurrency(total_volume, this.props.currency, "en"))}
                     /
-                    {prettierNumber(coin.market_cap)}
-                  </Cell>
-                  
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[7]} 
-                  >
-                    {prettierNumber(coin.circulating_supply.toFixed())}
-                    /
-                    {(coin.total_supply && prettierNumber(coin.total_supply.toFixed())) || "Infinite"}
+                    {shorterNumber(formatCurrency(market_cap, this.props.currency, "en"))}
                   </Cell>
 
-                  <Cell 
-                    key={keyGen()} 
-                    width={this.widths[8]} 
-                  >
-                    <CoinListChart prices={coin.sparkline_in_7d.price.filter((_, index) => index % 8 === 0)} priceChange={coin.price_change_percentage_7d_in_currency} />
+                  <Cell key={keyGen()} width={widths[7]} >
+                    {shorterNumber(formatCurrency(circulating_supply, this.props.currency, "en")).slice(1)}
+                    /
+                    {total_supply && shorterNumber(formatCurrency(total_supply, this.props.currency, "en")).slice(1) || "Infinite"}
+                    
+                  </Cell>
+
+                  <Cell key={keyGen()} width={widths[8]}>
+                    <CoinListChart prices={sevenDayPriceList.price.filter((_, index) => index % 8 === 0)} sevenDayChange={sevenDayChange} />
                   </Cell>
                 </Row>)
               })}
               
-            </CoinContainer>
+            </CoinContainer></>
           )}
         </ContentContainer>
       </Container>

@@ -173,9 +173,6 @@ export const  PercentDisplay = styled.div`
   background: linear-gradient(to right,  #fff 0%, #fff ${(props) => props.percent - 10}%, #2172E5 ${(props) => props.percent - 10}%, #2172E5 100%);
   border-radius: 7px;
   margin-left: 10px;
-  > * {
-    margin-left: calc(${(props) => props.percent}% - 14px);
-  }
 `;
 
 export const  Circle = styled.div`
@@ -183,6 +180,7 @@ export const  Circle = styled.div`
     width: 14px;
     background: white;
     border-radius: 7px;
+    margin-left: calc(${(props) => props.percent}% - 12px);
 `;
 
 

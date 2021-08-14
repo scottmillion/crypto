@@ -75,10 +75,10 @@ class App extends React.Component {
   } 
 
   render(){
-
+    const { global, currency, currencySymbol, value } = this.state;
   return (
     <Router>
-       <GlobalStyle />
+      <GlobalStyle />
       <Container>
         <Nav>
         <NavLeft>
@@ -94,11 +94,11 @@ class App extends React.Component {
           <NavRight>
             <NavRightInputContainer>
               <CurrencyImage src={search} alt="search"/>
-              <NavRightInput type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
+              <NavRightInput type="text" value={value} onChange={this.handleChange} placeholder="Search..." />
             </NavRightInputContainer>
             <NavRightSelectContainer>
-              <CurrencySymbol>{this.state.currencySymbol}</CurrencySymbol>
-              <Select name="currency" id="current-currency" value={this.state.currency} onChange={this.handleChangeCurrency}>
+              <CurrencySymbol>{currencySymbol}</CurrencySymbol>
+              <Select name="currency" id="current-currency" value={currency} onChange={this.handleChangeCurrency}>
                 {Object.keys(this.currencyList).map((currency) => {
                   return <option value={currency} key={keyGen()}>{this.currencyList[currency].name}</option>
                 })
@@ -112,44 +112,43 @@ class App extends React.Component {
 
         <NavUnderContainer>
           <NavUnder>
-            {!this.state.global && <div>Loading Global API...</div>}
-            {this.state.global && <div>
+            {!global && <div>Loading Global API...</div>}
+            {global && <div>
               <NavUnderUl>
-                <NavUnderLi>Coins {this.state.global.active_cryptocurrencies}</NavUnderLi>
-                <NavUnderLi>Exchange {this.state.global.markets}</NavUnderLi>
-                <NavUnderLi>• {this.state.currencySymbol}{prettierNumber(Math.round(this.state.global.total_market_cap[this.state.currency]))}</NavUnderLi>
+                <NavUnderLi>Coins {global.active_cryptocurrencies}</NavUnderLi>
+                <NavUnderLi>Exchange {global.markets}</NavUnderLi>
+                <NavUnderLi>{currencySymbol}{prettierNumber(Math.round(global.total_market_cap[currency]))}</NavUnderLi>
                 <NavUnderLi>
-                  • {this.state.currencySymbol}{prettierNumber(Math.round(this.state.global.total_volume[this.state.currency]))}
-                  <PercentDisplay percent={Math.round(this.state.global.total_volume[this.state.currency] / this.state.global.total_market_cap[this.state.currency])}>
-                    <Circle />
+                  {currencySymbol}{prettierNumber(Math.round(global.total_volume[currency]))}
+                  <PercentDisplay percent={Math.round(global.total_volume[currency] / global.total_market_cap[currency])}>
+                    <Circle percent={Math.round(global.total_volume[currency] / global.total_market_cap[currency])} />
                   </PercentDisplay>
                 </NavUnderLi>
                 <NavUnderLi>
                   <NavUnderImg marginRight="3">
                     <img src="https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579" alt="btc thumb"/>
                   </NavUnderImg>
-                  {Math.round(this.state.global.market_cap_percentage.btc)}%
-                  <PercentDisplay percent={Math.round(this.state.global.market_cap_percentage.btc)}>
-                    <Circle />
+                  {Math.round(global.market_cap_percentage.btc)}%
+                  <PercentDisplay percent={Math.round(global.market_cap_percentage.btc)}>
+                    <Circle percent={Math.round(global.market_cap_percentage.btc)}/>
                   </PercentDisplay>
                 </NavUnderLi>
                 <NavUnderLi>
                   <NavUnderImg marginRight="-1">
                     <img src="https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880" alt="eth thumb"/>
                   </NavUnderImg>
-                  {Math.round(this.state.global.market_cap_percentage.eth)}%
-                  <PercentDisplay percent={Math.round(this.state.global.market_cap_percentage.eth)}>
-                    <Circle />
+                  {Math.round(global.market_cap_percentage.eth)}%
+                  <PercentDisplay percent={Math.round(global.market_cap_percentage.eth)}>
+                    <Circle percent={Math.round(global.market_cap_percentage.eth)}/>
                   </PercentDisplay>
                 </NavUnderLi>
               </NavUnderUl>
             </div>}
           </NavUnder>
         </NavUnderContainer>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+        
         <Switch>
-          <Route exact path="/" component={() => <AllCoins currency={this.state.currency} symbol={this.state.currencySymbol}/>} />
+          <Route exact path="/" component={() => <AllCoins currency={currency} currencySymbol={currencySymbol}/>} />
           <Route exact path="/coin/:name" component={Coin} />
         </Switch>
       </Container>

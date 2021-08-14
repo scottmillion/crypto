@@ -53,7 +53,7 @@ class BitcoinLineChart extends React.Component {
 
   getPrices = async () => {
     try {
-      const { data } = await axios(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=39&interval=daily`);
+      const { data } = await axios(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${this.props.currency}&days=39&interval=daily`);
       
       const prices = data.prices;
       const dataPoints = [];

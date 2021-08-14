@@ -19,11 +19,11 @@ export const ChartPrice = styled.div`
 `;
 
 export const ChartVolume = styled.div` 
-  width: 80%;
-  margin-top: 7%;
+  width: 82%;
   margin-bottom: 4%;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
 `;
 
 export const ChartContainerPrice = styled.div`
