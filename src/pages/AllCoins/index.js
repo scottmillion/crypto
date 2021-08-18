@@ -106,7 +106,6 @@ class AllCoins extends React.Component {
           <H1>Overview</H1>
 
           {!data && <div>Loading Data API...</div>}
-
           {data && (
             <>
               <ChartsContainer>
