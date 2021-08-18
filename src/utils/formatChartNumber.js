@@ -7,7 +7,7 @@ export function formatChartNumber(num) {
   } else if (string.length > 6) {
     return string.slice(0, string.length - 6) + "." + string.slice(string.length - 6, string.length - 4) + " mln";
   } else if (string.length > 3) {
-    return string.slice(0, string.length - 3) + "." + string.slice(string.length - 3) + " ths";
+    return string.slice(0, string.length - 3) + "." + string.slice(string.length - 3, string.length - 1) + " ths";
   } else {
     return string;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Cell, ChartPrice, ChartVolume, ChartsContainer, ChartContainerPrice, ChartContainerVolume, ChartLegendPrice, ChartLegendVolume, CoinContainer, Container, ContentContainer, H1, Img, LegendLarge, LegendNormal, Row } from './AllCoins.css';
+import { BulletPoint, Cell, CellItem, CellItemNumber, ChartPrice, ChartVolume, ChartsContainer, ChartContainerPrice, ChartContainerVolume, ChartLegendPrice, ChartLegendVolume, Circle, CoinContainer, Container, ContentContainer, H1, Img, LegendLarge, LegendNormal, PercentDisplay, Row } from './AllCoins.css';
 import BitcoinLineChart from 'components/BitcoinLineChart';
 import BitcoinBarChart from 'components/BitcoinBarChart';
 import CoinListChart from 'components/CoinListChart';
@@ -34,10 +34,21 @@ class AllCoins extends React.Component {
   }
 
   fontWeightBold = 700;
-  labels = ["#", "Name", "Price", "1h%", "24h%", "7d%", "24h Volume/Market Cap", "Circulating/Total Supply", "Last 7 Day"];
+  labels = ["#", "Name", "Price", "1h%", "24h%", "7d%", "24h Volume/Market Cap", "Circulating/Total Supply", "Last 7d"];
   labelsFontSize = 16;
   rowsFontSize = 19;
-  widths = [18, 280, 130, 90, 90, 90, 220, 220, 110];
+  widths = [18, 280, 122, 90, 90, 90, 270, 270, 120];
+  colors = [
+    [ "rgb(255, 181, 40)", "rgb(254, 225, 88)" ],
+    [ "rgb(71, 76, 119)",  "rgb(138, 146, 178)" ],
+    [ "rgb(27, 162, 122)", "rgb(255, 255, 255)" ],
+    [ "rgb(187, 159, 51)", "rgb(228, 205, 130)" ],
+    [ "rgb(254, 125, 67)", "rgb(255, 220, 206)" ],
+    [ "rgb(179, 64, 74)", "rgb(244, 178, 176)" ],
+    [ "rgb(39, 117, 201)", "rgb(255, 255, 255)" ],
+    [ "rgb(131, 128, 139)", "rgb(240, 146, 66)" ],
+    [ "rgb(52, 93, 157)", "rgb(255, 255, 255)" ]
+  ];
   today = new Date();
   monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -48,14 +59,14 @@ class AllCoins extends React.Component {
     return (
       <Container>
           <ContentContainer>
-          <H1>Your overview</H1>         
+          <H1>Overview</H1>         
           
            {!data && <div>Loading Data API...</div>}
             
            {data && (
              <>
               <ChartsContainer>
-              <ChartContainerPrice>
+              <ChartContainerPrice theme={this.props.theme}>
                 <ChartLegendPrice>
                   <LegendNormal>BTC</LegendNormal>
                   <LegendLarge>{this.props.currencySymbol}{formatChartNumber(data.filter(item => item.id === "bitcoin")[0].current_price)}</LegendLarge>
@@ -65,7 +76,7 @@ class AllCoins extends React.Component {
                   <BitcoinLineChart currency={this.props.currency}/>
                 </ChartPrice>
               </ChartContainerPrice>
-              <ChartContainerVolume>
+              <ChartContainerVolume theme={this.props.theme}>
               <ChartLegendVolume>
                   <LegendNormal>Volume 24h</LegendNormal>
                   <LegendLarge>{this.props.currencySymbol}{formatChartNumber(data.filter(item => item.id === "bitcoin")[0].total_volume)}</LegendLarge>
@@ -77,12 +88,13 @@ class AllCoins extends React.Component {
               </ChartContainerVolume>
             </ChartsContainer>
 
-            <CoinContainer>
+            <CoinContainer theme={this.props.theme}>
                 <Row>
                   {this.widths.map((width, index) => <Cell key={keyGen()} width={width} weight={this.fontWeightBold} size={this.labelsFontSize}>{this.labels[index]}</Cell>)}
                 </Row>
               {data.map((coin, index) => {
                 const widths = this.widths;
+                const colors = this.colors;
                 const { 
                   circulating_supply,
                   current_price,
@@ -144,16 +156,36 @@ class AllCoins extends React.Component {
                   </Cell>
                   
                   <Cell key={keyGen()} width={widths[6]} >
-                    {/* {convertLargeNumber(formatCurrency(current_price, this.props.currency, "en"))} */}
-                    {shorterNumber(formatCurrency(total_volume, this.props.currency, "en"))}
-                    /
-                    {shorterNumber(formatCurrency(market_cap, this.props.currency, "en"))}
+                    <CellItem>
+                      <CellItemNumber color={colors[index][0]}>
+                        <BulletPoint>&#8226;</BulletPoint>
+                        {shorterNumber(formatCurrency(total_volume, this.props.currency, "en"))}
+                      </CellItemNumber>
+                      <CellItemNumber color={colors[index][1]}>
+                        <BulletPoint>&#8226;</BulletPoint>
+                        {shorterNumber(formatCurrency(market_cap, this.props.currency, "en"))}
+                      </CellItemNumber>
+                    </CellItem>
+                    <PercentDisplay percent={100 * total_volume / market_cap} color1={colors[index][0]} color2={colors[index][1]}>
+                      <Circle color1={colors[index][0]} percent={100 * total_volume / market_cap}/>
+                    </PercentDisplay>
                   </Cell>
 
                   <Cell key={keyGen()} width={widths[7]} >
-                    {shorterNumber(formatCurrency(circulating_supply, this.props.currency, "en")).slice(1)}
-                    /
-                    {total_supply && shorterNumber(formatCurrency(total_supply, this.props.currency, "en")).slice(1) || "Infinite"}
+                    <CellItem>
+                      <CellItemNumber color={colors[index][0]}>
+                        <BulletPoint>&#8226;</BulletPoint>
+                        {shorterNumber(formatCurrency(circulating_supply, this.props.currency, "en")).slice(1)}
+                      </CellItemNumber>
+                      <CellItemNumber color={colors[index][1]}>
+                        <BulletPoint>&#8226;</BulletPoint>
+                        {(total_supply && shorterNumber(formatCurrency(total_supply, this.props.currency, "en")).slice(1)) || <span>&#8734;</span>}
+                      </CellItemNumber>
+                    </CellItem>
+                    <PercentDisplay percent={100 * circulating_supply / (total_supply || Infinity)} color1={colors[index][0]} color2={colors[index][1]}>
+                      <Circle color1={colors[index][0]} percent={100 * circulating_supply / (total_supply || Infinity)}/>
+                    </PercentDisplay>
+                    
                     
                   </Cell>
 
@@ -166,8 +198,7 @@ class AllCoins extends React.Component {
             </CoinContainer></>
           )}
         </ContentContainer>
-      </Container>
-    )
+      </Container>    )
   }
 }
 

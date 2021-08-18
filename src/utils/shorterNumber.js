@@ -3,7 +3,6 @@ export function shorterNumber(string) {
 
   const symbol = string[0];
   const numArr = string.slice(1).split(",");
-  console.log(numArr);
 
   if (parseInt(numArr[1][2]) >= 5) {
     let endValue = parseInt(numArr[1][1])

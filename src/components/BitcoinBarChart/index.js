@@ -94,7 +94,7 @@ export default class BitcoinBarChart extends React.Component {
 
   render(){
     return (
-          <canvas ref={this.chartRef} height="140px"/>
+          <canvas ref={this.chartRef} height="130px"/>
   )
 };
 };

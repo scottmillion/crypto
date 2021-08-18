@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
+export const BulletPoint = styled.span`
+    margin-right: 6px;
+`;
+
 export const Cell = styled.div`
  /* outline: 1px solid green; */
+ position: relative;
  color: ${(props) => props.number ? (props.number < 0 ? "#FE1040" : "#00FC2A") : ''};
  font-size: ${(props) => props.size || '18'}px;
  font-weight: ${(props) => props.weight};
@@ -9,7 +14,20 @@ export const Cell = styled.div`
  width: ${(props) => props.width}px;
  display: flex;
  align-items: center;
+ flex-wrap: wrap;
 `;
+
+export const CellItem = styled.div`
+  margin-top: -28px;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+`
+
+export const CellItemNumber = styled.div`
+  color: ${props => props.color};  
+`
 
 export const ChartPrice = styled.div` 
   width: 80%;   
@@ -28,15 +46,15 @@ export const ChartVolume = styled.div`
 
 export const ChartContainerPrice = styled.div`
   position: relative;
-  width: 48%;
-  background: #191B1F;
+  width: 48.5%;
+  background: ${(props) => props.theme.secondary};
   border-radius: 20px;
 `;
 
 export const ChartContainerVolume = styled.div`
   position: relative;
-  width: 48%;
-  background: #191B1F;
+  width: 48.5%;
+  background: ${(props) => props.theme.secondary};
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -63,13 +81,21 @@ export const ChartLegendVolume = styled.div`
   width: 95%;  
 `;
 
+export const  Circle = styled.div`
+    height: 8px;
+    width: 8px;
+    background: ${(props) => props.color1};
+    border-radius: 7px;
+    margin-left: calc(${(props) => props.percent}% - 7px);
+`;
 
 export const CoinContainer = styled.div`
   /* outline: 1px solid blue; */
-  background: #191B1F;
+  background: ${(props) => props.theme.secondary};
   border-radius: 20px;
-  padding-bottom: 60px;
-  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 35px;
+  margin-top: 25px;
   margin-bottom: 59px;
 `;
 
@@ -97,18 +123,27 @@ export const Img = styled.img`
 `;
 
 export const LegendNormal = styled.div`
-  font-size: .9rem;
+  font-size: 1.2rem;
 `;
 
 export const LegendLarge = styled.div`
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 500;
-  line-height: 2.7rem;
+  line-height: 2.9rem;
+`;
+
+export const  PercentDisplay = styled.div`
+  margin-top: 10px;
+  width: 100%;  
+  position: relative;
+  overflow: hidden;
+  height: 8px;
+  background: linear-gradient(to right,  ${(props) => props.color1} 0%, ${(props) => props.color1} ${(props) => props.percent - 3.5}%, ${(props) => props.color2} ${(props) => props.percent}%, ${(props) => props.color2} 100%);
+  border-radius: 7px;
 `;
 
 export const Row = styled.div`
- /* outline: 1px solid red; */
- padding: 0px 28px;
+ padding: 0px 4px;
  display: flex;
  align-items: center;
  justify-content: space-around;

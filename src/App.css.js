@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    background: #1F2128;
-    border: 10px solid #191B1F;
+    background: ${props => props.theme.primary};
+    border: 10px solid ${props => props.theme.secondary};
 `;
 
 export const CurrencyImage = styled.img`
@@ -11,9 +11,8 @@ export const CurrencyImage = styled.img`
 `;
 
 export const CurrencySymbol = styled.div`
-    width: 33px;
+    width: 3rem;
     height: 33px;
-    font-weight: 500;
     font-size: 1.3rem;
     background: #191B1F;
     display: flex;
@@ -27,16 +26,21 @@ export const Mode = styled.div`
     display: flex;
     height: 35px;
     border-radius: 20px;
-    background: #2C2F36;
+    background: ${(props) => props.theme.tertiary};
     padding: 14px 21px;
     font-size: 1.1rem;
 `;
 
 export const Nav = styled.div`
     height: 97px;
-    background: #191B1F;
+    background: ${props => props.theme.secondary};
     display: flex;
     justify-content: space-between;
+`;
+
+export const NavBulletPoint = styled.div`
+    margin-right: 8px;
+    font-size: 24px;
 `;
 
 export const NavLeft = styled.div`
@@ -46,14 +50,13 @@ export const NavLeft = styled.div`
 
 export const NavLeftLi = styled.li`
     font-size: 1.3rem;
-    font-weight: 500;
     display: inline-block;
     width: 167px;
     border-radius: 20px;
     text-align: center;
     padding-top: 13px;
     padding-bottom: 13px;
-    background: ${(props) => props.background};
+    background: ${(props) => props.theme.tertiary};
 `;
 
 export const NavLeftUl = styled.ul`
@@ -71,30 +74,6 @@ export const NavRight = styled.div`
 
 export const NavRightInputContainer = styled.div``;
 
-export const NavRightInput = styled.input`
-    background: #2C2F36;
-    color: white;
-    width: 450px;
-    height: 63px;
-    padding: 0;
-    padding-left: 60px;
-    margin-right: 27px;
-    border: 2px solid #191B1F;
-    border-radius: 20px;
-    font-size: 1.1rem;
-    
-    &::placeholder {
-      color: inherit;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-    &:focus {
-      outline: none;
-      border: 2px solid #737373;
-      border-radius: 20px;
-    }
-`;
-
 export const NavRightSelectContainer = styled.div`
 position: relative;
     margin-right: 28px;
@@ -103,7 +82,7 @@ position: relative;
     width: 115px;
     height: 35px;
     border-radius: 20px;
-    background: #2C2F36;
+    background: ${(props) => props.theme.tertiary};
     padding: 14px 10px;
     font-size: 1.1rem;
 
@@ -112,7 +91,7 @@ position: relative;
 export const NavUnder = styled.div`
     width: 906px;
     height: 55px;
-    background: #191B1F;
+    background: ${props => props.theme.secondary};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -147,11 +126,11 @@ export const Select = styled.select`
     appearance:none;
     width: 65px;
     border: none;
-    background: inherit;
-    color: white;
+    background: ${(props) => props.theme.tertiary};
+    color: ${props => props.theme.mainFont};
     font-size: 1.1rem;
-    font-weight: 700;
     margin-left: 5px;
+    
     &:focus {
       outline: none;
     }
@@ -159,10 +138,16 @@ export const Select = styled.select`
 
 export const SelectArrow = styled.div`
     position: absolute;
-    margin-left: 80px;
+    margin-left: 38px;
     margin-top: 3px;
     color: #00FF5F; 
     pointer-events: none; 
+`;
+
+export const SelectWrap = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
 `;
 
 export const  PercentDisplay = styled.div`

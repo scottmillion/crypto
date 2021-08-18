@@ -9,7 +9,7 @@ export function prettierNumber(num) {
   } else if (string.length > 5) {
     return string.slice(0, string.length - 3) + "." + string.slice(string.length - 5, string.length - 3) + "K";
   } else if (string.length > 3) {
-    return string.slice(0, string.length - 3) + "," + string.slice(string.length - 3);
+    return string.slice(0, string.length - 3) + "," + string.slice(string.length - 3, string.length - 1);
   } else {
     return string;
   }
