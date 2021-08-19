@@ -1,14 +1,14 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import AllCoins from 'pages/AllCoins'
 import axios from 'axios'
-import Coin from 'pages/Coin'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { GlobalStyle } from 'App.styles'
 import { ThemeProvider } from 'styled-components'
+import AllCoins from 'pages/AllCoins'
+import Coin from 'pages/Coin'
 import { Container } from 'App.css'
+import { currencyList, lightTheme, darkTheme } from 'utils/constants'
 import { NavBar } from 'parts/NavBar'
 import { NavUnder } from 'parts/NavUnder'
-import { currencyList, lightTheme, darkTheme } from 'utils/constants'
 
 class App extends React.Component {
   state = {
