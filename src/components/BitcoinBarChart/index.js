@@ -1,12 +1,38 @@
 import axios from 'axios'
 import React from 'react'
-import { Chart } from 'chart.js'
+import { Bar } from 'react-chartjs-2'
 
-export default class BitcoinBarChart extends React.Component {
+const options = {
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  scales: {
+    y: {
+      grid: {
+        display: false,
+        drawTicks: false,
+        borderWidth: 0,
+      },
+      ticks: {
+        display: false,
+      },
+    },
+    x: {
+      grid: {
+        display: false,
+        borderWidth: 0,
+      },
+      ticks: {},
+    },
+  },
+}
+
+class BitcoinBarChart extends React.Component {
   state = {
     dataPoints: [],
     dataLabels: [],
-    gradient: '',
   }
 
   getVolumes = async () => {
@@ -33,56 +59,31 @@ export default class BitcoinBarChart extends React.Component {
   }
 
   componentDidMount() {
-    this.getVolumes().then(() => {
-      const myChartRef = this.chartRef.current.getContext('2d')
-
-      new Chart(myChartRef, {
-        type: 'bar',
-        data: {
-          labels: this.state.dataLabels,
-          datasets: [
-            {
-              barPercentage: 0.93,
-              label: 'Volume',
-              data: this.state.dataPoints,
-              backgroundColor: 'rgb(33, 114, 229)',
-              borderRadius: 4,
-              borderWidth: 0,
-              borderSkipped: false,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-          scales: {
-            y: {
-              grid: {
-                display: false,
-                drawTicks: false,
-              },
-              ticks: {
-                display: false,
-              },
-            },
-            x: {
-              grid: {
-                display: false,
-              },
-              ticks: {},
-            },
-          },
-        },
-      })
-    })
+    this.getVolumes()
   }
-
-  chartRef = React.createRef()
 
   render() {
-    return <canvas ref={this.chartRef} height="130px" />
+    const data = {
+      labels: this.state.dataLabels,
+      datasets: [
+        {
+          barPercentage: 0.93,
+          label: 'Volume',
+          data: this.state.dataPoints,
+          backgroundColor: this.props.theme.barChart,
+          borderRadius: 4,
+          borderWidth: 0,
+          borderSkipped: false,
+        },
+      ],
+    }
+
+    return (
+      <>
+        <Bar data={data} options={options} />
+      </>
+    )
   }
 }
+
+export default BitcoinBarChart

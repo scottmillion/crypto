@@ -1,5 +1,4 @@
 import { BrowserRouter as Link } from 'react-router-dom'
-import { keyGen } from 'utils/keyGen'
 import {
   CurrencyImage,
   CurrencySymbol,
@@ -16,9 +15,10 @@ import {
   SelectWrap,
 } from './NavBar.css'
 
-import mode from 'images/mode.png'
-import search from 'images/search.png'
-import Search from 'components/Search'
+import { keyGen } from 'utils/keyGen'
+import searchIcon from 'assets/images/search-icon.png'
+import themeIcon from 'assets/images/theme-icon.png'
+import Search from 'parts/Search'
 
 export const NavBar = (props) => (
   <Nav theme={props.theme}>
@@ -44,7 +44,7 @@ export const NavBar = (props) => (
     </NavLeft>
     <NavRight>
       <NavRightInputContainer theme={props.theme}>
-        <CurrencyImage src={search} alt="search" />
+        <CurrencyImage src={searchIcon} alt="search" />
         <Search />
       </NavRightInputContainer>
       <NavRightSelectContainer theme={props.theme}>
@@ -69,7 +69,11 @@ export const NavBar = (props) => (
         </SelectWrap>
       </NavRightSelectContainer>
       <Mode theme={props.theme}>
-        <img src={mode} alt="mode" onClick={props.handleThemeButtonClick} />
+        <img
+          src={themeIcon}
+          alt="mode"
+          onClick={props.handleThemeButtonClick}
+        />
       </Mode>
     </NavRight>
   </Nav>

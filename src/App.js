@@ -6,45 +6,10 @@ import Coin from 'pages/Coin'
 import { GlobalStyle } from 'App.styles'
 import { ThemeProvider } from 'styled-components'
 import { Container } from 'App.css'
-import { NavBar } from 'components/NavBar'
-import { NavUnder } from 'components/NavUnder'
+import { NavBar } from 'parts/NavBar'
+import { NavUnder } from 'parts/NavUnder'
+import { currencyList, lightTheme, darkTheme } from 'utils/constants'
 
-const lightTheme = {
-  mainFont: '#000',
-  primary: '#f7f7f7',
-  secondary: '#FFF',
-  tertiary: '#edeff2',
-}
-
-const darkTheme = {
-  mainFont: '#FFF',
-  primary: '#1F2128',
-  secondary: '#191B1F', // darkest
-  tertiary: '#2C2F36',
-}
-
-const currencyList = {
-  usd: {
-    name: 'USD',
-    symbol: '$',
-  },
-  gbp: {
-    name: 'GBP',
-    symbol: '£',
-  },
-  eur: {
-    name: 'EUR',
-    symbol: '€',
-  },
-  btc: {
-    name: 'BTC',
-    symbol: '₿',
-  },
-  eth: {
-    name: 'ETH',
-    symbol: 'Ξ',
-  },
-}
 class App extends React.Component {
   state = {
     on: false,
@@ -63,10 +28,6 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.getGlobalData()
-  }
-
   handleChangeCurrency = (e) => {
     const currency = e.target.value
     const currencySymbol = currencyList[currency].symbol
@@ -76,6 +37,10 @@ class App extends React.Component {
   handleThemeButtonClick = () => {
     const value = !this.state.on
     this.setState({ on: value })
+  }
+
+  componentDidMount() {
+    this.getGlobalData()
   }
 
   render() {
