@@ -5,16 +5,16 @@ import {
   Circle,
   Img,
   PercentDisplay,
-  Row,
 } from './CoinRows.css'
-import { Cell } from 'components/Cell'
-import { keyGen } from 'utils/keyGen'
-import CoinListChart from 'components/CoinListChart'
-import { getArrow } from 'utils/getArrow'
-import { convertLargeNumber } from 'utils/convertLargeNumber'
-import { Arrow } from 'components/Arrow'
-import { shorterNumber } from 'utils/shorterNumber'
 import { formatCurrency } from '@coingecko/cryptoformat'
+import { Arrow } from 'components/Arrow'
+import { Cell } from 'components/Cell'
+import CoinListChart from 'components/CoinListChart'
+import { Row } from 'components/Row'
+import { keyGen } from 'utils/keyGen'
+import { convertLargeNumber } from 'utils/convertLargeNumber'
+import { getArrow } from 'utils/getArrow'
+import { shorterNumber } from 'utils/shorterNumber'
 import {
   desktopCellWidths as widths,
   coinListPercentDisplayColors as colors,

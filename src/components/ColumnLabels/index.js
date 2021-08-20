@@ -1,5 +1,5 @@
-import { Row } from './ColumnLabels.css'
 import { Cell } from 'components/Cell'
+import { Row } from 'components/Row'
 import { keyGen } from 'utils/keyGen'
 import {
   desktopCellWidths as widths,
