@@ -40,7 +40,6 @@ export const ChartsContainer = styled.div`
 `
 
 export const CoinContainer = styled.div`
-  /* outline: 1px solid blue; */
   background: ${(props) => props.theme.secondary};
   border-radius: 20px;
   padding-top: 20px;
