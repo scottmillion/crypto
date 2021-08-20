@@ -43,7 +43,7 @@ export const NavBar = (props) => {
             key={keyGen()}
           >
             <Link
-              to="/"
+              to="/portfolio"
               style={{ textDecoration: 'none', color: props.theme.mainFont }}
             >
               Portfolio
