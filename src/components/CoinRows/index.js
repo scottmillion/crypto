@@ -1,19 +1,15 @@
-import {
-  BulletPoint,
-  CellItem,
-  CellItemNumber,
-  Circle,
-  Img,
-  PercentDisplay,
-} from './CoinRows.css'
-import { formatCurrency } from '@coingecko/cryptoformat'
-import { Arrow } from 'components/Arrow'
 import { Cell } from 'components/Cell'
 import CoinListChart from 'components/CoinListChart'
 import { Row } from 'components/Row'
+import { RowCurrentPrice } from 'components/RowCurrentPrice'
+import { RowHourChange } from 'components/RowHourChange'
+import { RowName } from 'components/RowName'
+import { RowNumber } from 'components/RowNumber'
+import { RowPercentBar } from 'components/RowPercentBar'
+import { RowSevenDayChange } from 'components/RowSevenDayChange'
+import { RowTwentyFourHourChange } from 'components/RowTwentyFourHourChange'
+import { formatCurrency } from '@coingecko/cryptoformat'
 import { keyGen } from 'utils/keyGen'
-import { convertLargeNumber } from 'utils/convertLargeNumber'
-import { getArrow } from 'utils/getArrow'
 import { shorterNumber } from 'utils/shorterNumber'
 import {
   desktopCellWidths as widths,
@@ -42,27 +38,30 @@ export const CoinRows = (props) => {
         return (
           <Row>
             <Cell key={keyGen()} width={widths[0]}>
-              {index + 1}
+              <RowNumber number={index + 1} />
             </Cell>
 
             <Cell key={keyGen()} width={widths[1]}>
-              <Img src={image} alt={name} />
-              {name} ({symbol.toUpperCase()})
+              <RowName
+                name={name}
+                symbol={symbol.toUpperCase()}
+                image={image}
+              />
             </Cell>
 
             <Cell key={keyGen()} width={widths[2]}>
-              {convertLargeNumber(
-                formatCurrency(current_price, props.currency, 'en'),
-              )}
+              <RowCurrentPrice
+                currentPrice={current_price}
+                currency={props.currency}
+              />
             </Cell>
 
             <Cell key={keyGen()} width={widths[3]} number={hourChange}>
-              {(props.currency !== symbol && (
-                <>
-                  <Arrow content={getArrow(hourChange)} />
-                  {Math.abs(hourChange.toFixed(2))}%
-                </>
-              )) || <span>-</span>}
+              <RowHourChange
+                currency={props.currency}
+                hourChange={hourChange}
+                symbol={symbol}
+              />
             </Cell>
 
             <Cell
@@ -70,80 +69,52 @@ export const CoinRows = (props) => {
               width={widths[4]}
               number={twentyFourHourChange}
             >
-              {(props.currency !== coin.symbol && (
-                <>
-                  <Arrow content={getArrow(twentyFourHourChange)} />
-                  {Math.abs(twentyFourHourChange.toFixed(2))}%
-                </>
-              )) || <span>-</span>}
+              <RowTwentyFourHourChange
+                currency={props.currency}
+                symbol={coin.symbol}
+                twentyFourHourChange={twentyFourHourChange}
+              />
             </Cell>
 
             <Cell key={keyGen()} width={widths[5]} number={sevenDayChange}>
-              {(props.currency !== symbol && (
-                <>
-                  <Arrow content={getArrow(sevenDayChange)} />
-                  {Math.abs(sevenDayChange.toFixed(2))}%
-                </>
-              )) || <span>-</span>}
+              <RowSevenDayChange
+                currency={props.currency}
+                sevenDayChange={sevenDayChange}
+                symbol={symbol}
+              />
             </Cell>
 
             <Cell key={keyGen()} width={widths[6]}>
-              <CellItem>
-                <CellItemNumber color={colors[index][0]}>
-                  <BulletPoint>&#8226;</BulletPoint>
-                  {shorterNumber(
-                    formatCurrency(total_volume, props.currency, 'en'),
-                  )}
-                </CellItemNumber>
-                <CellItemNumber color={colors[index][1]}>
-                  <BulletPoint>&#8226;</BulletPoint>
-                  {shorterNumber(
-                    formatCurrency(market_cap, props.currency, 'en'),
-                  )}
-                </CellItemNumber>
-              </CellItem>
-              <PercentDisplay
-                percent={(100 * total_volume) / market_cap}
+              <RowPercentBar
                 color1={colors[index][0]}
                 color2={colors[index][1]}
-              >
-                <Circle
-                  color1={colors[index][0]}
-                  percent={(100 * total_volume) / market_cap}
-                />
-              </PercentDisplay>
+                first={shorterNumber(
+                  formatCurrency(total_volume, props.currency, 'en'),
+                )}
+                second={shorterNumber(
+                  formatCurrency(market_cap, props.currency, 'en'),
+                )}
+                percent={(100 * total_volume) / market_cap}
+              />
             </Cell>
 
             <Cell key={keyGen()} width={widths[7]}>
-              <CellItem>
-                <CellItemNumber color={colors[index][0]}>
-                  <BulletPoint>&#8226;</BulletPoint>
-                  {shorterNumber(
-                    formatCurrency(circulating_supply, props.currency, 'en'),
-                  ).slice(1)}
-                </CellItemNumber>
-                <CellItemNumber color={colors[index][1]}>
-                  <BulletPoint>&#8226;</BulletPoint>
-                  {(total_supply &&
+              <RowPercentBar
+                color1={colors[index][0]}
+                color2={colors[index][1]}
+                first={shorterNumber(
+                  formatCurrency(circulating_supply, props.currency, 'en'),
+                ).slice(1)}
+                second={
+                  (total_supply &&
                     shorterNumber(
                       formatCurrency(total_supply, props.currency, 'en'),
-                    ).slice(1)) || <span>&#8734;</span>}
-                </CellItemNumber>
-              </CellItem>
-              <PercentDisplay
+                    ).slice(1)) || <span>&#8734;</span>
+                }
                 percent={
                   (100 * circulating_supply) / (total_supply || Infinity)
                 }
-                color1={colors[index][0]}
-                color2={colors[index][1]}
-              >
-                <Circle
-                  color1={colors[index][0]}
-                  percent={
-                    (100 * circulating_supply) / (total_supply || Infinity)
-                  }
-                />
-              </PercentDisplay>
+              />
             </Cell>
 
             <Cell key={keyGen()} width={widths[8]}>
