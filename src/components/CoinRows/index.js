@@ -15,6 +15,18 @@ import {
   desktopCellWidths as widths,
   coinListPercentDisplayColors as colors,
 } from 'utils/constants'
+import styled from 'styled-components'
+
+const Hr = styled.div`
+  width: 98%;
+  border-top: 1px solid ${(props) => props.theme.hrLineTop};
+  border-bottom: 1px solid ${(props) => props.theme.hrLineBottom};
+`
+const HrWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
 
 export const CoinRows = (props) => {
   return (
@@ -36,97 +48,106 @@ export const CoinRows = (props) => {
         } = coin
 
         return (
-          <Row>
-            <Cell key={keyGen()} width={widths[0]}>
-              <RowNumber number={index + 1} />
-            </Cell>
+          <>
+            <Row>
+              <Cell key={keyGen()} width={widths[0]}>
+                <RowNumber number={index + 1} />
+              </Cell>
 
-            <Cell key={keyGen()} width={widths[1]}>
-              <RowName
-                name={name}
-                symbol={symbol.toUpperCase()}
-                image={image}
-              />
-            </Cell>
+              <Cell key={keyGen()} width={widths[1]}>
+                <RowName
+                  name={name}
+                  symbol={symbol.toUpperCase()}
+                  image={image}
+                />
+              </Cell>
 
-            <Cell key={keyGen()} width={widths[2]}>
-              <RowCurrentPrice
-                currentPrice={current_price}
-                currency={props.currency}
-              />
-            </Cell>
+              <Cell key={keyGen()} width={widths[2]}>
+                <RowCurrentPrice
+                  currentPrice={current_price}
+                  currency={props.currency}
+                />
+              </Cell>
 
-            <Cell key={keyGen()} width={widths[3]} number={hourChange}>
-              <RowHourChange
-                currency={props.currency}
-                hourChange={hourChange}
-                symbol={symbol}
-              />
-            </Cell>
+              <Cell key={keyGen()} width={widths[3]} number={hourChange}>
+                <RowHourChange
+                  currency={props.currency}
+                  hourChange={hourChange}
+                  symbol={symbol}
+                />
+              </Cell>
 
-            <Cell
-              key={keyGen()}
-              width={widths[4]}
-              number={twentyFourHourChange}
-            >
-              <RowTwentyFourHourChange
-                currency={props.currency}
-                symbol={coin.symbol}
-                twentyFourHourChange={twentyFourHourChange}
-              />
-            </Cell>
+              <Cell
+                key={keyGen()}
+                width={widths[4]}
+                number={twentyFourHourChange}
+              >
+                <RowTwentyFourHourChange
+                  currency={props.currency}
+                  symbol={coin.symbol}
+                  twentyFourHourChange={twentyFourHourChange}
+                />
+              </Cell>
 
-            <Cell key={keyGen()} width={widths[5]} number={sevenDayChange}>
-              <RowSevenDayChange
-                currency={props.currency}
-                sevenDayChange={sevenDayChange}
-                symbol={symbol}
-              />
-            </Cell>
+              <Cell key={keyGen()} width={widths[5]} number={sevenDayChange}>
+                <RowSevenDayChange
+                  currency={props.currency}
+                  sevenDayChange={sevenDayChange}
+                  symbol={symbol}
+                />
+              </Cell>
 
-            <Cell key={keyGen()} width={widths[6]}>
-              <RowPercentBar
-                color1={colors[index][0]}
-                color2={colors[index][1]}
-                first={shorterNumber(
-                  formatCurrency(total_volume, props.currency, 'en'),
-                )}
-                second={shorterNumber(
-                  formatCurrency(market_cap, props.currency, 'en'),
-                )}
-                percent={(100 * total_volume) / market_cap}
-              />
-            </Cell>
+              <Cell key={keyGen()} width={widths[6]}>
+                <RowPercentBar
+                  color1={colors[index][0]}
+                  color2={colors[index][1]}
+                  first={shorterNumber(
+                    formatCurrency(total_volume, props.currency, 'en'),
+                  )}
+                  second={shorterNumber(
+                    formatCurrency(market_cap, props.currency, 'en'),
+                  )}
+                  percent={(100 * total_volume) / market_cap}
+                />
+              </Cell>
 
-            <Cell key={keyGen()} width={widths[7]}>
-              <RowPercentBar
-                color1={colors[index][0]}
-                color2={colors[index][1]}
-                first={shorterNumber(
-                  formatCurrency(circulating_supply, props.currency, 'en'),
-                ).slice(1)}
-                second={
-                  (total_supply &&
-                    shorterNumber(
-                      formatCurrency(total_supply, props.currency, 'en'),
-                    ).slice(1)) || <span>&#8734;</span>
-                }
-                percent={
-                  (100 * circulating_supply) / (total_supply || Infinity)
-                }
-              />
-            </Cell>
+              <Cell key={keyGen()} width={widths[7]}>
+                <RowPercentBar
+                  color1={colors[index][0]}
+                  color2={colors[index][1]}
+                  first={shorterNumber(
+                    formatCurrency(circulating_supply, props.currency, 'en'),
+                  ).slice(1)}
+                  second={
+                    (total_supply &&
+                      shorterNumber(
+                        formatCurrency(total_supply, props.currency, 'en'),
+                      ).slice(1)) || <span>&#8734;</span>
+                  }
+                  percent={
+                    (100 * circulating_supply) / (total_supply || Infinity)
+                  }
+                />
+              </Cell>
 
-            <Cell key={keyGen()} width={widths[8]}>
-              <CoinListChart
-                prices={sevenDayPriceList.price.filter(
-                  (_, index) => index % 8 === 0,
-                )}
-                sevenDayChange={sevenDayChange}
-                theme={props.theme}
-              />
-            </Cell>
-          </Row>
+              <Cell key={keyGen()} width={widths[8]}>
+                <CoinListChart
+                  prices={sevenDayPriceList.price.filter(
+                    (_, index) => index % 8 === 0,
+                  )}
+                  sevenDayChange={sevenDayChange}
+                  theme={props.theme}
+                />
+              </Cell>
+            </Row>
+            {index !== 8 ? (
+              <HrWrap>
+                <Hr theme={props.theme} />
+              </HrWrap>
+            ) : (
+              ''
+            )}
+          </>
         )
       })}
     </>
