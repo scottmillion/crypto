@@ -6,21 +6,18 @@ import {
   ChartsContainer,
   ChartContainerPrice,
   ChartContainerVolume,
-  ChartLegendPrice,
-  ChartLegendVolume,
   CoinContainer,
   Container,
   ContentContainer,
   H1,
-  LegendLarge,
-  LegendNormal,
 } from './AllCoins.css'
 import BitcoinLineChart from 'components/BitcoinLineChart'
 import BitcoinBarChart from 'components/BitcoinBarChart'
-import { formatChartNumber } from 'utils/formatChartNumber'
+
 import { ColumnLabels } from 'components/ColumnLabels'
 import { CoinRows } from 'components/CoinRows'
-import { monthNames, today } from 'utils/constants'
+import { ChartLegendPrice } from 'components/ChartLegendPrice'
+import { ChartLegendVolume } from 'components/ChartLegendVolume'
 class AllCoins extends React.Component {
   state = {
     data: null,
@@ -54,20 +51,10 @@ class AllCoins extends React.Component {
             <>
               <ChartsContainer>
                 <ChartContainerPrice theme={this.props.theme}>
-                  <ChartLegendPrice>
-                    <LegendNormal>BTC</LegendNormal>
-                    <LegendLarge>
-                      {this.props.currencySymbol}
-                      {formatChartNumber(
-                        data.filter((item) => item.id === 'bitcoin')[0]
-                          .current_price,
-                      )}
-                    </LegendLarge>
-                    <LegendNormal>
-                      {monthNames[today.getMonth()]} {today.getDate()},{' '}
-                      {today.getFullYear()}
-                    </LegendNormal>
-                  </ChartLegendPrice>
+                  <ChartLegendPrice
+                    data={data}
+                    currencySymbol={this.props.currencySymbol}
+                  />
                   <ChartPrice>
                     <BitcoinLineChart
                       currency={this.props.currency}
@@ -76,20 +63,10 @@ class AllCoins extends React.Component {
                   </ChartPrice>
                 </ChartContainerPrice>
                 <ChartContainerVolume theme={this.props.theme}>
-                  <ChartLegendVolume>
-                    <LegendNormal>Volume 24h</LegendNormal>
-                    <LegendLarge>
-                      {this.props.currencySymbol}
-                      {formatChartNumber(
-                        data.filter((item) => item.id === 'bitcoin')[0]
-                          .total_volume,
-                      )}
-                    </LegendLarge>
-                    <LegendNormal>
-                      {monthNames[today.getMonth()]} {today.getDate()},{' '}
-                      {today.getFullYear()}
-                    </LegendNormal>
-                  </ChartLegendVolume>
+                  <ChartLegendVolume
+                    data={data}
+                    currencySymbol={this.props.currencySymbol}
+                  />
                   <ChartVolume>
                     <BitcoinBarChart
                       currency={this.props.currency}
