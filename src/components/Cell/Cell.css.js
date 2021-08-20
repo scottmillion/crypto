@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 export const CellContent = styled.div`
-  /* outline: 1px solid green; */
-  position: relative;
   color: ${(props) =>
     !isNaN(props.number) ? (props.number < 0 ? '#FE1040' : '#00FC2A') : ''};
   font-size: ${(props) => props.size || '18'}px;

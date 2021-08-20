@@ -5,22 +5,19 @@ export const BulletPoint = styled.span`
 `
 
 export const TopItemsWrap = styled.div`
-  margin-top: -28px;
   width: 100%;
-  position: absolute;
   display: flex;
   justify-content: space-between;
 `
 
 export const TopItem = styled.div`
+  margin-top: 2px;
   color: ${(props) => props.color};
 `
 
 export const PercentDisplay = styled.div`
-  margin-top: 10px;
+  margin-bottom: 18px;
   width: 100%;
-  position: relative;
-  overflow: hidden;
   height: 8px;
   background: linear-gradient(
     to right,
