@@ -39,18 +39,6 @@ export const ChartsContainer = styled.div`
   justify-content: space-between;
 `
 
-export const ChartLegendPrice = styled.div`
-  position: absolute;
-  margin-top: 17px;
-  margin-left: 21px;
-`
-
-export const ChartLegendVolume = styled.div`
-  position: absolute;
-  margin-top: 17px;
-  width: 95%;
-`
-
 export const CoinContainer = styled.div`
   /* outline: 1px solid blue; */
   background: ${(props) => props.theme.secondary};
@@ -76,14 +64,4 @@ export const ContentContainer = styled.div`
 export const H1 = styled.h1`
   font-size: 1.4rem;
   font-weight: 500;
-`
-
-export const LegendNormal = styled.div`
-  font-size: 1.2rem;
-`
-
-export const LegendLarge = styled.div`
-  font-size: 2.2rem;
-  font-weight: 500;
-  line-height: 2.9rem;
 `
