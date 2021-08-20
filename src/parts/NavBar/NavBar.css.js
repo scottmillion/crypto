@@ -45,7 +45,7 @@ export const NavLeftLi = styled.li`
   text-align: center;
   padding-top: 13px;
   padding-bottom: 13px;
-  background: ${(props) => props.theme.tertiary};
+  background: ${(props) => (props.routeMatches ? props.theme.tertiary : '')};
 `
 
 export const NavLeftUl = styled.ul`
