@@ -48,13 +48,13 @@ export const CoinRows = (props) => {
         } = coin
 
         return (
-          <>
+          <div key={keyGen()}>
             <Row>
-              <Cell key={keyGen()} width={widths[0]}>
+              <Cell width={widths[0]}>
                 <RowNumber number={index + 1} />
               </Cell>
 
-              <Cell key={keyGen()} width={widths[1]}>
+              <Cell width={widths[1]}>
                 <RowName
                   name={name}
                   symbol={symbol.toUpperCase()}
@@ -62,14 +62,14 @@ export const CoinRows = (props) => {
                 />
               </Cell>
 
-              <Cell key={keyGen()} width={widths[2]}>
+              <Cell width={widths[2]}>
                 <RowCurrentPrice
                   currentPrice={current_price}
                   currency={props.currency}
                 />
               </Cell>
 
-              <Cell key={keyGen()} width={widths[3]} number={hourChange}>
+              <Cell width={widths[3]} number={hourChange}>
                 <RowHourChange
                   currency={props.currency}
                   hourChange={hourChange}
@@ -77,11 +77,7 @@ export const CoinRows = (props) => {
                 />
               </Cell>
 
-              <Cell
-                key={keyGen()}
-                width={widths[4]}
-                number={twentyFourHourChange}
-              >
+              <Cell width={widths[4]} number={twentyFourHourChange}>
                 <RowTwentyFourHourChange
                   currency={props.currency}
                   symbol={coin.symbol}
@@ -89,7 +85,7 @@ export const CoinRows = (props) => {
                 />
               </Cell>
 
-              <Cell key={keyGen()} width={widths[5]} number={sevenDayChange}>
+              <Cell width={widths[5]} number={sevenDayChange}>
                 <RowSevenDayChange
                   currency={props.currency}
                   sevenDayChange={sevenDayChange}
@@ -97,7 +93,7 @@ export const CoinRows = (props) => {
                 />
               </Cell>
 
-              <Cell key={keyGen()} width={widths[6]}>
+              <Cell width={widths[6]}>
                 <RowPercentBar
                   color1={colors[index][0]}
                   color2={colors[index][1]}
@@ -111,7 +107,7 @@ export const CoinRows = (props) => {
                 />
               </Cell>
 
-              <Cell key={keyGen()} width={widths[7]}>
+              <Cell width={widths[7]}>
                 <RowPercentBar
                   color1={colors[index][0]}
                   color2={colors[index][1]}
@@ -130,7 +126,7 @@ export const CoinRows = (props) => {
                 />
               </Cell>
 
-              <Cell key={keyGen()} width={widths[8]}>
+              <Cell width={widths[8]}>
                 <CoinListChart
                   prices={sevenDayPriceList.price.filter(
                     (_, index) => index % 8 === 0,
@@ -147,7 +143,7 @@ export const CoinRows = (props) => {
             ) : (
               ''
             )}
-          </>
+          </div>
         )
       })}
     </>
