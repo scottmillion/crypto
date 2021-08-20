@@ -13,11 +13,11 @@ import {
 } from './AllCoins.css'
 import BitcoinLineChart from 'components/BitcoinLineChart'
 import BitcoinBarChart from 'components/BitcoinBarChart'
-
-import { ColumnLabels } from 'components/ColumnLabels'
-import { CoinRows } from 'components/CoinRows'
 import { ChartLegendPrice } from 'components/ChartLegendPrice'
 import { ChartLegendVolume } from 'components/ChartLegendVolume'
+import { ColumnLabels } from 'components/ColumnLabels'
+import { CoinRows } from 'components/CoinRows'
+
 class AllCoins extends React.Component {
   state = {
     data: null,
