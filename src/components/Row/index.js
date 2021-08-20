@@ -1,10 +1,13 @@
 import styled from 'styled-components'
 
 const RowWrap = styled.div`
-  padding: 0px 4px;
+  padding: ${(props) => (props.isLabel ? '0px' : '8px')} 4px;
+  margin: ${(props) => (props.isLabel ? '0px' : '8px')} 0px;
   display: flex;
   align-items: center;
   justify-content: space-around;
 `
 
-export const Row = (props) => <RowWrap>{props.children}</RowWrap>
+export const Row = (props) => (
+  <RowWrap isLabel={props.isLabel}>{props.children}</RowWrap>
+)
