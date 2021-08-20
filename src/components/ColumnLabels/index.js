@@ -7,7 +7,7 @@ import {
 } from 'utils/constants'
 
 export const ColumnLabels = (props) => (
-  <Row>
+  <Row isLabel={true}>
     {widths.map((width, index) => (
       <Cell key={keyGen()} width={width} weight={700} size={16}>
         {labels[index]}
