@@ -44,20 +44,21 @@ class App extends React.Component {
   }
 
   render() {
-    const { global, currency, currencySymbol } = this.state
-    const theme = this.state.on ? lightTheme : darkTheme
+    const { global, currency, currencySymbol, on } = this.state
+    const theme = on ? lightTheme : darkTheme
     return (
       <ThemeProvider theme={theme}>
         <Router>
           <GlobalStyle theme={theme} />
           <Container theme={theme}>
             <NavBar
-              theme={theme}
-              currencySymbol={currencySymbol}
               currency={currency}
-              handleChangeCurrency={this.handleChangeCurrency}
               currencyList={currencyList}
+              currencySymbol={currencySymbol}
+              handleChangeCurrency={this.handleChangeCurrency}
               handleThemeButtonClick={this.handleThemeButtonClick}
+              on={on}
+              theme={theme}
             />
             <NavUnder
               theme={theme}
