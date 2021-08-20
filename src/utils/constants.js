@@ -56,6 +56,8 @@ export const darkTheme = {
   lineChart: '#00ff5f',
   lineChartGradientTop: '#414547',
   lineChartGradientBottom: '#000',
+  hrLineTop: '#707070',
+  hrLineBottom: '#646565',
 }
 
 export const lightTheme = {
@@ -67,6 +69,8 @@ export const lightTheme = {
   lineChart: '#2550ea',
   lineChartGradientTop: '#6785f0',
   lineChartGradientBottom: '#FFF',
+  hrLineTop: '#e4e4e4',
+  hrLineBottom: '#f0f0f0',
 }
 
 export const monthNames = [
