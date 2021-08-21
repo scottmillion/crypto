@@ -1,22 +1,24 @@
-import React from 'react';
-import {Input} from './Search.css'
+import React from 'react'
+import { Input } from './Search.css'
 
 export default class Search extends React.Component {
   state = {
-    value: ''
+    value: '',
   }
 
   handleChange = (e) => {
-    const value = e.target.value;
-    this.setState({value});
-    
+    const { value } = e.target
+    this.setState({ value })
   }
 
-  render(){
+  render() {
     return (
-      <Input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search..." />
-  )
-};
-};
-
-
+      <Input
+        type="text"
+        value={this.state.value}
+        onChange={this.handleChange}
+        placeholder="Search..."
+      />
+    )
+  }
+}
