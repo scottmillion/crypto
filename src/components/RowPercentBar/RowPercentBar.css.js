@@ -21,11 +21,10 @@ export const PercentDisplay = styled.div`
   width: 100%;
   height: 8px;
   background: linear-gradient(
-    to right,
-    ${(props) => props.color1} 0%,
-    ${(props) => props.color1} ${(props) => props.percent - 1}%,
-    ${(props) => props.color2} ${(props) => props.percent - 1}%,
-    ${(props) => props.color2} 100%
+    ${(props) =>
+      `to right, ${props.color1} 0%, ${props.color1} ${props.percent - 1}%, ${
+        props.color2
+      } ${props.percent - 1}%, ${props.color2} 100%`}
   );
   border-radius: 7px;
 `
