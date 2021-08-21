@@ -15,8 +15,7 @@ import BitcoinLineChart from 'components/BitcoinLineChart'
 import BitcoinBarChart from 'components/BitcoinBarChart'
 import { ChartLegendPrice } from 'components/ChartLegendPrice'
 import { ChartLegendVolume } from 'components/ChartLegendVolume'
-import { ColumnLabels } from 'components/ColumnLabels'
-import { CoinRows } from 'components/CoinRows'
+import { CoinsTable } from 'components/CoinsTable'
 
 class AllCoins extends React.Component {
   state = {
@@ -77,8 +76,7 @@ class AllCoins extends React.Component {
               </ChartsContainer>
 
               <CoinContainer theme={this.props.theme}>
-                <ColumnLabels />
-                <CoinRows
+                <CoinsTable
                   data={data}
                   currency={this.props.currency}
                   theme={this.props.theme}

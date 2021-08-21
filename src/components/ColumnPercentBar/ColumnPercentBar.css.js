@@ -5,12 +5,13 @@ export const BulletPoint = styled.span`
 `
 
 export const TopItemsWrap = styled.div`
-  width: 100%;
+  width: 200px;
   display: flex;
   justify-content: space-between;
 `
 
 export const TopItem = styled.div`
+  font-size: 1rem;
   margin-top: 2px;
   color: ${(props) => props.color};
 `

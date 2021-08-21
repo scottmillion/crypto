@@ -4,9 +4,9 @@ import {
   PercentDisplayCircle,
   TopItem,
   TopItemsWrap,
-} from 'components/RowPercentBar/RowPercentBar.css'
+} from './ColumnPercentBar.css'
 
-export const RowPercentBar = (props) => (
+export const ColumnPercentBar = (props) => (
   <>
     <TopItemsWrap>
       <TopItem color={props.color1}>
