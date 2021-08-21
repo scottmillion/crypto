@@ -136,12 +136,10 @@ export const CoinRows = (props) => {
                 />
               </Cell>
             </Row>
-            {index !== 8 ? (
+            {index !== 8 && (
               <HrWrap>
                 <Hr theme={props.theme} />
               </HrWrap>
-            ) : (
-              ''
             )}
           </div>
         )
