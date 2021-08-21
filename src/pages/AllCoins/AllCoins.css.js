@@ -43,7 +43,7 @@ export const CoinContainer = styled.div`
   background: ${(props) => props.theme.secondary};
   border-radius: 20px;
   padding-top: 20px;
-  padding-bottom: 35px;
+  padding-bottom: 20px;
   margin-top: 25px;
   margin-bottom: 59px;
 `

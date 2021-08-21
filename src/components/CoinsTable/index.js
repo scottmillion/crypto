@@ -12,8 +12,8 @@ import { ColumnVolumeMarketCap } from 'components/ColumnVolumeMarketCap'
 import { getColumnData } from 'utils/getColumnData'
 
 const Table = styled.div`
-  padding: ${(props) => (props.isLabel ? '0px' : '8px')} 18px;
-  margin: ${(props) => (props.isLabel ? '0px' : '8px')} 0px;
+  padding: ${(props) => (props.isLabel ? 0 : 8)}px 18px 0px 18px;
+  margin-top: ${(props) => (props.isLabel ? 0 : 8)};
   display: flex;
   justify-content: space-between;
 `

@@ -17,7 +17,7 @@ export const TopItem = styled.div`
 `
 
 export const PercentDisplay = styled.div`
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   overflow: hidden;
   width: 100%;
   height: 8px;
