@@ -5,7 +5,7 @@ export const BulletPoint = styled.span`
 `
 
 export const TopItemsWrap = styled.div`
-  width: 200px;
+  width: 230px;
   display: flex;
   justify-content: space-between;
 `
