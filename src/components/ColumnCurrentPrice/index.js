@@ -2,6 +2,7 @@ import { Cell } from 'components/Cell'
 import { Column } from 'components/Column'
 import { convertLargeNumber } from 'utils/convertLargeNumber'
 import { formatCurrency } from '@coingecko/cryptoformat'
+import { keyGen } from 'utils/keyGen'
 
 export const ColumnCurrentPrice = (props) => (
   <Column>
@@ -10,7 +11,10 @@ export const ColumnCurrentPrice = (props) => (
     </Cell>
     {props.columnCurrentPrice.map((price, index) => {
       return (
-        <Cell turnHrOff={index === props.columnCurrentPrice.length - 1}>
+        <Cell
+          key={keyGen()}
+          turnHrOff={index === props.columnCurrentPrice.length - 1}
+        >
           {convertLargeNumber(formatCurrency(price, props.currency, 'en'))}
         </Cell>
       )

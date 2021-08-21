@@ -1,6 +1,7 @@
 import { Column } from 'components/Column'
 import { Cell } from 'components/Cell'
 import CoinListChart from 'components/CoinListChart'
+import { keyGen } from 'utils/keyGen'
 
 export const ColumnCoinListChartLast7d = (props) => (
   <Column>
@@ -10,6 +11,7 @@ export const ColumnCoinListChartLast7d = (props) => (
     {props.columnCoinListChartLast7d.map((obj, index) => {
       return (
         <Cell
+          key={keyGen()}
           width="120"
           hrWidth={120}
           turnHrOff={index === props.columnCoinListChartLast7d.length - 1}

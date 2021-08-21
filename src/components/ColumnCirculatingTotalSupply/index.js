@@ -4,6 +4,7 @@ import { Cell } from 'components/Cell'
 import { shorterNumber } from 'utils/shorterNumber'
 import { formatCurrency } from '@coingecko/cryptoformat'
 import { ColumnPercentBar } from 'components/ColumnPercentBar'
+import { keyGen } from 'utils/keyGen'
 
 export const ColumnCirculatingTotalSupply = (props) => (
   <Column>
@@ -13,6 +14,7 @@ export const ColumnCirculatingTotalSupply = (props) => (
     {props.columnCirculatingTotalSupply.map((obj, index) => {
       return (
         <Cell
+          key={keyGen()}
           turnHrOff={index === props.columnCirculatingTotalSupply.length - 1}
         >
           <ColumnPercentBar

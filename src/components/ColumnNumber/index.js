@@ -1,5 +1,6 @@
 import { Cell } from 'components/Cell'
 import { Column } from 'components/Column'
+import { keyGen } from 'utils/keyGen'
 
 export const ColumnNumber = (props) => (
   <Column>
@@ -8,7 +9,10 @@ export const ColumnNumber = (props) => (
     </Cell>
     {props.columnNumber.map((number, index) => {
       return (
-        <Cell turnHrOff={index === props.columnNumber.length - 1}>
+        <Cell
+          key={keyGen()}
+          turnHrOff={index === props.columnNumber.length - 1}
+        >
           {number}
         </Cell>
       )

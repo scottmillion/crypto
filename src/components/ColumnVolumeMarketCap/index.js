@@ -4,6 +4,7 @@ import { Cell } from 'components/Cell'
 import { shorterNumber } from 'utils/shorterNumber'
 import { formatCurrency } from '@coingecko/cryptoformat'
 import { ColumnPercentBar } from 'components/ColumnPercentBar'
+import { keyGen } from 'utils/keyGen'
 
 export const ColumnVolumeMarketCap = (props) => (
   <Column>
@@ -12,7 +13,10 @@ export const ColumnVolumeMarketCap = (props) => (
     </Cell>
     {props.columnVolumeMarketCap.map((obj, index) => {
       return (
-        <Cell turnHrOff={index === props.columnVolumeMarketCap.length - 1}>
+        <Cell
+          key={keyGen()}
+          turnHrOff={index === props.columnVolumeMarketCap.length - 1}
+        >
           <ColumnPercentBar
             color1={colors[index][0]}
             color2={colors[index][1]}

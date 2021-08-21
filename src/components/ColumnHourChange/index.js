@@ -2,6 +2,7 @@ import { Arrow } from 'components/Arrow'
 import { Cell } from 'components/Cell'
 import { Column } from 'components/Column'
 import { getArrow } from 'utils/getArrow'
+import { keyGen } from 'utils/keyGen'
 
 export const ColumnHourChange = (props) => (
   <Column>
@@ -11,6 +12,7 @@ export const ColumnHourChange = (props) => (
     {props.columnHourChange.map((obj, index) => {
       return (
         <Cell
+          key={keyGen()}
           number={obj.hourChange}
           turnHrOff={index === props.columnHourChange.length - 1}
         >
