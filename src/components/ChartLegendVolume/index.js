@@ -17,7 +17,7 @@ export const ChartLegendVolume = (props) => {
       <LegendLarge>
         {props.currencySymbol}
         {formatChartNumber(
-          props.data.filter((item) => item.id === 'bitcoin')[0].total_volume,
+          props.data.find((item) => item.id === 'bitcoin').total_volume,
         )}
       </LegendLarge>
       <LegendNormal>
