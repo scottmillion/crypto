@@ -1,6 +1,5 @@
 import { BrowserRouter as Link } from 'react-router-dom'
 import {
-  CurrencyImage,
   CurrencySymbol,
   Nav,
   NavLeft,
@@ -9,6 +8,7 @@ import {
   NavRight,
   NavRightInputContainer,
   NavRightSelectContainer,
+  SearchImage,
   Select,
   SelectArrow,
   SelectWrap,
@@ -53,7 +53,7 @@ export const NavBar = (props) => {
       </NavLeft>
       <NavRight>
         <NavRightInputContainer theme={props.theme}>
-          <CurrencyImage
+          <SearchImage
             src={props.on ? searchIconLight : searchIcon}
             alt="search"
           />

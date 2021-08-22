@@ -8,11 +8,6 @@ export const Circle = styled.div`
   margin-left: calc(${(props) => props.percent}% - 12px);
 `
 
-export const CurrencyImage = styled.img`
-  position: absolute;
-  margin: 22px 22px 0px 28px;
-`
-
 export const CurrencySymbol = styled.div`
   width: 3rem;
   height: 33px;
@@ -90,6 +85,11 @@ export const PercentDisplay = styled.div`
   );
   border-radius: 7px;
   margin-left: 10px;
+`
+
+export const SearchImage = styled.img`
+  position: absolute;
+  margin: 20px 22px 0px 28px;
 `
 
 export const Select = styled.select`
