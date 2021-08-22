@@ -1,5 +1,6 @@
 import React from 'react'
 import { Input } from './Search.css'
+import { coinNames } from 'utils/coinNames'
 
 export default class Search extends React.Component {
   state = {
