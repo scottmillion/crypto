@@ -69,9 +69,11 @@ export default class Search extends React.Component {
                   key={keyGen()}
                   onClick={() => this.handleClickMatchItem(coinName)}
                 >
-                  {coinName.length >= 40
-                    ? coinName.slice(0, 40) + '...'
-                    : coinName}
+                  <div>
+                    {coinName.length >= 40
+                      ? coinName.slice(0, 40) + '...'
+                      : coinName}
+                  </div>
                 </SearchListItem>
               )
             })}
