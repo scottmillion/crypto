@@ -15,7 +15,7 @@ export const CellContent = styled.div`
 
 export const Hr = styled.div`
   display: ${(props) => (props.isLabel || props.turnHrOff) && 'none'};
-  width: ${(props) => props.hrWidth || 280}px;
+  width: ${(props) => props.hrWidth || 300}px;
   position: absolute;
   border-top: 1px solid ${(props) => props.theme.hrLineTop};
   border-bottom: 1px solid ${(props) => props.theme.hrLineBottom};
