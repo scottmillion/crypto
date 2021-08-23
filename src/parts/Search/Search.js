@@ -5,7 +5,7 @@ import { keyGen } from 'utils'
 class Search extends React.Component {
   state = {
     value: '',
-    matches: null,
+    data: [],
   }
 
   getAutoCompleteData = async (value) => {
@@ -13,41 +13,32 @@ class Search extends React.Component {
       const { data } = await axios(
         `https://crypto-app-server.herokuapp.com/coins/${value}`,
       )
-      let matches = data
-      //[]
-      // matches = data.filter((coin) => {
-      //   const regex = new RegExp(`${value}`, 'gi')
-      //   return coin.name.match(regex)
-      // })
-      this.setState({ matches })
+      this.setState({ data })
     } catch (error) {
-      console.log('Global API Error!')
+      console.log('AutoCompleteData API Error!')
       console.log(error)
     }
   }
 
   handleBlur = () => {
     setTimeout(() => {
-      this.setState({ matches: null })
+      this.setState({ data: [] })
     }, 100)
   }
 
   handleClickMatchItem = (coinName) => {
-    this.setState({ matches: null, value: coinName })
+    this.setState({ data: [], value: coinName })
   }
 
   handleChange = (e) => {
     const { value } = e.target
-    console.log(value)
-    value === ''
-      ? this.setState({ matches: null })
-      : this.getAutoCompleteData(value)
     this.setState({ value })
+    value === '' ? this.setState({ data: [] }) : this.getAutoCompleteData(value)
   }
 
   render() {
-    const { matches, value } = this.state
-    console.log(matches, value)
+    const { data, value } = this.state
+    console.log(data, value)
     return (
       <>
         <Input
@@ -58,10 +49,10 @@ class Search extends React.Component {
           onChange={this.handleChange}
           placeholder="Search..."
         />
-        {value !== '' && matches && (
+        {data.length > 0 && (
           <SearchList width="450">
-            {matches.map((match) => {
-              let coinName = match.name
+            {data.map((coin) => {
+              let coinName = coin.name
               return (
                 <SearchListItem
                   key={keyGen()}
