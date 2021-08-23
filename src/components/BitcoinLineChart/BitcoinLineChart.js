@@ -57,17 +57,11 @@ class BitcoinLineChart extends React.Component {
       )
 
       const prices = data.prices
-      const dataPoints = []
-      const dataLabels = []
-      prices.forEach((price) => {
-        let myDay = new Date(price[0]).getDate().toString()
-        if (myDay.length === 1) {
-          myDay = '0' + myDay
-        }
-        dataLabels.push(myDay)
-        dataPoints.push(price[1])
-      })
-      this.setState({ dataPoints, dataLabels })
+      const dataPoints = prices.map((price) => price[1])
+      const dataLabels = prices.map((price) =>
+        new Date(price[0]).getDate().toString(),
+      )
+      this.setState({ dataLabels, dataPoints })
     } catch (error) {
       console.log('Error in getPrices API!')
       console.log(error)

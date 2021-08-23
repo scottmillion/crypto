@@ -42,23 +42,13 @@ class BitcoinBarChart extends React.Component {
         `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${this.props.currency}&days=22&interval=daily`,
       )
       const volumes = data.total_volumes
-      const dataLabelsAndPoints = volumes.reduce(
-        (arr, volume, index) => {
-          let myDay = new Date(volume[0]).getDate().toString()
-          if (myDay.length === 1) {
-            myDay = '0' + myDay
-          }
-          return [
-            [...arr[0], myDay],
-            [...arr[1], volume[1]],
-          ]
-        },
-        [[], []],
+      const dataPoints = volumes.map((volume) => volume[1])
+      const dataLabels = volumes.map((volume) =>
+        new Date(volume[0]).getDate().toString(),
       )
-
       this.setState({
-        dataLabels: dataLabelsAndPoints[0],
-        dataPoints: dataLabelsAndPoints[1],
+        dataLabels,
+        dataPoints,
       })
     } catch (error) {
       console.log('Error in getVolume API!')
