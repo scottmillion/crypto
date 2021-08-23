@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import { DebounceInput } from 'react-debounce-input'
 
-export const Input = styled.input`
+export const Input = styled(DebounceInput)`
   background: ${(props) => props.theme.tertiary};
   color: inherit;
   font-size: 1.1rem;
@@ -17,8 +18,6 @@ export const Input = styled.input`
   }
   &:focus {
     outline: none;
-    /* border: 2px solid #737373;
-    border-radius: 20px; */
   }
 `
 

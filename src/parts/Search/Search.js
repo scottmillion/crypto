@@ -2,6 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import { Input, SearchList, SearchListItem } from './Search.css'
 import { keyGen } from 'utils'
+
 class Search extends React.Component {
   state = {
     value: '',
@@ -21,13 +22,13 @@ class Search extends React.Component {
   }
 
   handleBlur = () => {
-    setTimeout(() => {
-      this.setState({ data: [] })
-    }, 100)
+    this.setState({ data: [], value: '' })
   }
 
-  handleClickMatchItem = (coinName) => {
-    this.setState({ data: [], value: coinName })
+  handleClickDataItem = (coinName) => {
+    setTimeout(() => {
+      this.setState({ data: [], value: coinName })
+    }, 10)
   }
 
   handleChange = (e) => {
@@ -38,10 +39,11 @@ class Search extends React.Component {
 
   render() {
     const { data, value } = this.state
-    console.log(data, value)
     return (
       <>
         <Input
+          minLength={1}
+          debounceTimeout={300}
           onBlur={this.handleBlur}
           type="text"
           width="450"
@@ -56,7 +58,7 @@ class Search extends React.Component {
               return (
                 <SearchListItem
                   key={keyGen()}
-                  onClick={() => this.handleClickMatchItem(coinName)}
+                  onMouseDown={() => this.handleClickDataItem(coinName)}
                 >
                   <div>
                     {coinName.length >= 40
