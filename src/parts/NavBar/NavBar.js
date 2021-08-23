@@ -4,7 +4,6 @@ import { NavBarImages as Images } from 'assets/Images'
 import { Search } from 'parts'
 import { keyGen } from 'utils'
 import {
-  CurrencyImage,
   CurrencySymbol,
   Nav,
   NavLeft,
@@ -13,6 +12,7 @@ import {
   NavRight,
   NavRightInputContainer,
   NavRightSelectContainer,
+  SearchImage,
   Select,
   SelectArrow,
   SelectWrap,
@@ -44,7 +44,7 @@ const NavBar = (props) => {
       </NavLeft>
       <NavRight>
         <NavRightInputContainer theme={props.theme}>
-          <CurrencyImage
+          <SearchImage
             src={props.on ? Images.searchIconLight : Images.searchIcon}
             alt="search"
           />
