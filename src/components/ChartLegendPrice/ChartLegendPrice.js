@@ -15,7 +15,7 @@ const ChartLegendPrice = (props) => {
       <LegendLarge>
         {props.currencySymbol}
         {formatChartNumber(
-          props.data.filter((item) => item.id === 'bitcoin')[0].current_price,
+          props.data.find((item) => item.id === 'bitcoin').current_price,
         )}
       </LegendLarge>
       <LegendNormal>
