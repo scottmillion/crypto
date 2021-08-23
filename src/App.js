@@ -3,12 +3,10 @@ import axios from 'axios'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { GlobalStyle } from 'App.styles'
 import { ThemeProvider } from 'styled-components'
-import AllCoins from 'pages/AllCoins'
-import Coin from 'pages/Coin'
+import { AllCoins, Coin } from 'pages'
+import { NavBar, NavUnder } from 'parts'
+import { currencyList, lightTheme, darkTheme } from 'utils'
 import { Container } from 'App.css'
-import { currencyList, lightTheme, darkTheme } from 'utils/constants'
-import { NavBar } from 'parts/NavBar'
-import { NavUnder } from 'parts/NavUnder'
 
 class App extends React.Component {
   state = {
