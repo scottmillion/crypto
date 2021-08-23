@@ -13,11 +13,12 @@ class Search extends React.Component {
       const { data } = await axios(
         `https://crypto-app-server.herokuapp.com/coins/${value}`,
       )
-      let matches = []
-      matches = data.filter((coin) => {
-        const regex = new RegExp(`${value}`, 'gi')
-        return coin.name.match(regex)
-      })
+      let matches = data
+      //[]
+      // matches = data.filter((coin) => {
+      //   const regex = new RegExp(`${value}`, 'gi')
+      //   return coin.name.match(regex)
+      // })
       this.setState({ matches })
     } catch (error) {
       console.log('Global API Error!')
@@ -37,6 +38,7 @@ class Search extends React.Component {
 
   handleChange = (e) => {
     const { value } = e.target
+    console.log(value)
     value === ''
       ? this.setState({ matches: null })
       : this.getAutoCompleteData(value)
@@ -45,6 +47,7 @@ class Search extends React.Component {
 
   render() {
     const { matches, value } = this.state
+    console.log(matches, value)
     return (
       <>
         <Input
@@ -55,7 +58,7 @@ class Search extends React.Component {
           onChange={this.handleChange}
           placeholder="Search..."
         />
-        {matches && (
+        {value !== '' && matches && (
           <SearchList width="450">
             {matches.map((match) => {
               let coinName = match.name
