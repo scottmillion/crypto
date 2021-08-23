@@ -19,7 +19,6 @@ const ColumnCoinListChartLast7d = (props) => (
               (_, index) => index % 8 === 0,
             )}
             sevenDayChange={obj.sevenDayChange}
-            theme={props.theme}
           />
         </Cell>
       )

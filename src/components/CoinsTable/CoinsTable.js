@@ -68,7 +68,6 @@ class CoinsTable extends React.Component {
           />
           <ColumnCoinListChartLast7d
             columnCoinListChartLast7d={columnData.columnCoinListChartLast7d}
-            theme={this.props.theme}
           />
         </Table>
       )

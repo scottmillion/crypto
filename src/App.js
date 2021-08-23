@@ -47,8 +47,8 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <Router>
-          <GlobalStyle theme={theme} />
-          <Container theme={theme}>
+          <GlobalStyle />
+          <Container>
             <NavBar
               currency={currency}
               currencyList={currencyList}
@@ -56,10 +56,8 @@ class App extends React.Component {
               handleChangeCurrency={this.handleChangeCurrency}
               handleThemeButtonClick={this.handleThemeButtonClick}
               on={on}
-              theme={theme}
             />
             <NavUnder
-              theme={theme}
               global={global}
               currency={currency}
               currencySymbol={currencySymbol}
@@ -72,7 +70,6 @@ class App extends React.Component {
                   <AllCoins
                     currency={currency}
                     currencySymbol={currencySymbol}
-                    theme={theme}
                   />
                 )}
               />

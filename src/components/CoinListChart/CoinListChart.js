@@ -1,5 +1,6 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2'
+import { withTheme } from 'styled-components'
 
 const options = {
   plugins: {
@@ -61,4 +62,4 @@ const CoinListChart = (props) => {
   )
 }
 
-export default CoinListChart
+export default withTheme(CoinListChart)

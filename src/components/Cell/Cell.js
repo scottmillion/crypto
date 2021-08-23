@@ -5,7 +5,6 @@ const Cell = (props) => (
     <CellContent
       number={props.number}
       size={props.size}
-      theme={props.theme}
       weight={props.weight}
       width={props.width}
       isLabel={props.isLabel}

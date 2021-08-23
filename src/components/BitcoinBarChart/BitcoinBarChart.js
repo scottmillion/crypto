@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import { Bar } from 'react-chartjs-2'
+import { withTheme } from 'styled-components'
 
 const options = {
   plugins: {
@@ -93,4 +94,4 @@ class BitcoinBarChart extends React.Component {
   }
 }
 
-export default BitcoinBarChart
+export default withTheme(BitcoinBarChart)

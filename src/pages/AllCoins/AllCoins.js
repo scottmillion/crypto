@@ -51,38 +51,28 @@ class AllCoins extends React.Component {
           {data && (
             <>
               <ChartsContainer>
-                <ChartContainerPrice theme={this.props.theme}>
+                <ChartContainerPrice>
                   <ChartLegendPrice
                     data={data}
                     currencySymbol={this.props.currencySymbol}
                   />
                   <ChartPrice>
-                    <BitcoinLineChart
-                      currency={this.props.currency}
-                      theme={this.props.theme}
-                    />
+                    <BitcoinLineChart currency={this.props.currency} />
                   </ChartPrice>
                 </ChartContainerPrice>
-                <ChartContainerVolume theme={this.props.theme}>
+                <ChartContainerVolume>
                   <ChartLegendVolume
                     data={data}
                     currencySymbol={this.props.currencySymbol}
                   />
                   <ChartVolume>
-                    <BitcoinBarChart
-                      currency={this.props.currency}
-                      theme={this.props.theme}
-                    />
+                    <BitcoinBarChart currency={this.props.currency} />
                   </ChartVolume>
                 </ChartContainerVolume>
               </ChartsContainer>
 
-              <CoinContainer theme={this.props.theme}>
-                <CoinsTable
-                  data={data}
-                  currency={this.props.currency}
-                  theme={this.props.theme}
-                />
+              <CoinContainer>
+                <CoinsTable data={data} currency={this.props.currency} />
               </CoinContainer>
             </>
           )}
