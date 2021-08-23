@@ -47,9 +47,10 @@ class BitcoinBarChart extends React.Component {
           if (myDay.length === 1) {
             myDay = '0' + myDay
           }
-          arr[0][index] = myDay
-          arr[1][index] = volume[1]
-          return arr
+          return [
+            [...arr[0], myDay],
+            [...arr[1], volume[1]],
+          ]
         },
         [[], []],
       )
