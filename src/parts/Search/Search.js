@@ -5,16 +5,20 @@ import { keyGen } from 'utils'
 class Search extends React.Component {
   state = {
     value: '',
-    data: null,
     matches: null,
   }
 
-  getAutoCompleteData = async () => {
+  getAutoCompleteData = async (value) => {
     try {
       const { data } = await axios(
-        'https://api.coingecko.com/api/v3/coins/list',
+        `https://crypto-app-server.herokuapp.com/coins/${value}`,
       )
-      this.setState({ data })
+      let matches = []
+      matches = data.filter((coin) => {
+        const regex = new RegExp(`${value}`, 'gi')
+        return coin.name.match(regex)
+      })
+      this.setState({ matches })
     } catch (error) {
       console.log('Global API Error!')
       console.log(error)
@@ -33,18 +37,10 @@ class Search extends React.Component {
 
   handleChange = (e) => {
     const { value } = e.target
-    let matches = []
-    if (value.length > 0) {
-      matches = this.state.data.filter((coin) => {
-        const regex = new RegExp(`${value}`, 'gi')
-        return coin.name.match(regex)
-      })
-    }
-    this.setState({ value, matches })
-  }
-
-  componentDidMount() {
-    this.getAutoCompleteData()
+    value === ''
+      ? this.setState({ matches: null })
+      : this.getAutoCompleteData(value)
+    this.setState({ value })
   }
 
   render() {
