@@ -1,8 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import {
-  BitcoinLineChart,
-  BitcoinBarChart,
+  Chart,
   ChartLegendPrice,
   ChartLegendVolume,
   CoinsTable,
@@ -22,6 +21,10 @@ import {
 class AllCoins extends React.Component {
   state = {
     data: null,
+    priceDataLabels: null,
+    priceDataPoints: null,
+    volumeDataLabels: null,
+    volumeDataPoints: null,
   }
 
   getData = async () => {
@@ -36,12 +39,58 @@ class AllCoins extends React.Component {
     }
   }
 
+  getPrices = async () => {
+    try {
+      const { data } = await axios(
+        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${this.props.currency}&days=39&interval=daily`,
+      )
+
+      const prices = data.prices
+      const priceDataPoints = prices.map((price) => price[1])
+      const priceDataLabels = prices.map((price) =>
+        new Date(price[0]).getDate().toString(),
+      )
+      this.setState({ priceDataLabels, priceDataPoints })
+    } catch (error) {
+      console.log('Error in getPrices API!')
+      console.log(error)
+    }
+  }
+
+  getVolumes = async () => {
+    try {
+      const { data } = await axios(
+        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${this.props.currency}&days=22&interval=daily`,
+      )
+      const volumes = data.total_volumes
+      const volumeDataPoints = volumes.map((volume) => volume[1])
+      const volumeDataLabels = volumes.map((volume) =>
+        new Date(volume[0]).getDate().toString(),
+      )
+      this.setState({
+        volumeDataLabels,
+        volumeDataPoints,
+      })
+    } catch (error) {
+      console.log('Error in getVolume API!')
+      console.log(error)
+    }
+  }
+
   componentDidMount() {
     this.getData()
+    this.getPrices()
+    this.getVolumes()
   }
 
   render() {
-    const { data } = this.state
+    const {
+      data,
+      priceDataLabels,
+      priceDataPoints,
+      volumeDataLabels,
+      volumeDataPoints,
+    } = this.state
     return (
       <Container>
         <ContentContainer>
@@ -57,7 +106,15 @@ class AllCoins extends React.Component {
                     currencySymbol={this.props.currencySymbol}
                   />
                   <ChartPrice>
-                    <BitcoinLineChart currency={this.props.currency} />
+                    {priceDataLabels && priceDataPoints && (
+                      <Chart
+                        dataLabels={priceDataLabels}
+                        dataPoints={priceDataPoints}
+                        currency={this.props.currency}
+                        label="Price"
+                        type="Line"
+                      />
+                    )}
                   </ChartPrice>
                 </ChartContainerPrice>
                 <ChartContainerVolume>
@@ -66,7 +123,15 @@ class AllCoins extends React.Component {
                     currencySymbol={this.props.currencySymbol}
                   />
                   <ChartVolume>
-                    <BitcoinBarChart currency={this.props.currency} />
+                    {volumeDataLabels && volumeDataPoints && (
+                      <Chart
+                        dataLabels={volumeDataLabels}
+                        dataPoints={volumeDataPoints}
+                        currency={this.props.currency}
+                        label="Volume"
+                        type="Bar"
+                      />
+                    )}
                   </ChartVolume>
                 </ChartContainerVolume>
               </ChartsContainer>

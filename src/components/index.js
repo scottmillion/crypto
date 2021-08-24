@@ -1,7 +1,6 @@
 export { default as Arrow } from './Arrow'
-export { default as BitcoinBarChart } from './BitcoinBarChart'
-export { default as BitcoinLineChart } from './BitcoinLineChart'
 export { default as Cell } from './Cell'
+export { default as Chart } from './Chart'
 export { default as ChartLegendPrice } from './ChartLegendPrice'
 export { default as ChartLegendVolume } from './ChartLegendVolume'
 export { default as CoinListChart } from './CoinListChart'
