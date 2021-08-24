@@ -1,40 +1,57 @@
 export function getColumnData(data) {
-  const columnNumber = [],
-    columnName = [],
-    columnCurrentPrice = [],
-    columnHourChange = [],
-    columnTwentyFourHourChange = [],
-    columnSevenDayChange = [],
-    columnVolumeMarketCap = [],
-    columnCirculatingTotalSupply = [],
-    columnCoinListChartLast7d = []
+  const columnNumber = data.map((_, index) => index + 1)
+  const columnName = data.map(({ image, name, symbol }) => ({
+    image,
+    name,
+    symbol,
+  }))
+  const columnCurrentPrice = data.reduce(
+    (arr, { current_price: currentPrice }, index) => [...arr, currentPrice],
+    [],
+  )
 
-  data.forEach((coin, index) => {
-    const {
-      circulating_supply: circulatingSupply,
-      current_price: currentPrice,
-      image,
-      market_cap: marketCap,
-      name,
+  const columnHourChange = data.map(
+    ({ price_change_percentage_1h_in_currency: hourChange, symbol }) => ({
+      hourChange,
       symbol,
-      total_supply: totalSupply,
-      total_volume: totalVolume,
-      price_change_percentage_1h_in_currency: hourChange,
+    }),
+  )
+  const columnTwentyFourHourChange = data.map(
+    ({
       price_change_percentage_24h_in_currency: twentyFourHourChange,
+      symbol,
+    }) => ({
+      symbol,
+      twentyFourHourChange,
+    }),
+  )
+  const columnSevenDayChange = data.map(
+    ({ price_change_percentage_7d_in_currency: sevenDayChange, symbol }) => ({
+      sevenDayChange,
+      symbol,
+    }),
+  )
+  const columnVolumeMarketCap = data.map(
+    ({ market_cap: marketCap, total_volume: totalVolume }) => ({
+      marketCap,
+      totalVolume,
+    }),
+  )
+  const columnCirculatingTotalSupply = data.map(
+    ({ circulating_supply: circulatingSupply, total_supply: totalSupply }) => ({
+      circulatingSupply,
+      totalSupply,
+    }),
+  )
+  const columnCoinListChartLast7d = data.map(
+    ({
       price_change_percentage_7d_in_currency: sevenDayChange,
       sparkline_in_7d: sevenDayPriceList,
-    } = coin
-
-    columnNumber.push(index + 1)
-    columnName.push({ image, name, symbol })
-    columnCurrentPrice.push(currentPrice)
-    columnHourChange.push({ hourChange, symbol })
-    columnTwentyFourHourChange.push({ symbol, twentyFourHourChange })
-    columnSevenDayChange.push({ symbol, sevenDayChange })
-    columnVolumeMarketCap.push({ totalVolume, marketCap })
-    columnCirculatingTotalSupply.push({ circulatingSupply, totalSupply })
-    columnCoinListChartLast7d.push({ sevenDayPriceList, sevenDayChange })
-  })
+    }) => ({
+      sevenDayChange,
+      sevenDayPriceList,
+    }),
+  )
 
   return {
     columnNumber,
