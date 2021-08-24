@@ -46,8 +46,8 @@ class App extends React.Component {
     const theme = on ? lightTheme : darkTheme
     return (
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Router>
-          <GlobalStyle />
           <Container>
             <NavBar
               currency={currency}
