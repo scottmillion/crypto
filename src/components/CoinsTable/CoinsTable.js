@@ -81,6 +81,7 @@ class CoinsTable extends React.Component {
                     symbol={symbol}
                     width={widths[5]}
                   ></ColumnSevenDayChange>
+
                   <ColumnVolumeMarketCap
                     width={widths[6]}
                     color1={colors[index][0]}
@@ -89,6 +90,7 @@ class CoinsTable extends React.Component {
                     marketCap={market_cap}
                     totalVolume={total_volume}
                   />
+
                   <ColumnCirculatingTotalSupply
                     width={widths[7]}
                     color1={colors[index][0]}
