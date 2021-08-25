@@ -51,6 +51,7 @@ export const darkTheme = {
   mainFont: '#FFF',
   primary: '#1F2128',
   secondary: '#191B1F', // darkest
+  secondaryInverted: '#FFF',
   tertiary: '#2C2F36',
   barChart: '#2172e5',
   lineChart: '#00ff5f',
@@ -64,6 +65,7 @@ export const lightTheme = {
   mainFont: '#000',
   primary: '#f7f7f7',
   secondary: '#FFF',
+  secondaryInverted: '#191B1F',
   tertiary: '#edeff2',
   barChart: '#1ad761',
   lineChart: '#2550ea',
