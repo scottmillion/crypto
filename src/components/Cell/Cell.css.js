@@ -7,6 +7,9 @@ export const CellContent = styled.div`
     !isNaN(props.number) ? (props.number < 0 ? '#FE1040' : '#00FC2A') : ''};
   font-size: ${(props) => props.size || '18'}px;
   font-weight: ${(props) => props.weight || 400};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
