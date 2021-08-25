@@ -12,9 +12,9 @@ import { prettierNumber } from 'utils'
 
 const NavUnder = (props) => (
   <NavWrap>
-    <NavUnderContainer theme={props.theme}>
+    <NavUnderContainer>
       {!props.global && <div>Loading Global API...</div>}
-      {props.global && (
+      {props.global && !props.isLoading && (
         <div>
           <NavUnderUl>
             <NavUnderLi>

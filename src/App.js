@@ -10,16 +10,18 @@ import { Container } from 'App.css'
 
 class App extends React.Component {
   state = {
-    on: false,
-    global: null,
     currency: 'usd',
     currencySymbol: '$',
+    global: null,
+    isLoading: false,
+    on: false,
   }
 
   getGlobalData = async () => {
+    this.setState({ isLoading: true })
     try {
       const { data } = await axios('https://api.coingecko.com/api/v3/global')
-      this.setState({ global: data.data })
+      this.setState({ global: data.data, isLoading: false })
     } catch (error) {
       console.log('Global API Error!')
       console.log(error)
@@ -42,7 +44,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { global, currency, currencySymbol, on } = this.state
+    const { currency, currencySymbol, global, isLoading, on } = this.state
     const theme = on ? lightTheme : darkTheme
     return (
       <ThemeProvider theme={theme}>
@@ -58,9 +60,10 @@ class App extends React.Component {
               on={on}
             />
             <NavUnder
-              global={global}
               currency={currency}
               currencySymbol={currencySymbol}
+              global={global}
+              isLoading={isLoading}
             />
             <Switch>
               <Route

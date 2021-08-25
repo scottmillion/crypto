@@ -56,7 +56,7 @@ export const PercentDisplay = styled.div`
 export const Circle = styled.div`
   height: 14px;
   width: 14px;
-  background: white;
+  background: ${(props) => props.theme.secondaryInverted};
   border-radius: 7px;
   margin-left: calc(${(props) => props.percent}% - 12px);
 `

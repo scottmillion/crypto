@@ -28,7 +28,7 @@ const StyledLink = styled(Link)`
 const NavBar = (props) => {
   const currentLocation = useLocation().pathname
   return (
-    <Nav theme={props.theme}>
+    <Nav>
       <NavLeft>
         <NavLeftUl>
           <NavLeftLi routeMatches={currentLocation === '/'} key={keyGen()}>
@@ -43,14 +43,14 @@ const NavBar = (props) => {
         </NavLeftUl>
       </NavLeft>
       <NavRight>
-        <NavRightInputContainer theme={props.theme}>
+        <NavRightInputContainer>
           <SearchImage
             src={props.on ? Images.searchIconLight : Images.searchIcon}
             alt="search"
           />
           <Search />
         </NavRightInputContainer>
-        <NavRightSelectContainer theme={props.theme}>
+        <NavRightSelectContainer>
           <CurrencySymbol>{props.currencySymbol}</CurrencySymbol>
           <SelectWrap>
             <Select
@@ -58,7 +58,6 @@ const NavBar = (props) => {
               id="current-currency"
               value={props.currency}
               onChange={props.handleChangeCurrency}
-              theme={props.theme}
             >
               {Object.keys(props.currencyList).map((currency) => {
                 return (
@@ -71,7 +70,7 @@ const NavBar = (props) => {
             <SelectArrow>&#9207;</SelectArrow>
           </SelectWrap>
         </NavRightSelectContainer>
-        <ThemeMode theme={props.theme}>
+        <ThemeMode>
           <img
             src={props.on ? Images.themeIconLight : Images.themeIcon}
             alt="mode"
