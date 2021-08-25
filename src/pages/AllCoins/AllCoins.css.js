@@ -11,8 +11,7 @@ export const ChartsContainer = styled.div`
 export const CoinContainer = styled.div`
   background: ${(props) => props.theme.secondary};
   border-radius: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-block: 20px;
   margin-top: 25px;
   margin-bottom: 59px;
 `
@@ -24,9 +23,7 @@ export const Container = styled.div`
 `
 
 export const ContentContainer = styled.div`
-  width: 100%;
-  margin-left: 104px;
-  margin-right: 104px;
+  width: 90%;
 `
 
 export const H1 = styled.h1`
