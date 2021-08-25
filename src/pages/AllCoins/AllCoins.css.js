@@ -1,28 +1,6 @@
 import styled from 'styled-components'
 
-export const ChartPrice = styled.div`
-  width: 80%;
-  margin-top: 7%;
-  margin-bottom: 4%;
-  margin-left: 9%;
-`
-
-export const ChartVolume = styled.div`
-  width: 82%;
-  margin-bottom: 4%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-`
-
-export const ChartContainerPrice = styled.div`
-  position: relative;
-  width: 48.5%;
-  background: ${(props) => props.theme.secondary};
-  border-radius: 20px;
-`
-
-export const ChartContainerVolume = styled.div`
+export const ChartContainer = styled.div`
   position: relative;
   width: 48.5%;
   background: ${(props) => props.theme.secondary};
@@ -31,12 +9,21 @@ export const ChartContainerVolume = styled.div`
   justify-content: center;
 `
 
-export const ChartsContainer = styled.div`
+export const ChartsAllContainer = styled.div`
   /* outline: 1px solid blue; */
   margin-top: 14px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+`
+
+export const ChartWrap = styled.div`
+  width: 82%;
+  margin-top: 7%;
+  margin-bottom: 4%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 `
 
 export const CoinContainer = styled.div`

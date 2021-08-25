@@ -1,17 +1,10 @@
 import axios from 'axios'
 import React from 'react'
+import { Chart, ChartLegend, CoinsTable } from 'components'
 import {
-  Chart,
-  ChartLegendPrice,
-  ChartLegendVolume,
-  CoinsTable,
-} from 'components'
-import {
-  ChartPrice,
-  ChartVolume,
-  ChartsContainer,
-  ChartContainerPrice,
-  ChartContainerVolume,
+  ChartWrap,
+  ChartsAllContainer,
+  ChartContainer,
   CoinContainer,
   Container,
   ContentContainer,
@@ -99,13 +92,13 @@ class AllCoins extends React.Component {
           {!data && <div>Loading Data API...</div>}
           {data && (
             <>
-              <ChartsContainer>
-                <ChartContainerPrice>
-                  <ChartLegendPrice
+              <ChartsAllContainer>
+                <ChartContainer>
+                  <ChartLegend
                     data={data}
                     currencySymbol={this.props.currencySymbol}
                   />
-                  <ChartPrice>
+                  <ChartWrap>
                     {priceDataLabels && priceDataPoints && (
                       <Chart
                         dataLabels={priceDataLabels}
@@ -115,14 +108,14 @@ class AllCoins extends React.Component {
                         type="Line"
                       />
                     )}
-                  </ChartPrice>
-                </ChartContainerPrice>
-                <ChartContainerVolume>
-                  <ChartLegendVolume
+                  </ChartWrap>
+                </ChartContainer>
+                <ChartContainer>
+                  <ChartLegend
                     data={data}
                     currencySymbol={this.props.currencySymbol}
                   />
-                  <ChartVolume>
+                  <ChartWrap>
                     {volumeDataLabels && volumeDataPoints && (
                       <Chart
                         dataLabels={volumeDataLabels}
@@ -132,9 +125,9 @@ class AllCoins extends React.Component {
                         type="Bar"
                       />
                     )}
-                  </ChartVolume>
-                </ChartContainerVolume>
-              </ChartsContainer>
+                  </ChartWrap>
+                </ChartContainer>
+              </ChartsAllContainer>
 
               <CoinContainer>
                 <CoinsTable data={data} currency={this.props.currency} />
