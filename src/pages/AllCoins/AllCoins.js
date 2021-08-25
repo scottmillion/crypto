@@ -7,11 +7,13 @@ import {
   Container,
   ContentContainer,
   H1,
+  Loading,
 } from './AllCoins.css'
 
 class AllCoins extends React.Component {
   state = {
     data: null,
+    isLoading: false,
     priceDataLabels: null,
     priceDataPoints: null,
     volumeDataLabels: null,
@@ -19,11 +21,12 @@ class AllCoins extends React.Component {
   }
 
   getData = async () => {
+    this.setState({ isLoading: true })
     try {
       const { data } = await axios(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${this.props.currency}&ids=bitcoin%2C%20ethereum%2C%20tether%2C%20dogecoin%2C%20binancecoin%2C%20cardano%2C%20usd-coin%2C%20wrapped-bitcoin%2C%20litecoin&order=market_cap_desc&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
       )
-      this.setState({ data })
+      this.setState({ data, isLoading: false })
     } catch (error) {
       console.log('Error in getData API!')
       console.log(error)
@@ -31,6 +34,7 @@ class AllCoins extends React.Component {
   }
 
   getPrices = async () => {
+    this.setState({ isLoading: true })
     try {
       const { data } = await axios(
         `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${this.props.currency}&days=39&interval=daily`,
@@ -41,7 +45,7 @@ class AllCoins extends React.Component {
       const priceDataLabels = prices.map((price) =>
         new Date(price[0]).getDate().toString(),
       )
-      this.setState({ priceDataLabels, priceDataPoints })
+      this.setState({ priceDataLabels, priceDataPoints, isLoading: false })
     } catch (error) {
       console.log('Error in getPrices API!')
       console.log(error)
@@ -49,6 +53,7 @@ class AllCoins extends React.Component {
   }
 
   getVolumes = async () => {
+    this.setState({ isLoading: true })
     try {
       const { data } = await axios(
         `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${this.props.currency}&days=22&interval=daily`,
@@ -61,6 +66,7 @@ class AllCoins extends React.Component {
       this.setState({
         volumeDataLabels,
         volumeDataPoints,
+        isLoading: false,
       })
     } catch (error) {
       console.log('Error in getVolume API!')
@@ -77,6 +83,7 @@ class AllCoins extends React.Component {
   render() {
     const {
       data,
+      isLoading,
       priceDataLabels,
       priceDataPoints,
       volumeDataLabels,
@@ -87,11 +94,19 @@ class AllCoins extends React.Component {
         <ContentContainer>
           <H1>Overview</H1>
 
-          {!data && <div>Loading Data API...</div>}
-          {data && (
-            <>
-              <ChartsContainer>
-                {priceDataLabels && priceDataPoints && (
+          {!data &&
+            !priceDataLabels &&
+            !priceDataPoints &&
+            !volumeDataLabels &&
+            !volumeDataPoints && <Loading>Loading APIs...</Loading>}
+          {!isLoading &&
+            data &&
+            priceDataLabels &&
+            priceDataPoints &&
+            volumeDataLabels &&
+            volumeDataPoints && (
+              <>
+                <ChartsContainer>
                   <ChartDisplay
                     dataLabels={priceDataLabels}
                     dataPoints={priceDataPoints}
@@ -104,9 +119,7 @@ class AllCoins extends React.Component {
                     legendTitle="Price"
                     type="Line"
                   />
-                )}
 
-                {volumeDataLabels && volumeDataPoints && (
                   <ChartDisplay
                     dataLabels={volumeDataLabels}
                     dataPoints={volumeDataPoints}
@@ -119,13 +132,12 @@ class AllCoins extends React.Component {
                     legendTitle="Volume 24h"
                     type="Bar"
                   />
-                )}
-              </ChartsContainer>
-              <CoinContainer>
-                <CoinsTable data={data} currency={this.props.currency} />
-              </CoinContainer>
-            </>
-          )}
+                </ChartsContainer>
+                <CoinContainer>
+                  <CoinsTable data={data} currency={this.props.currency} />
+                </CoinContainer>
+              </>
+            )}
         </ContentContainer>
       </Container>
     )

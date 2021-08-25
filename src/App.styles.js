@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -6,8 +6,9 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     font-size: 18px;
-    color: ${props => props.theme.mainFont};
+    color: ${(props) => props.theme.mainFont};
+    background: ${(props) => props.theme.secondary};
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
   }
-`;
+`
