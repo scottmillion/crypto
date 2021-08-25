@@ -16,6 +16,10 @@ class Chart extends React.Component {
       gradient.addColorStop(1, this.props.theme.lineChartGradientBottom)
       this.setState({ gradient })
     }
+    if (this.props.type === 'Bar') {
+      const canvas = document.querySelector('#bitcoin-bar-chart')
+      canvas.height = 134
+    }
   }
 
   data = {
