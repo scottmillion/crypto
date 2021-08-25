@@ -1,4 +1,4 @@
-import { CellContent, Hr } from './Cell.css'
+import { CellContent } from './Cell.css'
 
 const Cell = (props) => (
   <>
@@ -7,15 +7,9 @@ const Cell = (props) => (
       size={props.size}
       weight={props.weight}
       width={props.width}
-      isLabel={props.isLabel}
     >
       {props.children}
     </CellContent>
-    <Hr
-      isLabel={props.isLabel}
-      turnHrOff={props.turnHrOff}
-      hrWidth={props.hrWidth}
-    />
   </>
 )
 

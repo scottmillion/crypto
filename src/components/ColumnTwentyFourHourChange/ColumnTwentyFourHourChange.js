@@ -1,28 +1,15 @@
-import { Arrow, Cell, Column } from 'components'
-import { getArrow, keyGen } from 'utils'
+import { Arrow, Cell } from 'components'
+import { getArrow } from 'utils'
 
 const ColumnTwentyFourHourChange = (props) => (
-  <Column>
-    <Cell isLabel={true} weight={700} size={16}>
-      24h%
-    </Cell>
-    {props.columnTwentyFourHourChange.map((obj, index) => {
-      return (
-        <Cell
-          key={keyGen()}
-          number={obj.twentyFourHourChange}
-          turnHrOff={index === props.columnTwentyFourHourChange.length - 1}
-        >
-          {(props.currency !== obj.symbol && (
-            <>
-              <Arrow content={getArrow(obj.twentyFourHourChange)} />
-              {Math.abs(obj.twentyFourHourChange.toFixed(2))}%
-            </>
-          )) || <span>-</span>}
-        </Cell>
-      )
-    })}
-  </Column>
+  <Cell number={props.twentyFourHourChange} width={props.width}>
+    {(props.currency !== props.symbol && (
+      <>
+        <Arrow content={getArrow(props.twentyFourHourChange)} />
+        {Math.abs(props.twentyFourHourChange.toFixed(2))}%
+      </>
+    )) || <span>-</span>}
+  </Cell>
 )
 
 export default ColumnTwentyFourHourChange

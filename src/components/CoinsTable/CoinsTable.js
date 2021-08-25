@@ -1,76 +1,114 @@
 import React from 'react'
-import { getColumnData } from 'utils'
 import {
   ColumnCirculatingTotalSupply,
   ColumnCoinListChartLast7d,
   ColumnCurrentPrice,
   ColumnHourChange,
+  ColumnLabels,
   ColumnName,
   ColumnNumber,
   ColumnSevenDayChange,
   ColumnTwentyFourHourChange,
   ColumnVolumeMarketCap,
 } from 'components'
-import styled from 'styled-components'
+import {
+  coinListPercentDisplayColors as colors,
+  desktopCellWidths as widths,
+  keyGen,
+} from 'utils'
+import { Hr, Row, RowWrap, Table } from './CoinsTable.css'
 
-const Table = styled.div`
-  padding: ${(props) => (props.isLabel ? 0 : 8)}px 18px 0px 18px;
-  margin-top: ${(props) => (props.isLabel ? 0 : 8)};
-  display: flex;
-  justify-content: space-between;
-`
 class CoinsTable extends React.Component {
-  state = {
-    columnData: null,
-  }
-
-  setColumnData = (data) => {
-    const columnData = getColumnData(data)
-    this.setState({ columnData })
-  }
-
-  componentDidMount() {
-    this.setColumnData(this.props.data)
-  }
-
   render() {
-    const { columnData } = this.state
+    const { data } = this.props
+
     return (
-      columnData && (
-        <Table>
-          <ColumnNumber columnNumber={columnData.columnNumber} />
-          <ColumnName columnName={columnData.columnName} />
-          <ColumnCurrentPrice
-            columnCurrentPrice={columnData.columnCurrentPrice}
-            currency={this.props.currency}
-          />
-          <ColumnHourChange
-            columnHourChange={columnData.columnHourChange}
-            currency={this.props.currency}
-          />
-          <ColumnTwentyFourHourChange
-            columnTwentyFourHourChange={columnData.columnTwentyFourHourChange}
-            currency={this.props.currency}
-          />
-          <ColumnSevenDayChange
-            columnSevenDayChange={columnData.columnSevenDayChange}
-            currency={this.props.currency}
-          />
-          <ColumnVolumeMarketCap
-            columnVolumeMarketCap={columnData.columnVolumeMarketCap}
-            currency={this.props.currency}
-          />
-          <ColumnCirculatingTotalSupply
-            columnCirculatingTotalSupply={
-              columnData.columnCirculatingTotalSupply
-            }
-            currency={this.props.currency}
-          />
-          <ColumnCoinListChartLast7d
-            columnCoinListChartLast7d={columnData.columnCoinListChartLast7d}
-          />
-        </Table>
-      )
+      <Table>
+        <Row isLabel={true}>
+          <ColumnLabels />
+        </Row>
+        {data &&
+          data.map((coin, index, arr) => {
+            const {
+              circulating_supply,
+              current_price,
+              image,
+              market_cap,
+              name,
+              symbol,
+              total_supply,
+              total_volume,
+              price_change_percentage_1h_in_currency: hourChange,
+              price_change_percentage_24h_in_currency: twentyFourHourChange,
+              price_change_percentage_7d_in_currency: sevenDayChange,
+              sparkline_in_7d: sevenDayPriceList,
+            } = coin
+            return (
+              <RowWrap key={keyGen()}>
+                <Row>
+                  <ColumnNumber number={index + 1} width={widths[0]} />
+
+                  <ColumnName
+                    image={image}
+                    name={name}
+                    symbol={symbol}
+                    width={widths[1]}
+                  />
+
+                  <ColumnCurrentPrice
+                    price={current_price}
+                    currency={this.props.currency}
+                    width={widths[2]}
+                  />
+
+                  <ColumnHourChange
+                    currentPrice={current_price}
+                    currency={this.props.currency}
+                    hourChange={hourChange}
+                    symbol={symbol}
+                    width={widths[3]}
+                  />
+
+                  <ColumnTwentyFourHourChange
+                    currency={this.props.currency}
+                    symbol={symbol}
+                    width={widths[4]}
+                    twentyFourHourChange={twentyFourHourChange}
+                  />
+
+                  <ColumnSevenDayChange
+                    sevenDayChange={sevenDayChange}
+                    symbol={symbol}
+                    width={widths[5]}
+                  ></ColumnSevenDayChange>
+                  <ColumnVolumeMarketCap
+                    width={widths[6]}
+                    color1={colors[index][0]}
+                    color2={colors[index][1]}
+                    currency={this.props.currency}
+                    marketCap={market_cap}
+                    totalVolume={total_volume}
+                  />
+                  <ColumnCirculatingTotalSupply
+                    width={widths[7]}
+                    color1={colors[index][0]}
+                    color2={colors[index][1]}
+                    currency={this.props.currency}
+                    circulatingSupply={circulating_supply}
+                    totalSupply={total_supply}
+                  />
+
+                  <ColumnCoinListChartLast7d
+                    width={widths[8]}
+                    sevenDayChange={sevenDayChange}
+                    sevenDayPriceList={sevenDayPriceList}
+                  />
+                </Row>
+                {index !== arr.length - 1 && <Hr />}
+              </RowWrap>
+            )
+          })}
+      </Table>
     )
   }
 }

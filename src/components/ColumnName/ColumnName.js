@@ -1,5 +1,5 @@
-import { Cell, Column } from 'components'
-import { keyGen } from 'utils'
+import { Cell } from 'components'
+
 import styled from 'styled-components'
 
 const Img = styled.img`
@@ -9,23 +9,10 @@ const Img = styled.img`
 `
 
 const ColumnName = (props) => (
-  <Column>
-    <Cell isLabel={true} weight={700} size={16}>
-      Name
-    </Cell>
-    {props.columnName.map((obj, index) => {
-      return (
-        <Cell
-          hrWidth={400}
-          key={keyGen()}
-          turnHrOff={index === props.columnName.length - 1}
-        >
-          <Img src={obj.image} alt={obj.name} />
-          {obj.name} ({obj.symbol.toUpperCase()})
-        </Cell>
-      )
-    })}
-  </Column>
+  <Cell width={props.width}>
+    <Img src={props.image} alt={props.name} />
+    {props.name} ({props.symbol.toUpperCase()})
+  </Cell>
 )
 
 export default ColumnName
