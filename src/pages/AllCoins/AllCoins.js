@@ -1,10 +1,8 @@
 import axios from 'axios'
 import React from 'react'
-import { Chart, ChartLegend, CoinsTable } from 'components'
+import { ChartDisplay, CoinsTable } from 'components'
 import {
-  ChartWrap,
-  ChartsAllContainer,
-  ChartContainer,
+  ChartsContainer,
   CoinContainer,
   Container,
   ContentContainer,
@@ -92,43 +90,37 @@ class AllCoins extends React.Component {
           {!data && <div>Loading Data API...</div>}
           {data && (
             <>
-              <ChartsAllContainer>
-                <ChartContainer>
-                  <ChartLegend
-                    data={data}
+              <ChartsContainer>
+                {priceDataLabels && priceDataPoints && (
+                  <ChartDisplay
+                    dataLabels={priceDataLabels}
+                    dataPoints={priceDataPoints}
                     currencySymbol={this.props.currencySymbol}
+                    currency={this.props.currency}
+                    label="Price"
+                    legendDisplayNumber={
+                      data.find((item) => item.id === 'bitcoin').current_price
+                    }
+                    legendTitle="Price"
+                    type="Line"
                   />
-                  <ChartWrap>
-                    {priceDataLabels && priceDataPoints && (
-                      <Chart
-                        dataLabels={priceDataLabels}
-                        dataPoints={priceDataPoints}
-                        currency={this.props.currency}
-                        label="Price"
-                        type="Line"
-                      />
-                    )}
-                  </ChartWrap>
-                </ChartContainer>
-                <ChartContainer>
-                  <ChartLegend
-                    data={data}
-                    currencySymbol={this.props.currencySymbol}
-                  />
-                  <ChartWrap>
-                    {volumeDataLabels && volumeDataPoints && (
-                      <Chart
-                        dataLabels={volumeDataLabels}
-                        dataPoints={volumeDataPoints}
-                        currency={this.props.currency}
-                        label="Volume"
-                        type="Bar"
-                      />
-                    )}
-                  </ChartWrap>
-                </ChartContainer>
-              </ChartsAllContainer>
+                )}
 
+                {volumeDataLabels && volumeDataPoints && (
+                  <ChartDisplay
+                    dataLabels={volumeDataLabels}
+                    dataPoints={volumeDataPoints}
+                    currencySymbol={this.props.currencySymbol}
+                    currency={this.props.currency}
+                    label="Volume"
+                    legendDisplayNumber={
+                      data.find((item) => item.id === 'bitcoin').total_volume
+                    }
+                    legendTitle="Volume 24h"
+                    type="Bar"
+                  />
+                )}
+              </ChartsContainer>
               <CoinContainer>
                 <CoinsTable data={data} currency={this.props.currency} />
               </CoinContainer>

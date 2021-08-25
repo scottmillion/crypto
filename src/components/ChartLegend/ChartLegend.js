@@ -11,12 +11,10 @@ const ChartLegendWrap = styled.div`
 const ChartLegend = (props) => {
   return (
     <ChartLegendWrap>
-      <LegendNormal>Volume 24h</LegendNormal>
+      <LegendNormal>{props.legendTitle}</LegendNormal>
       <LegendLarge>
         {props.currencySymbol}
-        {formatChartNumber(
-          props.data.find((item) => item.id === 'bitcoin').total_volume,
-        )}
+        {formatChartNumber(+props.legendDisplayNumber)}
       </LegendLarge>
       <LegendNormal>
         {monthNames[today.getMonth()]} {today.getDate()}, {today.getFullYear()}

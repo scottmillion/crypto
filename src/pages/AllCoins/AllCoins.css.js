@@ -1,29 +1,11 @@
 import styled from 'styled-components'
 
-export const ChartContainer = styled.div`
-  position: relative;
-  width: 48.5%;
-  background: ${(props) => props.theme.secondary};
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-`
-
-export const ChartsAllContainer = styled.div`
+export const ChartsContainer = styled.div`
   /* outline: 1px solid blue; */
   margin-top: 14px;
   width: 100%;
   display: flex;
   justify-content: space-between;
-`
-
-export const ChartWrap = styled.div`
-  width: 82%;
-  margin-top: 7%;
-  margin-bottom: 4%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
 `
 
 export const CoinContainer = styled.div`
