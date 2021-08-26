@@ -13,7 +13,8 @@ export const NavWrap = styled.div`
 `
 
 export const NavUnderContainer = styled.div`
-  width: 906px;
+  min-width: 500px;
+  max-width: 60%;
   height: 55px;
   background: ${(props) => props.theme.secondary};
   display: flex;

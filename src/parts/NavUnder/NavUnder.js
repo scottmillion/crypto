@@ -8,7 +8,8 @@ import {
   NavUnderLi,
   PercentDisplay,
 } from './NavUnder.css'
-import { prettierNumber } from 'utils'
+import { prettierNumber, screenSizeWidth } from 'utils'
+import Media from 'react-media'
 
 const NavUnder = (props) => (
   <NavWrap>
@@ -17,19 +18,55 @@ const NavUnder = (props) => (
       {props.global && !props.isLoading && (
         <div>
           <NavUnderUl>
-            <NavUnderLi>
-              Coins {props.global.active_cryptocurrencies}
-            </NavUnderLi>
-            <NavUnderLi>Exchange {props.global.markets}</NavUnderLi>
-            <NavUnderLi>
-              <NavBulletPoint>&#8226;</NavBulletPoint>
-              {props.currencySymbol}
-              {prettierNumber(
-                Math.round(props.global.total_market_cap[props.currency]),
+            <Media
+              queries={{
+                desktopS: screenSizeWidth.desktopS,
+                desktopSM: screenSizeWidth.desktopSM,
+                desktopM: screenSizeWidth.desktopM,
+                desktopML: screenSizeWidth.desktopML,
+                desktopL: screenSizeWidth.desktopL,
+              }}
+            >
+              {(matches) => (
+                <>
+                  {matches.desktopML && (
+                    <NavUnderLi>
+                      Coins {props.global.active_cryptocurrencies}
+                    </NavUnderLi>
+                  )}
+                  {matches.desktopL && (
+                    <NavUnderLi>Exchange {props.global.markets}</NavUnderLi>
+                  )}
+                  {matches.desktopSM && (
+                    <NavUnderLi>
+                      <NavBulletPoint>&#8226;</NavBulletPoint>
+                      {props.currencySymbol}
+                      {prettierNumber(
+                        Math.round(
+                          props.global.total_market_cap[props.currency],
+                        ),
+                      )}
+                    </NavUnderLi>
+                  )}
+                </>
               )}
-            </NavUnderLi>
+            </Media>
+
             <NavUnderLi>
-              <NavBulletPoint>&#8226;</NavBulletPoint>
+              <Media
+                queries={{
+                  desktopSM: screenSizeWidth.desktopSM,
+                }}
+              >
+                {(matches) => (
+                  <>
+                    {matches.desktopSM && (
+                      <NavBulletPoint>&#8226;</NavBulletPoint>
+                    )}
+                  </>
+                )}
+              </Media>
+
               {props.currencySymbol}
               {prettierNumber(
                 Math.round(props.global.total_volume[props.currency]),

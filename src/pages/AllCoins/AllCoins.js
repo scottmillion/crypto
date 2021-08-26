@@ -9,6 +9,8 @@ import {
   H1,
   Loading,
 } from './AllCoins.css'
+import Media from 'react-media'
+import { screenSizeWidth } from 'utils'
 
 class AllCoins extends React.Component {
   state = {
@@ -107,31 +109,48 @@ class AllCoins extends React.Component {
             volumeDataPoints && (
               <>
                 <ChartsContainer>
-                  <ChartDisplay
-                    dataLabels={priceDataLabels}
-                    dataPoints={priceDataPoints}
-                    currencySymbol={this.props.currencySymbol}
-                    currency={this.props.currency}
-                    label="Price"
-                    legendDisplayNumber={
-                      data.find((item) => item.id === 'bitcoin').current_price
-                    }
-                    legendTitle="Price"
-                    type="Line"
-                  />
-
-                  <ChartDisplay
-                    dataLabels={volumeDataLabels}
-                    dataPoints={volumeDataPoints}
-                    currencySymbol={this.props.currencySymbol}
-                    currency={this.props.currency}
-                    label="Volume"
-                    legendDisplayNumber={
-                      data.find((item) => item.id === 'bitcoin').total_volume
-                    }
-                    legendTitle="Volume 24h"
-                    type="Bar"
-                  />
+                  <Media
+                    queries={{
+                      mobile: screenSizeWidth.mobile,
+                      desktopS: screenSizeWidth.desktopS,
+                    }}
+                  >
+                    {(matches) => (
+                      <>
+                        {matches.mobile && <div>Mobile</div>}
+                        {matches.desktopS && (
+                          <>
+                            <ChartDisplay
+                              dataLabels={priceDataLabels}
+                              dataPoints={priceDataPoints}
+                              currencySymbol={this.props.currencySymbol}
+                              currency={this.props.currency}
+                              label="Price"
+                              legendDisplayNumber={
+                                data.find((item) => item.id === 'bitcoin')
+                                  .current_price
+                              }
+                              legendTitle="Price"
+                              type="Line"
+                            />
+                            <ChartDisplay
+                              dataLabels={volumeDataLabels}
+                              dataPoints={volumeDataPoints}
+                              currencySymbol={this.props.currencySymbol}
+                              currency={this.props.currency}
+                              label="Volume"
+                              legendDisplayNumber={
+                                data.find((item) => item.id === 'bitcoin')
+                                  .total_volume
+                              }
+                              legendTitle="Volume 24h"
+                              type="Bar"
+                            />
+                          </>
+                        )}
+                      </>
+                    )}
+                  </Media>
                 </ChartsContainer>
                 <CoinContainer>
                   <CoinsTable data={data} currency={this.props.currency} />

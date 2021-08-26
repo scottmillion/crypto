@@ -46,13 +46,12 @@ class Search extends React.Component {
           debounceTimeout={300}
           onBlur={this.handleBlur}
           type="text"
-          width="450"
           value={value}
           onChange={this.handleChange}
           placeholder="Search..."
         />
         {data.length > 0 && (
-          <SearchList width="450">
+          <SearchList>
             {data.map((coin) => {
               let coinName = coin.name
               return (

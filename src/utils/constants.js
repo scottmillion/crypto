@@ -1,4 +1,4 @@
-export const desktopCellWidths = [18, 280, 122, 90, 90, 90, 270, 270, 120]
+export const desktopCellWidths = [18, 280, 122, 90, 90, 90, 250, 250, 120]
 
 export const coinListPercentDisplayColors = [
   ['rgb(255, 181, 40)', 'rgb(254, 225, 88)'],
@@ -89,5 +89,20 @@ export const monthNames = [
   'November',
   'December',
 ]
+
+export const screenSizeWidth = {
+  none: `(min-width: 0px)`,
+  mobileS: `(min-width: 320px)`,
+  mobileM: `(min-width: 375px)`,
+  mobileL: `(min-width: 425px)`,
+  tablet: `(min-width: 768px)`,
+  mobile: `(max-width: 899px)`,
+  desktopS: `(min-width: 900px)`,
+  desktopSM: `(min-width: 1000px)`,
+  desktopM: `(min-width: 1200px)`,
+  desktopML: `(min-width: 1300px)`,
+  desktopL: `(min-width: 1500px)`,
+  desktopXL: `(min-width: 1700px)`,
+}
 
 export const today = new Date()

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const CellContent = styled.div`
+  /* outline: 1px solid green; */
   width: ${(props) => props.width}px;
   height: 60px;
   color: ${(props) =>

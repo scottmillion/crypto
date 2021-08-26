@@ -6,6 +6,7 @@ export {
   darkTheme,
   lightTheme,
   monthNames,
+  screenSizeWidth,
   today,
 } from './constants'
 export { convertLargeNumber } from './convertLargeNumber'
