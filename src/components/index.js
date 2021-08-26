@@ -1,4 +1,3 @@
-export { default as Arrow } from './Arrow'
 export { default as Cell } from './Cell'
 export { default as Chart } from './Chart'
 export { default as ChartDisplay } from './ChartDisplay'

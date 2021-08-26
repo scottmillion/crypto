@@ -1,3 +1,3 @@
 export function getArrow(num) {
-  return num >= 0 ? '&#9206;' : '&#9207;'
+  return num >= 0 ? <span>&#9206;</span> : <span>&#9207;</span>
 }
