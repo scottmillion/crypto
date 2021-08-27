@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { NavBarImages as Images } from 'assets/Images'
 import { Search } from 'parts'
@@ -17,16 +16,12 @@ import {
   Select,
   SelectArrow,
   SelectWrap,
+  StyledLink,
   ThemeMode,
 } from './NavBar.css'
 import styled from 'styled-components'
 import Media from 'react-media'
 import { screenSizeWidth } from 'utils'
-
-const StyledLink = styled(Link)`
-  color: ${(props) => props.theme.mainFont};
-  text-decoration: none;
-`
 
 const NavBar = (props) => {
   const currentLocation = useLocation().pathname

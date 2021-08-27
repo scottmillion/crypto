@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { DownArrow } from '@styled-icons/boxicons-solid'
+import { Link } from 'react-router-dom'
 
 export const CurrencySymbol = styled.div`
   width: 3rem;
@@ -103,6 +104,11 @@ export const SelectWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+`
+
+export const StyledLink = styled(Link)`
+  color: ${(props) => props.theme.mainFont};
+  text-decoration: none;
 `
 
 export const ThemeMode = styled.div`
