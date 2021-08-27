@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { DownArrow } from '@styled-icons/boxicons-solid'
 
 export const CurrencySymbol = styled.div`
   width: 3rem;
@@ -90,10 +91,10 @@ export const Select = styled.select`
   }
 `
 
-export const SelectArrow = styled.div`
+export const SelectArrow = styled(DownArrow)`
   position: absolute;
-  margin-left: 38px;
-  margin-top: 3px;
+  margin-left: 32px;
+  margin-top: 12px;
   color: #00ff5f;
   pointer-events: none;
 `

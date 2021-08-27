@@ -86,7 +86,7 @@ const NavBar = (props) => {
                   )
                 })}
               </Select>
-              <SelectArrow>&#9207;</SelectArrow>
+              <SelectArrow size=".6rem" />
             </SelectWrap>
           </NavRightSelectContainer>
           <Media
