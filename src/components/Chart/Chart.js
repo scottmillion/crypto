@@ -1,36 +1,23 @@
 import React from 'react'
 import { Bar, Line } from 'react-chartjs-2'
 import { withTheme } from 'styled-components'
-
 class Chart extends React.Component {
   state = {
     gradient: '',
   }
-
   componentDidMount() {
-    console.log(this.ref)
-    // if (this.chartReference) {
-    //   console.log("'''''''''''''''")
-    //   console.log(this.chartReference)
-    //   console.log("'''''''''''''''")
-    // } else {
-    //   console.log('---------------')
-    //   console.log(this.chartReference)
-    //   console.log('---------------')
-    // }
-
-    // if (this.props.type === 'Line') {
-    //   const canvas = document.querySelector('#bitcoin-line-chart')
-    //   var ctx = canvas.getContext('2d')
-    //   var gradient = ctx.createLinearGradient(0, 0, 0, 400)
-    //   gradient.addColorStop(0, this.props.theme.lineChartGradientTop)
-    //   gradient.addColorStop(1, this.props.theme.lineChartGradientBottom)
-    //   this.setState({ gradient })
-    // }
-    // if (this.props.type === 'Bar') {
-    //   const canvas = document.querySelector('#bitcoin-bar-chart')
-    //   canvas.height = 134
-    // }
+    if (this.props.type === 'Line') {
+      const canvas = document.querySelector('#bitcoin-line-chart')
+      var ctx = canvas.getContext('2d')
+      var gradient = ctx.createLinearGradient(0, 0, 0, 400)
+      gradient.addColorStop(0, this.props.theme.lineChartGradientTop)
+      gradient.addColorStop(1, this.props.theme.lineChartGradientBottom)
+      this.setState({ gradient })
+    }
+    if (this.props.type === 'Bar') {
+      const canvas = document.querySelector('#bitcoin-bar-chart')
+      canvas.height = 134
+    }
   }
 
   data = {
@@ -42,14 +29,12 @@ class Chart extends React.Component {
       },
     ],
   }
-
   options = {
     plugins: {
       legend: {
         display: false,
       },
     },
-
     scales: {
       y: {
         grid: {
@@ -69,25 +54,22 @@ class Chart extends React.Component {
       },
     },
   }
-
-  ref = React.createRef()
-
   render() {
-    const { data, options, ref } = this
-    const dataset = data.datasets[0]
-
+    const dataset = this.data.datasets[0]
+    const { data, options } = this
+    const { gradient } = this.state
+    const { type, theme } = this.props
     if (this.props.type === 'Bar') {
       dataset.barPercentage = 0.93
-      dataset.backgroundColor = this.props.theme.barChart
+      dataset.backgroundColor = theme.barChart
       dataset.borderRadius = 4
       dataset.borderWidth = 0
       dataset.borderSkipped = false
     }
-
     if (this.props.type === 'Line') {
       dataset.fill = true
-      dataset.backgroundColor = this.state.gradient
-      dataset.borderColor = this.props.theme.lineChart
+      dataset.backgroundColor = gradient
+      dataset.borderColor = theme.lineChart
       options.elements = {
         point: {
           radius: 0,
@@ -103,18 +85,16 @@ class Chart extends React.Component {
         minRotation: 0,
       }
     }
-
     return (
       <>
-        {this.props.type === 'Line' && (
-          <Line data={data} options={options} ref={ref} />
+        {type === 'Line' && (
+          <Line data={data} options={options} id="bitcoin-line-chart" />
         )}
-        {this.props.type === 'Bar' && (
-          <Bar data={data} options={options} ref={ref} />
+        {type === 'Bar' && (
+          <Bar data={data} options={options} id="bitcoin-bar-chart" />
         )}
       </>
     )
   }
 }
-
 export default withTheme(Chart)
