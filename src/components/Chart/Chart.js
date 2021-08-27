@@ -8,18 +8,29 @@ class Chart extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.type === 'Line') {
-      const canvas = document.querySelector('#bitcoin-line-chart')
-      var ctx = canvas.getContext('2d')
-      var gradient = ctx.createLinearGradient(0, 0, 0, 400)
-      gradient.addColorStop(0, this.props.theme.lineChartGradientTop)
-      gradient.addColorStop(1, this.props.theme.lineChartGradientBottom)
-      this.setState({ gradient })
-    }
-    if (this.props.type === 'Bar') {
-      const canvas = document.querySelector('#bitcoin-bar-chart')
-      canvas.height = 134
-    }
+    console.log(this.ref)
+    // if (this.chartReference) {
+    //   console.log("'''''''''''''''")
+    //   console.log(this.chartReference)
+    //   console.log("'''''''''''''''")
+    // } else {
+    //   console.log('---------------')
+    //   console.log(this.chartReference)
+    //   console.log('---------------')
+    // }
+
+    // if (this.props.type === 'Line') {
+    //   const canvas = document.querySelector('#bitcoin-line-chart')
+    //   var ctx = canvas.getContext('2d')
+    //   var gradient = ctx.createLinearGradient(0, 0, 0, 400)
+    //   gradient.addColorStop(0, this.props.theme.lineChartGradientTop)
+    //   gradient.addColorStop(1, this.props.theme.lineChartGradientBottom)
+    //   this.setState({ gradient })
+    // }
+    // if (this.props.type === 'Bar') {
+    //   const canvas = document.querySelector('#bitcoin-bar-chart')
+    //   canvas.height = 134
+    // }
   }
 
   data = {
@@ -59,9 +70,11 @@ class Chart extends React.Component {
     },
   }
 
+  ref = React.createRef()
+
   render() {
-    const dataset = this.data.datasets[0]
-    const options = this.options
+    const { data, options, ref } = this
+    const dataset = data.datasets[0]
 
     if (this.props.type === 'Bar') {
       dataset.barPercentage = 0.93
@@ -94,14 +107,10 @@ class Chart extends React.Component {
     return (
       <>
         {this.props.type === 'Line' && (
-          <Line
-            data={this.data}
-            options={this.options}
-            id="bitcoin-line-chart"
-          />
+          <Line data={data} options={options} ref={ref} />
         )}
         {this.props.type === 'Bar' && (
-          <Bar data={this.data} options={this.options} id="bitcoin-bar-chart" />
+          <Bar data={data} options={options} ref={ref} />
         )}
       </>
     )
