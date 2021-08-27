@@ -1,4 +1,4 @@
-import { BrowserRouter as Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { NavBarImages as Images } from 'assets/Images'
 import { Search } from 'parts'
@@ -24,8 +24,8 @@ import Media from 'react-media'
 import { screenSizeWidth } from 'utils'
 
 const StyledLink = styled(Link)`
-  text-decoration: 'none';
   color: ${(props) => props.theme.mainFont};
+  text-decoration: none;
 `
 
 const NavBar = (props) => {
