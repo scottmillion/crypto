@@ -13,7 +13,8 @@ export const NavWrap = styled.div`
 `
 
 export const NavUnderContainer = styled.div`
-  width: 906px;
+  min-width: 500px;
+  max-width: 60%;
   height: 55px;
   background: ${(props) => props.theme.secondary};
   display: flex;
@@ -56,7 +57,7 @@ export const PercentDisplay = styled.div`
 export const Circle = styled.div`
   height: 14px;
   width: 14px;
-  background: white;
+  background: ${(props) => props.theme.secondaryInverted};
   border-radius: 7px;
   margin-left: calc(${(props) => props.percent}% - 12px);
 `

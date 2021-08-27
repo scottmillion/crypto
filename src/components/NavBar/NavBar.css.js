@@ -1,12 +1,6 @@
 import styled from 'styled-components'
-
-export const Circle = styled.div`
-  height: 14px;
-  width: 14px;
-  background: white;
-  border-radius: 7px;
-  margin-left: calc(${(props) => props.percent}% - 12px);
-`
+import { DownArrow } from '@styled-icons/boxicons-solid'
+import { Link } from 'react-router-dom'
 
 export const CurrencySymbol = styled.div`
   width: 3rem;
@@ -21,10 +15,18 @@ export const CurrencySymbol = styled.div`
 `
 
 export const Nav = styled.div`
-  height: 97px;
+  width: 90%;
   background: ${(props) => props.theme.secondary};
   display: flex;
   justify-content: space-between;
+`
+
+export const NavWrap = styled.div`
+  width: 100%;
+  height: 97px;
+  background: ${(props) => props.theme.secondary};
+  display: flex;
+  justify-content: center;
 `
 
 export const NavLeft = styled.div`
@@ -46,21 +48,19 @@ export const NavLeftLi = styled.li`
 export const NavLeftUl = styled.ul`
   list-style: none;
   padding: 0;
-  padding-left: 102px;
 `
 
 export const NavRight = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  padding-right: 10px;
 `
 
 export const NavRightInputContainer = styled.div``
 
 export const NavRightSelectContainer = styled.div`
   position: relative;
-  margin-right: 28px;
+  margin-left: 28px;
   display: flex;
   flex-wrap: nowrap;
   width: 115px;
@@ -71,21 +71,6 @@ export const NavRightSelectContainer = styled.div`
   font-size: 1.1rem;
 `
 
-export const PercentDisplay = styled.div`
-  position: relative;
-  overflow: hidden;
-  width: 55px;
-  height: 14px;
-  background: linear-gradient(
-    to right,
-    #fff 0%,
-    #fff ${(props) => props.percent - 10}%,
-    #2172e5 ${(props) => props.percent - 10}%,
-    #2172e5 100%
-  );
-  border-radius: 7px;
-  margin-left: 10px;
-`
 export const SearchImage = styled.img`
   position: absolute;
   margin: 20px 22px 0px 28px;
@@ -107,10 +92,10 @@ export const Select = styled.select`
   }
 `
 
-export const SelectArrow = styled.div`
+export const SelectArrow = styled(DownArrow)`
   position: absolute;
-  margin-left: 38px;
-  margin-top: 3px;
+  margin-left: 32px;
+  margin-top: 12px;
   color: #00ff5f;
   pointer-events: none;
 `
@@ -121,11 +106,17 @@ export const SelectWrap = styled.div`
   justify-content: center;
 `
 
+export const StyledLink = styled(Link)`
+  color: ${(props) => props.theme.mainFont};
+  text-decoration: none;
+`
+
 export const ThemeMode = styled.div`
   display: flex;
   height: 35px;
   border-radius: 20px;
   background: ${(props) => props.theme.tertiary};
   padding: 14px 21px;
+  margin-left: 28px;
   font-size: 1.1rem;
 `

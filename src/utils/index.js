@@ -6,12 +6,12 @@ export {
   darkTheme,
   lightTheme,
   monthNames,
+  screenSizeWidth,
   today,
 } from './constants'
 export { convertLargeNumber } from './convertLargeNumber'
 export { formatChartNumber } from './formatChartNumber'
 export { getArrow } from './getArrow'
-export { getColumnData } from './getColumnData'
 export { keyGen } from './keyGen'
 export { prettierNumber } from './prettierNumber'
-export { shorterNumber } from './shorterNumber'
+export { numberShortener } from './numberShortener'

@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 import { DebounceInput } from 'react-debounce-input'
+import { screenSizeWidth } from 'utils'
 
 export const Input = styled(DebounceInput)`
   background: ${(props) => props.theme.tertiary};
   color: inherit;
   font-size: 1.1rem;
-  width: ${(props) => props.width}px;
+  width: 250px;
   height: 63px;
-  padding: 0px 0px 0px 60px;
-  margin-right: 27px;
+  padding-left: 60px;
   border: none;
   border-radius: 20px;
 
@@ -18,6 +18,13 @@ export const Input = styled(DebounceInput)`
   }
   &:focus {
     outline: none;
+  }
+
+  @media ${screenSizeWidth.desktopM} {
+    width: 350px;
+  }
+  @media ${screenSizeWidth.desktopL} {
+    width: 450px;
   }
 `
 
