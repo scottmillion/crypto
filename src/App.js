@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { GlobalStyle } from 'App.styles'
 import { ThemeProvider } from 'styled-components'
 import { AllCoins, Coin } from 'pages'
-import { NavBar, NavUnder } from 'parts'
+import { NavBar, NavUnder } from 'components'
 import { currencyList, lightTheme, darkTheme } from 'utils'
 import { Container } from 'App.css'
 

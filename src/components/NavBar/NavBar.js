@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { NavBarImages as Images } from 'assets/Images'
-import { Search } from 'parts'
+import { Search } from 'components'
 import { keyGen } from 'utils'
 import {
   CurrencySymbol,
@@ -19,7 +19,6 @@ import {
   StyledLink,
   ThemeMode,
 } from './NavBar.css'
-import styled from 'styled-components'
 import Media from 'react-media'
 import { screenSizeWidth } from 'utils'
 
