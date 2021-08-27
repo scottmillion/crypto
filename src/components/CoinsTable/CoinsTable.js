@@ -28,7 +28,6 @@ const CoinsTable = (props) => {
       {(!isLoading && data && (
         <Media
           queries={{
-            mobile: '(max-width: 899px)',
             desktopS: screenSizeWidth.desktopS,
           }}
         >
