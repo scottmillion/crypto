@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { GlobalStyle } from 'App.styles'
 import { ThemeProvider } from 'styled-components'
@@ -17,17 +16,6 @@ class App extends React.Component {
     on: false,
   }
 
-  getGlobalData = async () => {
-    this.setState({ isLoading: true })
-    try {
-      const { data } = await axios('https://api.coingecko.com/api/v3/global')
-      this.setState({ global: data.data, isLoading: false })
-    } catch (error) {
-      console.log('Global API Error!')
-      console.log(error)
-    }
-  }
-
   handleChangeCurrency = (e) => {
     const currency = e.target.value
     const currencySymbol = currencyList[currency].symbol
@@ -39,12 +27,8 @@ class App extends React.Component {
     this.setState({ on: value })
   }
 
-  componentDidMount() {
-    this.getGlobalData()
-  }
-
   render() {
-    const { currency, currencySymbol, global, isLoading, on } = this.state
+    const { currency, currencySymbol, on } = this.state
     const theme = on ? lightTheme : darkTheme
     return (
       <ThemeProvider theme={theme}>
@@ -59,12 +43,7 @@ class App extends React.Component {
               handleThemeButtonClick={this.handleThemeButtonClick}
               on={on}
             />
-            <NavUnder
-              currency={currency}
-              currencySymbol={currencySymbol}
-              global={global}
-              isLoading={isLoading}
-            />
+            <NavUnder currency={currency} currencySymbol={currencySymbol} />
             <Switch>
               <Route
                 exact

@@ -1,3 +1,7 @@
+import React from 'react'
+import axios from 'axios'
+
+import { LoadingBox } from 'components'
 import {
   Circle,
   NavBulletPoint,
@@ -11,117 +15,138 @@ import {
 import { prettierNumber, screenSizeWidth } from 'utils'
 import Media from 'react-media'
 
-const NavUnder = (props) => (
-  <NavWrap>
-    <NavUnderContainer>
-      {!props.global && <div>Loading Global API...</div>}
-      {props.global && !props.isLoading && (
-        <div>
-          <NavUnderUl>
-            <Media
-              queries={{
-                desktopS: screenSizeWidth.desktopS,
-                desktopSM: screenSizeWidth.desktopSM,
-                desktopM: screenSizeWidth.desktopM,
-                desktopML: screenSizeWidth.desktopML,
-                desktopL: screenSizeWidth.desktopL,
-              }}
-            >
-              {(matches) => (
-                <>
-                  {matches.desktopML && (
-                    <NavUnderLi>
-                      Coins {props.global.active_cryptocurrencies}
-                    </NavUnderLi>
-                  )}
-                  {matches.desktopL && (
-                    <NavUnderLi>Exchange {props.global.markets}</NavUnderLi>
-                  )}
-                  {matches.desktopSM && (
-                    <NavUnderLi>
-                      <NavBulletPoint>&#8226;</NavBulletPoint>
-                      {props.currencySymbol}
-                      {prettierNumber(
-                        Math.round(
-                          props.global.total_market_cap[props.currency],
-                        ),
+class NavUnder extends React.Component {
+  state = {
+    global: null,
+    isLoading: false,
+  }
+
+  getGlobalData = async () => {
+    this.setState({ isLoading: true })
+    try {
+      const { data } = await axios('https://api.coingecko.com/api/v3/global')
+      this.setState({ global: data.data, isLoading: false })
+    } catch (error) {
+      console.log('Global API Error!')
+      console.log(error)
+    }
+  }
+
+  componentDidMount() {
+    this.getGlobalData()
+  }
+
+  render() {
+    const { isLoading, global } = this.state
+    const { currency, currencySymbol } = this.props
+    return (
+      <NavWrap>
+        <NavUnderContainer>
+          {(global && !isLoading && (
+            <div>
+              <NavUnderUl>
+                <Media
+                  queries={{
+                    desktopS: screenSizeWidth.desktopS,
+                    desktopSM: screenSizeWidth.desktopSM,
+                    desktopM: screenSizeWidth.desktopM,
+                    desktopML: screenSizeWidth.desktopML,
+                    desktopL: screenSizeWidth.desktopL,
+                  }}
+                >
+                  {(matches) => (
+                    <>
+                      {matches.desktopML && (
+                        <NavUnderLi>
+                          Coins {global.active_cryptocurrencies}
+                        </NavUnderLi>
                       )}
-                    </NavUnderLi>
+                      {matches.desktopL && (
+                        <NavUnderLi>Exchange {global.markets}</NavUnderLi>
+                      )}
+                      {matches.desktopSM && (
+                        <NavUnderLi>
+                          <NavBulletPoint>&#8226;</NavBulletPoint>
+                          {currencySymbol}
+                          {prettierNumber(
+                            Math.round(global.total_market_cap[currency]),
+                          )}
+                        </NavUnderLi>
+                      )}
+                    </>
                   )}
-                </>
-              )}
-            </Media>
+                </Media>
 
-            <NavUnderLi>
-              <Media
-                queries={{
-                  desktopSM: screenSizeWidth.desktopSM,
-                }}
-              >
-                {(matches) => (
-                  <>
-                    {matches.desktopSM && (
-                      <NavBulletPoint>&#8226;</NavBulletPoint>
+                <NavUnderLi>
+                  <Media
+                    queries={{
+                      desktopSM: screenSizeWidth.desktopSM,
+                    }}
+                  >
+                    {(matches) => (
+                      <>
+                        {matches.desktopSM && (
+                          <NavBulletPoint>&#8226;</NavBulletPoint>
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-              </Media>
+                  </Media>
 
-              {props.currencySymbol}
-              {prettierNumber(
-                Math.round(props.global.total_volume[props.currency]),
-              )}
-              <PercentDisplay
-                percent={Math.round(
-                  props.global.total_volume[props.currency] /
-                    props.global.total_market_cap[props.currency],
-                )}
-              >
-                <Circle
-                  percent={Math.round(
-                    props.global.total_volume[props.currency] /
-                      props.global.total_market_cap[props.currency],
-                  )}
-                />
-              </PercentDisplay>
-            </NavUnderLi>
-            <NavUnderLi>
-              <NavUnderImg marginRight="1">
-                <img
-                  src="https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579"
-                  alt="btc thumb"
-                />
-              </NavUnderImg>
-              {Math.round(props.global.market_cap_percentage.btc)}%
-              <PercentDisplay
-                percent={Math.round(props.global.market_cap_percentage.btc)}
-              >
-                <Circle
-                  percent={Math.round(props.global.market_cap_percentage.btc)}
-                />
-              </PercentDisplay>
-            </NavUnderLi>
-            <NavUnderLi>
-              <NavUnderImg marginRight="-4">
-                <img
-                  src="https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880"
-                  alt="eth thumb"
-                />
-              </NavUnderImg>
-              {Math.round(props.global.market_cap_percentage.eth)}%
-              <PercentDisplay
-                percent={Math.round(props.global.market_cap_percentage.eth)}
-              >
-                <Circle
-                  percent={Math.round(props.global.market_cap_percentage.eth)}
-                />
-              </PercentDisplay>
-            </NavUnderLi>
-          </NavUnderUl>
-        </div>
-      )}
-    </NavUnderContainer>
-  </NavWrap>
-)
+                  {currencySymbol}
+                  {prettierNumber(Math.round(global.total_volume[currency]))}
+                  <PercentDisplay
+                    percent={Math.round(
+                      global.total_volume[currency] /
+                        global.total_market_cap[currency],
+                    )}
+                  >
+                    <Circle
+                      percent={Math.round(
+                        global.total_volume[currency] /
+                          global.total_market_cap[currency],
+                      )}
+                    />
+                  </PercentDisplay>
+                </NavUnderLi>
+                <NavUnderLi>
+                  <NavUnderImg marginRight="1">
+                    <img
+                      src="https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579"
+                      alt="btc thumb"
+                    />
+                  </NavUnderImg>
+                  {Math.round(global.market_cap_percentage.btc)}%
+                  <PercentDisplay
+                    percent={Math.round(global.market_cap_percentage.btc)}
+                  >
+                    <Circle
+                      percent={Math.round(global.market_cap_percentage.btc)}
+                    />
+                  </PercentDisplay>
+                </NavUnderLi>
+                <NavUnderLi>
+                  <NavUnderImg marginRight="-4">
+                    <img
+                      src="https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880"
+                      alt="eth thumb"
+                    />
+                  </NavUnderImg>
+                  {Math.round(global.market_cap_percentage.eth)}%
+                  <PercentDisplay
+                    percent={Math.round(global.market_cap_percentage.eth)}
+                  >
+                    <Circle
+                      percent={Math.round(global.market_cap_percentage.eth)}
+                    />
+                  </PercentDisplay>
+                </NavUnderLi>
+              </NavUnderUl>
+            </div>
+          )) || <LoadingBox bar={true} />}
+        </NavUnderContainer>
+      </NavWrap>
+    )
+  }
+}
 
 export default NavUnder

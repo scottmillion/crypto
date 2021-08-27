@@ -30,10 +30,3 @@ export const H1 = styled.h1`
   font-size: 1.4rem;
   font-weight: 500;
 `
-
-export const Loading = styled.div`
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
