@@ -29,6 +29,9 @@ const CoinsTable = (props) => {
         <Media
           queries={{
             desktopS: screenSizeWidth.desktopS,
+            desktopM: screenSizeWidth.desktopM,
+            desktopL: screenSizeWidth.desktopL,
+            desktopXL: screenSizeWidth.desktopXL,
           }}
         >
           {(matches) => (
@@ -92,45 +95,33 @@ const CoinsTable = (props) => {
                             width={widths[5]}
                           ></ColumnSevenDayChange>
 
-                          <Media
-                            queries={{
-                              desktopM: screenSizeWidth.desktopM,
-                              desktopL: screenSizeWidth.desktopL,
-                              desktopXL: screenSizeWidth.desktopXL,
-                            }}
-                          >
-                            {(matches) => (
-                              <>
-                                {matches.desktopM && (
-                                  <ColumnVolumeMarketCap
-                                    width={widths[6]}
-                                    color1={colors[index][0]}
-                                    color2={colors[index][1]}
-                                    currency={props.currency}
-                                    marketCap={market_cap}
-                                    totalVolume={total_volume}
-                                  />
-                                )}
-                                {matches.desktopXL && (
-                                  <ColumnCirculatingTotalSupply
-                                    width={widths[7]}
-                                    color1={colors[index][0]}
-                                    color2={colors[index][1]}
-                                    currency={props.currency}
-                                    circulatingSupply={circulating_supply}
-                                    totalSupply={total_supply}
-                                  />
-                                )}
-                                {matches.desktopL && (
-                                  <ColumnCoinListChartLast7d
-                                    width={widths[8]}
-                                    sevenDayChange={sevenDayChange}
-                                    sevenDayPriceList={sevenDayPriceList}
-                                  />
-                                )}
-                              </>
-                            )}
-                          </Media>
+                          {matches.desktopM && (
+                            <ColumnVolumeMarketCap
+                              width={widths[6]}
+                              color1={colors[index][0]}
+                              color2={colors[index][1]}
+                              currency={props.currency}
+                              marketCap={market_cap}
+                              totalVolume={total_volume}
+                            />
+                          )}
+                          {matches.desktopXL && (
+                            <ColumnCirculatingTotalSupply
+                              width={widths[7]}
+                              color1={colors[index][0]}
+                              color2={colors[index][1]}
+                              currency={props.currency}
+                              circulatingSupply={circulating_supply}
+                              totalSupply={total_supply}
+                            />
+                          )}
+                          {matches.desktopL && (
+                            <ColumnCoinListChartLast7d
+                              width={widths[8]}
+                              sevenDayChange={sevenDayChange}
+                              sevenDayPriceList={sevenDayPriceList}
+                            />
+                          )}
                         </Row>
                         {index !== arr.length - 1 && <Hr />}
                       </RowWrap>
