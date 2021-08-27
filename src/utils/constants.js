@@ -1,4 +1,4 @@
-export const desktopCellWidths = [18, 280, 122, 90, 90, 90, 250, 250, 120]
+export const desktopCellWidths = [18, 280, 122, 90, 90, 90, 230, 230, 120]
 
 export const coinListPercentDisplayColors = [
   ['rgb(255, 181, 40)', 'rgb(254, 225, 88)'],
