@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { GlobalStyle } from 'App.styles'
 import { ThemeProvider } from 'styled-components'
-import { AllCoins, Coin } from 'pages'
+import { AllCoins, Coin, Portfolio } from 'pages'
 import { NavBar, NavUnder } from 'components'
 import { currencyList, lightTheme, darkTheme } from 'utils'
 import { Container } from 'App.css'
@@ -54,6 +54,11 @@ class App extends React.Component {
                     currencySymbol={currencySymbol}
                   />
                 )}
+              />
+              <Route
+                exact
+                path="/portfolio"
+                component={() => <Portfolio currency={currency} />}
               />
               <Route exact path="/coin/:name" component={Coin} />
             </Switch>
