@@ -62,7 +62,8 @@ class Portfolio extends React.Component {
 
   render() {
     const { data, isLoading, showPopUp } = this.state
-    console.log(data)
+    const { currency } = this.props
+
     return (
       <Container>
         {showPopUp && (
@@ -78,12 +79,24 @@ class Portfolio extends React.Component {
           {(data && !isLoading && (
             <Content>
               {data.map((coin) => {
+                const {
+                  circulating_supply,
+                  current_price,
+                  id,
+                  image,
+                  market_cap,
+                  name,
+                  symbol,
+                  total_supply,
+                  total_volume,
+                  price_change_percentage_24h_in_currency: twentyFourHourChange,
+                } = coin
+                const totalSupply = total_supply || Infinity
                 const marketCapTotalVolumePercent = Math.round(
-                  (100 * coin.total_volume) / coin.market_cap,
+                  (100 * total_volume) / market_cap,
                 )
-                const totalSupply = coin.total_supply || Infinity
                 const circulatingTotalSupplyPercent = Math.round(
-                  (100 * coin.circulating_supply) / totalSupply,
+                  (100 * circulating_supply) / totalSupply,
                 )
 
                 return (
@@ -91,9 +104,9 @@ class Portfolio extends React.Component {
                     <CoinInfoWrap>
                       <CoinInfo>
                         <ImgWrap>
-                          <Img src={coin.image} alt={coin.id} />
+                          <Img src={image} alt={id} />
                         </ImgWrap>
-                        {coin.name} ({coin.symbol.toUpperCase()})
+                        {name} ({symbol.toUpperCase()})
                       </CoinInfo>
                     </CoinInfoWrap>
                     <CoinData>
@@ -105,24 +118,22 @@ class Portfolio extends React.Component {
                           <Item>
                             <Label>Current price:</Label>{' '}
                             <ColumnCurrentPrice
-                              price={coin.current_price}
-                              currency={this.props.currency}
+                              price={current_price}
+                              currency={currency}
                             />
                           </Item>
                           <Item>
                             <Label>Price change 24h:</Label>
                             <ColumnTwentyFourHourChange
-                              currency={this.props.currency}
-                              symbol={coin.symbol}
-                              twentyFourHourChange={
-                                coin.price_change_percentage_24h_in_currency
-                              }
+                              currency={currency}
+                              symbol={symbol}
+                              twentyFourHourChange={twentyFourHourChange}
                             />
                           </Item>
                           <Item>
                             <Label>Vol / Market Cap:</Label>
                             <ColorGreen>
-                              {Math.round(marketCapTotalVolumePercent)}%
+                              {marketCapTotalVolumePercent}%
                             </ColorGreen>
                             <PercentDisplay
                               percent={marketCapTotalVolumePercent}
@@ -133,7 +144,7 @@ class Portfolio extends React.Component {
                           <Item>
                             <Label>Circ / Total Supply:</Label>
                             <ColorGreen>
-                              {Math.round(circulatingTotalSupplyPercent)}%
+                              {circulatingTotalSupplyPercent}%
                             </ColorGreen>
                             <PercentDisplay
                               percent={circulatingTotalSupplyPercent}
