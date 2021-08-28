@@ -30,11 +30,15 @@ import {
   LoadingBox,
 } from 'components'
 import { keyGen } from 'utils'
+import styled from 'styled-components'
+
+const Input = styled.input``
 
 class Portfolio extends React.Component {
   state = {
     data: null,
     isLoading: false,
+    value: '',
     showPopUp: false,
   }
 
@@ -56,19 +60,47 @@ class Portfolio extends React.Component {
     this.setState({ showPopUp })
   }
 
+  handleCoinAmountChange = (e) => {
+    console.log(e.target.value)
+    const value = e.target.value
+    this.setState({ value })
+  }
+
   componentDidMount() {
     this.getData()
   }
 
   render() {
-    const { data, isLoading, showPopUp } = this.state
+    const { data, isLoading, value, showPopUp } = this.state
     const { currency } = this.props
-
+    console.log(value)
     return (
       <Container>
         {showPopUp && (
           <PopUpWrap>
-            <PopUp />
+            <PopUp>
+              <select
+              // name="currency"
+              // id="current-currency"
+              // value={props.currency}
+              // onChange={props.handleChangeCurrency}
+              >
+                {/* {Object.keys(props.currencyList).map((currency) => {
+                  return (
+                    <option value={currency} key={keyGen()}>
+                      {props.currencyList[currency].name}
+                    </option>
+                  )
+                })} */}
+              </select>
+              <Input
+                type="text"
+                onChange={this.handleCoinAmountChange}
+                placeholder="13.029381"
+                value={value}
+              />
+              <Input type="date" />
+            </PopUp>
           </PopUpWrap>
         )}
         <ContentContainer>
