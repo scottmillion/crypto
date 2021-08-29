@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { GlobalStyle } from 'App.styles'
 import { ThemeProvider } from 'styled-components'
@@ -7,66 +7,56 @@ import { NavBar, NavUnder } from 'components'
 import { currencyList, lightTheme, darkTheme } from 'utils'
 import { Container } from 'App.css'
 
-class App extends React.Component {
-  state = {
-    currency: 'usd',
-    currencySymbol: '$',
-    global: null,
-    isLoading: false,
-    on: false,
+const App = () => {
+  const [currency, setCurrency] = useState('usd')
+  const [currencySymbol, setCurrencySymbol] = useState('$')
+  const [on, setOn] = useState(false)
+
+  const handleChangeCurrency = (e) => {
+    const { value } = e.target
+    setCurrency(value)
+    setCurrencySymbol(currencyList[value].symbol)
   }
 
-  handleChangeCurrency = (e) => {
-    const currency = e.target.value
-    const currencySymbol = currencyList[currency].symbol
-    this.setState({ currency, currencySymbol })
+  const handleThemeButtonClick = () => {
+    setOn(!on)
   }
 
-  handleThemeButtonClick = () => {
-    const value = !this.state.on
-    this.setState({ on: value })
-  }
+  const theme = on ? lightTheme : darkTheme
 
-  render() {
-    const { currency, currencySymbol, on } = this.state
-    const theme = on ? lightTheme : darkTheme
-    return (
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Router>
-          <Container>
-            <NavBar
-              currency={currency}
-              currencyList={currencyList}
-              currencySymbol={currencySymbol}
-              handleChangeCurrency={this.handleChangeCurrency}
-              handleThemeButtonClick={this.handleThemeButtonClick}
-              on={on}
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Router>
+        <Container>
+          <NavBar
+            currency={currency}
+            currencyList={currencyList}
+            currencySymbol={currencySymbol}
+            handleChangeCurrency={handleChangeCurrency}
+            handleThemeButtonClick={handleThemeButtonClick}
+            on={on}
+          />
+          <NavUnder currency={currency} currencySymbol={currencySymbol} />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <AllCoins currency={currency} currencySymbol={currencySymbol} />
+              )}
             />
-            <NavUnder currency={currency} currencySymbol={currencySymbol} />
-            <Switch>
-              <Route
-                exact
-                path="/"
-                component={() => (
-                  <AllCoins
-                    currency={currency}
-                    currencySymbol={currencySymbol}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/portfolio"
-                component={() => <Portfolio currency={currency} />}
-              />
-              <Route exact path="/coin/:name" component={Coin} />
-            </Switch>
-          </Container>
-        </Router>
-      </ThemeProvider>
-    )
-  }
+            <Route
+              exact
+              path="/portfolio"
+              component={() => <Portfolio currency={currency} />}
+            />
+            <Route exact path="/coin/:name" component={Coin} />
+          </Switch>
+        </Container>
+      </Router>
+    </ThemeProvider>
+  )
 }
 
 export default App
