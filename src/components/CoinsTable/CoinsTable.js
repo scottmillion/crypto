@@ -90,7 +90,7 @@ const CoinsTable = (props) => {
                           />
 
                           <ColumnSevenDayChange
-                            currency={currency}
+                            currency={props.currency}
                             sevenDayChange={sevenDayChange}
                             symbol={symbol}
                             width={widths[5]}
