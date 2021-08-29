@@ -13,8 +13,9 @@ const App = () => {
   const [on, setOn] = useState(false)
 
   const handleChangeCurrency = (e) => {
-    setCurrency(e.target.value)
-    setCurrencySymbol(currencyList[currency].symbol)
+    const { value } = e.target
+    setCurrency(value)
+    setCurrencySymbol(currencyList[value].symbol)
   }
 
   const handleThemeButtonClick = () => {
