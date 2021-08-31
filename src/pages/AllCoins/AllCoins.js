@@ -1,6 +1,9 @@
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import Media from 'react-media'
+import { useDispatch, useSelector } from 'react-redux'
 import { ChartDisplay, CoinsTable } from 'components'
+import { screenSizeWidth } from 'utils'
+import { getCoinsData, getPrices, getVolumes } from 'store/allCoins/actions.js'
 import {
   ChartsContainer,
   CoinContainer,
@@ -8,80 +11,28 @@ import {
   ContentContainer,
   H1,
 } from './AllCoins.css'
-import Media from 'react-media'
-import { screenSizeWidth } from 'utils'
 
-const AllCoins = (props) => {
-  const [data, setData] = useState(false)
-  const [isDataLoading, setIsDataLoading] = useState(false)
-  const [isPriceLoading, setIsPriceLoading] = useState(false)
-  const [isVolumeLoading, setIsVolumeLoading] = useState(false)
-  const [priceDataLabels, setPriceDataLabels] = useState(null)
-  const [priceDataPoints, setPriceDataPoints] = useState(null)
-  const [volumeDataLabels, setVolumeDataLabels] = useState(null)
-  const [volumeDataPoints, setVolumeDataPoints] = useState(null)
+const AllCoins = () => {
+  const dispatch = useDispatch()
+  const {
+    coinsData,
+    priceDataLabels,
+    priceDataPoints,
+    volumeDataLabels,
+    volumeDataPoints,
+    isCoinsDataLoading,
+    isPriceDataLoading,
+    isVolumeDataLoading,
+  } = useSelector((state) => state.allCoins)
 
-  const getData = async () => {
-    setIsDataLoading(true)
-    try {
-      const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${props.currency}&ids=bitcoin%2C%20ethereum%2C%20tether%2C%20dogecoin%2C%20binancecoin%2C%20cardano%2C%20usd-coin%2C%20wrapped-bitcoin%2C%20litecoin&order=market_cap_desc&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
-      )
-      setIsDataLoading(false)
-      setData(data)
-    } catch (error) {
-      console.log('Error in getData API!')
-      console.log(error)
-    }
-  }
-
-  const getPrices = async () => {
-    setIsPriceLoading(true)
-    try {
-      const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${props.currency}&days=39&interval=daily`,
-      )
-
-      const prices = data.prices
-      const priceDataPoints = prices.map((price) => price[1])
-      const priceDataLabels = prices.map((price) =>
-        new Date(price[0]).getDate().toString(),
-      )
-      setIsPriceLoading(false)
-      setPriceDataLabels(priceDataLabels)
-      setPriceDataPoints(priceDataPoints)
-    } catch (error) {
-      console.log('Error in getPrices API!')
-      console.log(error)
-    }
-  }
-
-  const getVolumes = async () => {
-    setIsVolumeLoading(true)
-    try {
-      const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${props.currency}&days=22&interval=daily`,
-      )
-      const volumes = data.total_volumes
-      const volumeDataPoints = volumes.map((volume) => volume[1])
-      const volumeDataLabels = volumes.map((volume) =>
-        new Date(volume[0]).getDate().toString(),
-      )
-      setIsVolumeLoading(false)
-      setVolumeDataLabels(volumeDataLabels)
-      setVolumeDataPoints(volumeDataPoints)
-    } catch (error) {
-      console.log('Error in getVolume API!')
-      console.log(error)
-    }
-  }
+  const currency = useSelector((state) => state.config.currency)
 
   useEffect(() => {
-    getData()
-    getPrices()
-    getVolumes()
+    dispatch(getCoinsData())
+    dispatch(getPrices())
+    dispatch(getVolumes())
     // eslint-disable-next-line
-  }, [])
+  }, [currency])
 
   return (
     <Container>
@@ -98,23 +49,19 @@ const AllCoins = (props) => {
                 {matches.desktopS && (
                   <>
                     <ChartDisplay
-                      currency={props.currency}
-                      currencySymbol={props.currencySymbol}
-                      data={data}
+                      data={coinsData}
                       dataLabels={priceDataLabels}
                       dataPoints={priceDataPoints}
-                      isLoading={isPriceLoading}
+                      isLoading={isPriceDataLoading}
                       label="Price"
                       legendTitle="Price"
                       type="Line"
                     />
                     <ChartDisplay
-                      currency={props.currency}
-                      currencySymbol={props.currencySymbol}
-                      data={data}
+                      data={coinsData}
                       dataLabels={volumeDataLabels}
                       dataPoints={volumeDataPoints}
-                      isLoading={isVolumeLoading}
+                      isLoading={isVolumeDataLoading}
                       label="Volume"
                       legendTitle="Volume 24h"
                       type="Bar"
@@ -126,11 +73,7 @@ const AllCoins = (props) => {
           </Media>
         </ChartsContainer>
         <CoinContainer>
-          <CoinsTable
-            currency={props.currency}
-            data={data}
-            isLoading={isDataLoading}
-          />
+          <CoinsTable data={coinsData} isLoading={isCoinsDataLoading} />
         </CoinContainer>
       </ContentContainer>
     </Container>

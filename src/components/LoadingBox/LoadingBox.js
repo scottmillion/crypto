@@ -36,5 +36,3 @@ const LoadingBox = (props) => (
 )
 
 export default withTheme(LoadingBox)
-
-// loading={loading} css={override} size={150}

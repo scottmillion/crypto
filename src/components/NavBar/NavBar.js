@@ -20,10 +20,22 @@ import {
   ThemeMode,
 } from './NavBar.css'
 import Media from 'react-media'
-import { screenSizeWidth } from 'utils'
+import { currencyList, screenSizeWidth } from 'utils'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeCurrency, toggleTheme } from 'store/config/actions.js'
 
-const NavBar = (props) => {
+const NavBar = () => {
   const currentLocation = useLocation().pathname
+  const { currency, currencySymbol, themeOn } = useSelector(
+    (state) => state.config,
+  )
+  const dispatch = useDispatch()
+
+  const handleChangeCurrency = (e) => {
+    const { value } = e.target
+    dispatch(changeCurrency(value))
+  }
+
   return (
     <NavWrap>
       <Nav>
@@ -51,9 +63,7 @@ const NavBar = (props) => {
                 {matches.desktop && (
                   <NavRightInputContainer>
                     <SearchImage
-                      src={
-                        props.on ? Images.searchIconLight : Images.searchIcon
-                      }
+                      src={themeOn ? Images.searchIconLight : Images.searchIcon}
                       alt="search"
                     />
                     <Search />
@@ -64,18 +74,18 @@ const NavBar = (props) => {
           </Media>
 
           <NavRightSelectContainer>
-            <CurrencySymbol>{props.currencySymbol}</CurrencySymbol>
+            <CurrencySymbol>{currencySymbol}</CurrencySymbol>
             <SelectWrap>
               <Select
                 name="currency"
                 id="current-currency"
-                value={props.currency}
-                onChange={props.handleChangeCurrency}
+                value={currency}
+                onChange={handleChangeCurrency}
               >
-                {Object.keys(props.currencyList).map((currency) => {
+                {Object.keys(currencyList).map((currencyType) => {
                   return (
-                    <option value={currency} key={keyGen()}>
-                      {props.currencyList[currency].name}
+                    <option value={currencyType} key={keyGen()}>
+                      {currencyList[currencyType].name}
                     </option>
                   )
                 })}
@@ -93,9 +103,9 @@ const NavBar = (props) => {
                 {matches.desktop && (
                   <ThemeMode>
                     <img
-                      src={props.on ? Images.themeIconLight : Images.themeIcon}
+                      src={themeOn ? Images.themeIconLight : Images.themeIcon}
                       alt="mode"
-                      onClick={props.handleThemeButtonClick}
+                      onClick={() => dispatch(toggleTheme())}
                     />
                   </ThemeMode>
                 )}

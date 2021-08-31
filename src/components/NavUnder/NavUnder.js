@@ -14,10 +14,12 @@ import {
 } from './NavUnder.css'
 import { prettierNumber, screenSizeWidth } from 'utils'
 import Media from 'react-media'
+import { useSelector } from 'react-redux'
 
-const NavUnder = (props) => {
+const NavUnder = () => {
   const [global, setGlobal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const { currency, currencySymbol } = useSelector((state) => state.config)
 
   const getGlobalData = async () => {
     setIsLoading(true)
@@ -34,8 +36,6 @@ const NavUnder = (props) => {
   useEffect(() => {
     getGlobalData()
   }, [])
-
-  const { currency, currencySymbol } = props
 
   return (
     <NavWrap>

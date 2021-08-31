@@ -1,15 +1,20 @@
 import { Cell } from 'components'
 import { getArrow } from 'utils'
+import { useSelector } from 'react-redux'
 
-const ColumnHourChange = (props) => (
-  <Cell number={props.hourChange} width={props.width}>
-    {(props.currency !== props.symbol && (
-      <>
-        {getArrow(props.hourChange)}
-        {Math.abs(props.hourChange.toFixed(2))}%
-      </>
-    )) || <span>-</span>}
-  </Cell>
-)
+const ColumnHourChange = (props) => {
+  const { currency } = useSelector((state) => state.config)
+  const hourChange = props.hourChange || 0 // sometimes api returns null
+  return (
+    <Cell number={hourChange} width={props.width}>
+      {(currency !== props.symbol && (
+        <>
+          {getArrow(hourChange)}
+          {Math.abs(hourChange.toFixed(2))}%
+        </>
+      )) || <span>-</span>}
+    </Cell>
+  )
+}
 
 export default ColumnHourChange

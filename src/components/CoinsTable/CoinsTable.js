@@ -23,6 +23,7 @@ import Media from 'react-media'
 
 const CoinsTable = (props) => {
   const { data, isLoading } = props
+
   return (
     <Table>
       {(!isLoading && data && (
@@ -70,27 +71,23 @@ const CoinsTable = (props) => {
 
                           <ColumnCurrentPrice
                             price={current_price}
-                            currency={props.currency}
                             width={widths[2]}
                           />
 
                           <ColumnHourChange
                             currentPrice={current_price}
-                            currency={props.currency}
                             hourChange={hourChange}
                             symbol={symbol}
                             width={widths[3]}
                           />
 
                           <ColumnTwentyFourHourChange
-                            currency={props.currency}
                             symbol={symbol}
                             width={widths[4]}
                             twentyFourHourChange={twentyFourHourChange}
                           />
 
                           <ColumnSevenDayChange
-                            currency={props.currency}
                             sevenDayChange={sevenDayChange}
                             symbol={symbol}
                             width={widths[5]}
@@ -101,7 +98,6 @@ const CoinsTable = (props) => {
                               width={widths[6]}
                               color1={colors[index][0]}
                               color2={colors[index][1]}
-                              currency={props.currency}
                               marketCap={market_cap}
                               totalVolume={total_volume}
                             />
@@ -111,7 +107,6 @@ const CoinsTable = (props) => {
                               width={widths[7]}
                               color1={colors[index][0]}
                               color2={colors[index][1]}
-                              currency={props.currency}
                               circulatingSupply={circulating_supply}
                               totalSupply={total_supply}
                             />

@@ -9,33 +9,33 @@ const ChartDisplay = (props) => {
   if (props.label === 'Volume') {
     type = 'total_volume'
   }
+  const displayChart =
+    type &&
+    props.data.length > 0 &&
+    props.dataLabels.length > 0 &&
+    props.dataPoints.length > 0 &&
+    !props.isLoading
 
   return (
     <ChartContainer>
-      {(type &&
-        props.data &&
-        props.dataLabels &&
-        props.dataPoints &&
-        !props.isLoading && (
-          <>
-            <ChartLegend
-              currencySymbol={props.currencySymbol}
-              legendDisplayNumber={
-                props.data.find((item) => item.id === 'bitcoin')[type]
-              }
-              legendTitle={props.legendTitle}
+      {(displayChart && (
+        <>
+          <ChartLegend
+            legendDisplayNumber={
+              props.data.find((item) => item.id === 'bitcoin')[type]
+            }
+            legendTitle={props.legendTitle}
+          />
+          <ChartWrap>
+            <Chart
+              dataLabels={props.dataLabels}
+              dataPoints={props.dataPoints}
+              label={props.label}
+              type={props.type}
             />
-            <ChartWrap>
-              <Chart
-                dataLabels={props.dataLabels}
-                dataPoints={props.dataPoints}
-                currency={props.currency}
-                label={props.label}
-                type={props.type}
-              />
-            </ChartWrap>
-          </>
-        )) || <LoadingBox height={200} />}
+          </ChartWrap>
+        </>
+      )) || <LoadingBox height={200} />}
     </ChartContainer>
   )
 }
