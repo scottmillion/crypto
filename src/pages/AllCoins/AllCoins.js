@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import Media from 'react-media'
 import { useDispatch, useSelector } from 'react-redux'
+import Media from 'react-media'
 import { ChartDisplay, CoinsTable } from 'components'
 import { screenSizeWidth } from 'utils'
 import { getCoinsData, getPrices, getVolumes } from 'store/allCoins/actions.js'
@@ -25,7 +25,7 @@ const AllCoins = () => {
     isVolumeDataLoading,
   } = useSelector((state) => state.allCoins)
 
-  const currency = useSelector((state) => state.config.currency)
+  const { currency } = useSelector((state) => state.config)
 
   useEffect(() => {
     dispatch(getCoinsData())

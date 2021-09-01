@@ -46,14 +46,6 @@ const Portfolio = () => {
   )
   const dispatch = useDispatch()
 
-  const handleClick = () => {
-    dispatch(toggleShowPopUp())
-  }
-
-  const handleCoinAmountChange = (e) => {
-    dispatch(setValue(e.target.value))
-  }
-
   useEffect(() => {
     dispatch(getCoinsData())
     // eslint-disable-next-line
@@ -80,7 +72,7 @@ const Portfolio = () => {
             </select>
             <Input
               type="text"
-              onChange={handleCoinAmountChange}
+              onChange={(e) => dispatch(setValue(e.target.value))}
               placeholder="13.029381"
               value={value}
             />
@@ -90,7 +82,9 @@ const Portfolio = () => {
       )}
       <ContentContainer>
         <ButtonContainer>
-          <ButtonMain onClick={handleClick}>Add Asset</ButtonMain>
+          <ButtonMain onClick={() => dispatch(toggleShowPopUp())}>
+            Add Asset
+          </ButtonMain>
         </ButtonContainer>
         <H1>Your statistics</H1>
         {(data.length > 0 && !isLoading && (
