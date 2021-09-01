@@ -42,6 +42,8 @@ const Search = () => {
     setValue(value)
     value === '' ? setData([]) : getAutoCompleteData(value)
   }
+  const displayLoading = isLoading && !error && value !== ''
+  const displayData = !isLoading && !error && data.length > 0 && value !== ''
 
   return (
     <>
@@ -57,8 +59,8 @@ const Search = () => {
 
       <SearchList>
         {error && <div>Api Error. Refresh Page.</div>}
-        {isLoading && !error && <div>Loading List...</div>}
-        {!isLoading && !error && data.length > 0 && (
+        {displayLoading && <div>Loading List...</div>}
+        {displayData && (
           <>
             {data.map((coin) => {
               let coinName = coin.name
