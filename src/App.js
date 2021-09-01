@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { GlobalStyle } from 'App.styles'
 import { ThemeProvider } from 'styled-components'
-import { AllCoins, Coin, Portfolio } from 'pages'
 import { NavBar, NavUnder } from 'components'
+import { AllCoins, Coin, Portfolio } from 'pages'
 import { lightTheme, darkTheme } from 'utils'
 import { Container } from 'App.css'
 
 const App = () => {
-  const themeOn = useSelector((state) => state.config.themeOn)
+  const { themeOn } = useSelector((state) => state.config)
   const theme = themeOn ? lightTheme : darkTheme
 
   return (
