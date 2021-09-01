@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-
+import React, { useEffect } from 'react'
+import Media from 'react-media'
 import { LoadingBox } from 'components'
 import {
   Circle,
@@ -13,34 +12,25 @@ import {
   PercentDisplay,
 } from './NavUnder.css'
 import { prettierNumber, screenSizeWidth } from 'utils'
-import Media from 'react-media'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getGlobalData } from 'store/config/actions.js'
 
 const NavUnder = () => {
-  const [global, setGlobal] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const { currency, currencySymbol } = useSelector((state) => state.config)
-
-  const getGlobalData = async () => {
-    setIsLoading(true)
-    try {
-      const { data } = await axios('https://api.coingecko.com/api/v3/global')
-      setIsLoading(false)
-      setGlobal(data.data)
-    } catch (error) {
-      console.log('Global API Error!')
-      console.log(error)
-    }
-  }
+  const { currency, currencySymbol, data, error, isLoading } = useSelector(
+    (state) => state.config,
+  )
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    getGlobalData()
-  }, [])
+    dispatch(getGlobalData())
+    // eslint-disable-next-line
+  }, [currency])
 
   return (
     <NavWrap>
       <NavUnderContainer>
-        {(global && !isLoading && (
+        {error && <div>API Error. Refresh Page.</div>}
+        {(data && !isLoading && (
           <div>
             <NavUnderUl>
               <Media
@@ -56,18 +46,18 @@ const NavUnder = () => {
                   <>
                     {matches.desktopML && (
                       <NavUnderLi>
-                        Coins {global.active_cryptocurrencies}
+                        Coins {data.active_cryptocurrencies}
                       </NavUnderLi>
                     )}
                     {matches.desktopL && (
-                      <NavUnderLi>Exchange {global.markets}</NavUnderLi>
+                      <NavUnderLi>Exchange {data.markets}</NavUnderLi>
                     )}
                     {matches.desktopSM && (
                       <NavUnderLi>
                         <NavBulletPoint>&#8226;</NavBulletPoint>
                         {currencySymbol}
                         {prettierNumber(
-                          Math.round(global.total_market_cap[currency]),
+                          Math.round(data.total_market_cap[currency]),
                         )}
                       </NavUnderLi>
                     )}
@@ -91,17 +81,17 @@ const NavUnder = () => {
                 </Media>
 
                 {currencySymbol}
-                {prettierNumber(Math.round(global.total_volume[currency]))}
+                {prettierNumber(Math.round(data.total_volume[currency]))}
                 <PercentDisplay
                   percent={Math.round(
-                    global.total_volume[currency] /
-                      global.total_market_cap[currency],
+                    data.total_volume[currency] /
+                      data.total_market_cap[currency],
                   )}
                 >
                   <Circle
                     percent={Math.round(
-                      global.total_volume[currency] /
-                        global.total_market_cap[currency],
+                      data.total_volume[currency] /
+                        data.total_market_cap[currency],
                     )}
                   />
                 </PercentDisplay>
@@ -113,12 +103,12 @@ const NavUnder = () => {
                     alt="btc thumb"
                   />
                 </NavUnderImg>
-                {Math.round(global.market_cap_percentage.btc)}%
+                {Math.round(data.market_cap_percentage.btc)}%
                 <PercentDisplay
-                  percent={Math.round(global.market_cap_percentage.btc)}
+                  percent={Math.round(data.market_cap_percentage.btc)}
                 >
                   <Circle
-                    percent={Math.round(global.market_cap_percentage.btc)}
+                    percent={Math.round(data.market_cap_percentage.btc)}
                   />
                 </PercentDisplay>
               </NavUnderLi>
@@ -129,12 +119,12 @@ const NavUnder = () => {
                     alt="eth thumb"
                   />
                 </NavUnderImg>
-                {Math.round(global.market_cap_percentage.eth)}%
+                {Math.round(data.market_cap_percentage.eth)}%
                 <PercentDisplay
-                  percent={Math.round(global.market_cap_percentage.eth)}
+                  percent={Math.round(data.market_cap_percentage.eth)}
                 >
                   <Circle
-                    percent={Math.round(global.market_cap_percentage.eth)}
+                    percent={Math.round(data.market_cap_percentage.eth)}
                   />
                 </PercentDisplay>
               </NavUnderLi>
