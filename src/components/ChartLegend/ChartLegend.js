@@ -1,5 +1,6 @@
 import { LegendNormal, LegendLarge } from 'components'
 import { formatChartNumber, monthNames, today } from 'utils'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const ChartLegendWrap = styled.div`
@@ -9,11 +10,12 @@ const ChartLegendWrap = styled.div`
 `
 
 const ChartLegend = (props) => {
+  const { currencySymbol } = useSelector((state) => state.config)
   return (
     <ChartLegendWrap>
       <LegendNormal>{props.legendTitle}</LegendNormal>
       <LegendLarge>
-        {props.currencySymbol}
+        {currencySymbol}
         {formatChartNumber(+props.legendDisplayNumber)}
       </LegendLarge>
       <LegendNormal>

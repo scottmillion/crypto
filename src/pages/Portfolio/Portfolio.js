@@ -1,5 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  ColumnCurrentPrice,
+  ColumnTwentyFourHourChange,
+  LoadingBox,
+} from 'components'
+import { keyGen } from 'utils'
+import {
+  getCoinsData,
+  setValue,
+  toggleShowPopUp,
+} from 'store/portfolio/actions.js'
 import {
   ButtonContainer,
   ButtonMain,
@@ -24,50 +35,21 @@ import {
   PopUp,
   PopUpWrap,
 } from './Portfolio.css'
-import {
-  ColumnCurrentPrice,
-  ColumnTwentyFourHourChange,
-  LoadingBox,
-} from 'components'
-import { keyGen } from 'utils'
 import styled from 'styled-components'
 
 const Input = styled.input``
 
-const Portfolio = (props) => {
-  const [data, setData] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [showPopUp, setShowPopUp] = useState(false)
-  const [value, setValue] = useState('')
-
-  const getData = async () => {
-    setIsLoading(true)
-    try {
-      const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${props.currency}&ids=bitcoin%2C%20ethereum%2C%20tether%2C%20dogecoin%2C%20binancecoin%2C%20cardano%2C%20usd-coin%2C%20wrapped-bitcoin%2C%20litecoin&order=market_cap_desc&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
-      )
-      setIsLoading(false)
-      setData(data)
-    } catch (error) {
-      console.log('Error in getData API!')
-      console.log(error)
-    }
-  }
-
-  const handleClick = () => {
-    setShowPopUp(!showPopUp)
-  }
-
-  const handleCoinAmountChange = (e) => {
-    setValue(e.target.value)
-  }
+const Portfolio = () => {
+  const { currency } = useSelector((state) => state.config)
+  const { data, isLoading, showPopUp, value } = useSelector(
+    (state) => state.portfolio,
+  )
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    getData()
+    dispatch(getCoinsData())
     // eslint-disable-next-line
-  }, [])
-
-  const { currency } = props
+  }, [currency])
 
   return (
     <Container>
@@ -90,7 +72,7 @@ const Portfolio = (props) => {
             </select>
             <Input
               type="text"
-              onChange={handleCoinAmountChange}
+              onChange={(e) => dispatch(setValue(e.target.value))}
               placeholder="13.029381"
               value={value}
             />
@@ -100,10 +82,12 @@ const Portfolio = (props) => {
       )}
       <ContentContainer>
         <ButtonContainer>
-          <ButtonMain onClick={handleClick}>Add Asset</ButtonMain>
+          <ButtonMain onClick={() => dispatch(toggleShowPopUp())}>
+            Add Asset
+          </ButtonMain>
         </ButtonContainer>
         <H1>Your statistics</H1>
-        {(data && !isLoading && (
+        {(data.length > 0 && !isLoading && (
           <Content>
             {data.map((coin) => {
               const {
@@ -144,15 +128,11 @@ const Portfolio = (props) => {
                       <ItemRow>
                         <Item>
                           <Label>Current price:</Label>{' '}
-                          <ColumnCurrentPrice
-                            price={current_price}
-                            currency={currency}
-                          />
+                          <ColumnCurrentPrice price={current_price} />
                         </Item>
                         <Item>
                           <Label>Price change 24h:</Label>
                           <ColumnTwentyFourHourChange
-                            currency={currency}
                             symbol={symbol}
                             twentyFourHourChange={twentyFourHourChange}
                           />

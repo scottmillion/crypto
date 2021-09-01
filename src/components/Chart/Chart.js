@@ -4,7 +4,6 @@ import { withTheme } from 'styled-components'
 
 const Chart = (props) => {
   const [gradient, setGradient] = useState('')
-
   useEffect(() => {
     if (props.type === 'Line') {
       const canvas = document.querySelector('#bitcoin-line-chart')
