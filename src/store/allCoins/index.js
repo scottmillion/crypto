@@ -1,5 +1,10 @@
 const initialState = {
   coinsData: [],
+  hourSortAsc: false,
+  idSortAsc: true,
+  priceSortAsc: false,
+  sevenDaySortAsc: false,
+  twentyFourHourSortAsc: false,
   priceDataLabels: [],
   priceDataPoints: [],
   volumeDataLabels: [],
@@ -21,6 +26,7 @@ export const GET_PRICE_DATA_SUCCESS = 'GET_PRICE_DATA_SUCCESS'
 export const GET_VOLUME_DATA_ERROR = 'GET_VOLUME_DATA_ERROR'
 export const GET_VOLUME_DATA_PENDING = 'GET_VOLUME_DATA_PENDING'
 export const GET_VOLUME_DATA_SUCCESS = 'GET_VOLUME_DATA_SUCCESS'
+export const SORT_BY = 'SORT_BY'
 
 function allCoinsReducer(state = initialState, action) {
   switch (action.type) {
@@ -80,11 +86,45 @@ function allCoinsReducer(state = initialState, action) {
         isVolumeDataLoading: false,
         volumeError: false,
       }
+    case SORT_BY:
+      let sortAsc
+      switch (action.payload) {
+        case 'id':
+          sortAsc = 'idSortAsc'
+          break
+        case 'current_price':
+          sortAsc = 'priceSortAsc'
+          break
+        case 'price_change_percentage_1h_in_currency':
+          sortAsc = 'hourSortAsc'
+          break
+        case 'price_change_percentage_7d_in_currency':
+          sortAsc = 'sevenDaySortAsc'
+          break
+        case 'price_change_percentage_24h_in_currency':
+          sortAsc = 'twentyFourHourSortAsc'
+          break
+        default:
+          sortAsc = 'name'
+      }
+
+      return {
+        ...state,
+        coinsData: state.coinsData.sort((a, b) =>
+          state[sortAsc]
+            ? a[action.payload] < b[action.payload]
+              ? -1
+              : 1
+            : b[action.payload] < a[action.payload]
+            ? -1
+            : 1,
+        ),
+        [sortAsc]: !state[sortAsc],
+      }
+
     default:
       return state
   }
 }
 
 export default allCoinsReducer
-
-// selectors

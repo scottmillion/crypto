@@ -9,6 +9,7 @@ import {
   GET_VOLUME_DATA_ERROR,
   GET_VOLUME_DATA_PENDING,
   GET_VOLUME_DATA_SUCCESS,
+  SORT_BY,
 } from './index'
 
 export const getCoinsData = () => async (dispatch, getState) => {
@@ -73,4 +74,11 @@ export const getVolumes = () => async (dispatch, getState) => {
   } catch (err) {
     dispatch({ type: GET_VOLUME_DATA_ERROR, payload: err })
   }
+}
+
+export const sortBy = (value) => (dispatch) => {
+  dispatch({
+    type: SORT_BY,
+    payload: value,
+  })
 }
