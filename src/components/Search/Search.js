@@ -6,16 +6,22 @@ import { keyGen } from 'utils'
 const Search = () => {
   const [value, setValue] = useState('')
   const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(false)
 
   const getAutoCompleteData = async (value) => {
+    setIsLoading(true)
     try {
       const { data } = await axios(
         `https://crypto-app-server.herokuapp.com/coins/${value}`,
       )
       setData(data)
+      setIsLoading(false)
     } catch (error) {
       console.log('AutoCompleteData API Error!')
       console.log(error)
+      setIsLoading(false)
+      setError(true)
     }
   }
 
@@ -24,7 +30,7 @@ const Search = () => {
     setValue('')
   }
 
-  const handleClickDataItem = (coinName) => {
+  const handleClickSearchListItem = (coinName) => {
     setTimeout(() => {
       setData([])
       setValue(coinName)
@@ -48,25 +54,28 @@ const Search = () => {
         onChange={handleChange}
         placeholder="Search..."
       />
-      {data.length > 0 && (
-        <SearchList>
-          {data.map((coin) => {
-            let coinName = coin.name
-            return (
-              <SearchListItem
-                key={keyGen()}
-                onMouseDown={() => handleClickDataItem(coinName)}
-              >
-                <div>
-                  {coinName.length >= 40
-                    ? coinName.slice(0, 40) + '...'
+
+      <SearchList>
+        {error && <div>Api Error. Refresh Page.</div>}
+        {isLoading && !error && <div>Loading List...</div>}
+        {!isLoading && !error && data.length > 0 && (
+          <>
+            {data.map((coin) => {
+              let coinName = coin.name
+              return (
+                <SearchListItem
+                  key={keyGen()}
+                  onMouseDown={() => handleClickSearchListItem(coinName)}
+                >
+                  {coinName.length > 21
+                    ? coinName.slice(0, 21) + '...'
                     : coinName}
-                </div>
-              </SearchListItem>
-            )
-          })}
-        </SearchList>
-      )}
+                </SearchListItem>
+              )
+            })}
+          </>
+        )}
+      </SearchList>
     </>
   )
 }
