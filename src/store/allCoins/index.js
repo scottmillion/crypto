@@ -1,4 +1,13 @@
+// Group these into objects! // map over them in ColumnLabels and coinsTable // move sort data to actions.js
 const initialState = {
+  config: {
+    hourSortAsc: {
+      value: false,
+      hasFilter: true,
+      key: 'hourSortAsc',
+      order: 3, // use this to order before mapping over
+    },
+  },
   coinsData: [],
   hourSortAsc: false,
   idSortAsc: true,
