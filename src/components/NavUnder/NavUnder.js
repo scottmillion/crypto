@@ -30,7 +30,8 @@ const NavUnder = () => {
     <NavWrap>
       <NavUnderContainer>
         {error && <div>API Error. Refresh Page.</div>}
-        {(data && !isLoading && (
+        {isLoading && <LoadingBox bar />}
+        {data && !isLoading && (
           <div>
             <NavUnderUl>
               <Media
@@ -130,7 +131,7 @@ const NavUnder = () => {
               </NavUnderLi>
             </NavUnderUl>
           </div>
-        )) || <LoadingBox bar={true} />}
+        )}
       </NavUnderContainer>
     </NavWrap>
   )
