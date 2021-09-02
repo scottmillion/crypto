@@ -39,9 +39,6 @@ const CoinsTable = (props) => {
             <>
               {(matches.desktopS && (
                 <>
-                  <Row isLabel={true}>
-                    <ColumnLabels />
-                  </Row>
                   {data.map((coin, index, arr) => {
                     const {
                       circulating_supply,
@@ -59,6 +56,11 @@ const CoinsTable = (props) => {
                     } = coin
                     return (
                       <RowWrap key={keyGen()}>
+                        {index === 0 && (
+                          <Row isLabel={true}>
+                            <ColumnLabels />
+                          </Row>
+                        )}
                         <Row>
                           <ColumnNumber number={index + 1} width={widths[0]} />
 
