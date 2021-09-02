@@ -37,9 +37,9 @@ export const getPrices = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_PRICE_DATA_PENDING })
     const { data } = await axios(
-      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=39&interval=daily`,
+      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=40&interval=daily`,
     )
-    const prices = data.prices
+    const prices = data.prices.slice(0, 40)
     const priceDataPoints = prices.map((price) => price[1])
     const priceDataLabels = prices.map((price) =>
       new Date(price[0]).getDate().toString(),
@@ -60,9 +60,9 @@ export const getVolumes = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_VOLUME_DATA_PENDING })
     const { data } = await axios(
-      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=22&interval=daily`,
+      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=23&interval=daily`,
     )
-    const volumes = data.total_volumes
+    const volumes = data.total_volumes.slice(0, 23)
     const volumeDataPoints = volumes.map((volume) => volume[1])
     const volumeDataLabels = volumes.map((volume) =>
       new Date(volume[0]).getDate().toString(),
