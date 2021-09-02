@@ -3,6 +3,7 @@ import { currencyList } from 'utils'
 const initialState = {
   currency: 'usd',
   currencySymbol: '$',
+  configLoaded: false,
   data: null,
   error: false,
   isLoading: false,
@@ -39,6 +40,7 @@ function configReducer(state = initialState, action) {
         ...state,
         data: action.payload,
         isLoading: false,
+        configLoaded: true,
       }
     case TOGGLE_THEME:
       return { ...state, themeOn: !state.themeOn }

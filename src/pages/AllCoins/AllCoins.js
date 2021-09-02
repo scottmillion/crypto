@@ -25,7 +25,7 @@ const AllCoins = () => {
     isVolumeDataLoading,
   } = useSelector((state) => state.allCoins)
 
-  const { currency } = useSelector((state) => state.config)
+  const { configLoaded, currency } = useSelector((state) => state.config)
 
   useEffect(() => {
     dispatch(getCoinsData())
@@ -46,7 +46,7 @@ const AllCoins = () => {
           >
             {(matches) => (
               <>
-                {matches.desktopS && (
+                {matches.desktopS && configLoaded && (
                   <>
                     <ChartDisplay
                       data={coinsData}
