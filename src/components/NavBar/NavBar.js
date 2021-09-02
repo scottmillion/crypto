@@ -55,12 +55,13 @@ const NavBar = () => {
         <NavRight>
           <Media
             queries={{
-              desktop: screenSizeWidth.desktopSM,
+              desktopSM: screenSizeWidth.desktopSM,
+              desktopM: screenSizeWidth.desktopM,
             }}
           >
             {(matches) => (
               <>
-                {matches.desktop && (
+                {matches.desktopSM && (
                   <NavRightInputContainer>
                     <SearchImage
                       src={themeOn ? Images.searchIconLight : Images.searchIcon}
@@ -69,38 +70,28 @@ const NavBar = () => {
                     <Search />
                   </NavRightInputContainer>
                 )}
-              </>
-            )}
-          </Media>
+                <NavRightSelectContainer>
+                  <CurrencySymbol>{currencySymbol}</CurrencySymbol>
+                  <SelectWrap>
+                    <Select
+                      name="currency"
+                      id="current-currency"
+                      value={currency}
+                      onChange={handleChangeCurrency}
+                    >
+                      {Object.keys(currencyList).map((currencyType) => {
+                        return (
+                          <option value={currencyType} key={keyGen()}>
+                            {currencyList[currencyType].name}
+                          </option>
+                        )
+                      })}
+                    </Select>
+                    <SelectArrow size=".6rem" />
+                  </SelectWrap>
+                </NavRightSelectContainer>
 
-          <NavRightSelectContainer>
-            <CurrencySymbol>{currencySymbol}</CurrencySymbol>
-            <SelectWrap>
-              <Select
-                name="currency"
-                id="current-currency"
-                value={currency}
-                onChange={handleChangeCurrency}
-              >
-                {Object.keys(currencyList).map((currencyType) => {
-                  return (
-                    <option value={currencyType} key={keyGen()}>
-                      {currencyList[currencyType].name}
-                    </option>
-                  )
-                })}
-              </Select>
-              <SelectArrow size=".6rem" />
-            </SelectWrap>
-          </NavRightSelectContainer>
-          <Media
-            queries={{
-              desktop: screenSizeWidth.desktopM,
-            }}
-          >
-            {(matches) => (
-              <>
-                {matches.desktop && (
+                {matches.desktopM && (
                   <ThemeMode>
                     <img
                       src={themeOn ? Images.themeIconLight : Images.themeIcon}
