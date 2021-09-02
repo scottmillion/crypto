@@ -1,4 +1,5 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import allCoins from './allCoins'
 import config from './config'
 import portfolio from './portfolio'
@@ -11,4 +12,7 @@ const reducers = combineReducers({
   portfolio,
 })
 
-export const store = createStore(reducers, applyMiddleware(thunk))
+export const store = createStore(
+  reducers,
+  composeWithDevTools(applyMiddleware(thunk)),
+)
