@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper'
 
 import { Filter } from '@styled-icons/boxicons-regular/Filter'
 import { sortBy } from 'store/allCoins/actions.js'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ThemeContext } from 'styled-components'
 import styled from 'styled-components'
 
@@ -26,6 +26,7 @@ const CoinsTable = (props) => {
   const { data, isLoading } = props
   const themeContext = useContext(ThemeContext)
   const dispatch = useDispatch()
+  const { config } = useSelector((state) => state.allCoins)
 
   const useStyles = makeStyles({
     table: {
@@ -69,47 +70,18 @@ const CoinsTable = (props) => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <HeaderRow>
-                <TableCell>#</TableCell>
-                <TableCell>
-                  Name
-                  <StyledFilter onClick={() => dispatch(sortBy('id'))} />
-                </TableCell>
-
-                <TableCell>
-                  Price
-                  <StyledFilter
-                    onClick={() => dispatch(sortBy('current_price'))}
-                  />
-                </TableCell>
-                <TableCell>
-                  1h
-                  <StyledFilter
-                    onClick={() =>
-                      dispatch(sortBy('price_change_percentage_1h_in_currency'))
-                    }
-                  />
-                </TableCell>
-                <TableCell>
-                  24h
-                  <StyledFilter
-                    onClick={() =>
-                      dispatch(
-                        sortBy('price_change_percentage_24h_in_currency'),
-                      )
-                    }
-                  />
-                </TableCell>
-                <TableCell>
-                  7d
-                  <StyledFilter
-                    onClick={() =>
-                      dispatch(sortBy('price_change_percentage_7d_in_currency'))
-                    }
-                  />
-                </TableCell>
-                <TableCell>24h Volume / Market Cap</TableCell>
-                <TableCell>Circulating / TotalSupply</TableCell>
-                <TableCell>Last 7d</TableCell>
+                {Object.keys(config).map((label) => (
+                  <TableCell key={keyGen()}>
+                    {config[label].key}
+                    {config[label].sortBy && (
+                      <StyledFilter
+                        onClick={() =>
+                          dispatch(sortBy(`${config[label].sortBy}`))
+                        }
+                      />
+                    )}
+                  </TableCell>
+                ))}
               </HeaderRow>
             </TableHead>
 

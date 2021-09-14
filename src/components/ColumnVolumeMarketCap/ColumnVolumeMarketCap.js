@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 
 const ColumnVolumeMarketCap = (props) => {
   const { currency } = useSelector((state) => state.config)
+
   return (
     <ColumnPercentBar
       color1={props.color1}

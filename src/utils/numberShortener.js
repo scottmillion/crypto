@@ -1,5 +1,5 @@
 export function numberShortener(string) {
-  if (string.length <= 4) {
+  if (string.length <= 4 || string.includes('.')) {
     return string
   }
 
