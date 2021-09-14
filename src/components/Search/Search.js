@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Input, SearchList, SearchListItem } from './Search.css'
 import { keyGen } from 'utils'
 
+import { useSelector } from 'react-redux'
+
 const Search = () => {
   const [value, setValue] = useState('')
   const [data, setData] = useState([])
