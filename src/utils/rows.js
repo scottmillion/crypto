@@ -54,8 +54,8 @@ export function rows(data) {
     dataset.days7Numeric = sevenDayChange
     dataset.volumeMarketCap = (
       <ColumnVolumeMarketCap
-        color1={colors[index][0]}
-        color2={colors[index][1]}
+        color1={colors[index % colors.length][0]}
+        color2={colors[index % colors.length][1]}
         marketCap={market_cap}
         totalVolume={total_volume}
       />
@@ -63,8 +63,8 @@ export function rows(data) {
     dataset.vmcNumeric = total_volume / market_cap
     dataset.circulatingTotalSupply = (
       <ColumnCirculatingTotalSupply
-        color1={colors[index][0]}
-        color2={colors[index][1]}
+        color1={colors[index % colors.length][0]}
+        color2={colors[index % colors.length][1]}
         circulatingSupply={circulating_supply}
         totalSupply={total_supply}
       />
