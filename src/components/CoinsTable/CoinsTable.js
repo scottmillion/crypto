@@ -1,17 +1,6 @@
-import React from 'react'
-import {
-  ColumnCirculatingTotalSupply,
-  ColumnCoinListChartLast7d,
-  ColumnCurrentPrice,
-  ColumnHourChange,
-  ColumnName,
-  ColumnNumber,
-  ColumnSevenDayChange,
-  ColumnTwentyFourHourChange,
-  ColumnVolumeMarketCap,
-  LoadingBox,
-} from 'components'
-import { coinListPercentDisplayColors as colors, keyGen } from 'utils'
+import { useContext } from 'react'
+import { LoadingBox } from 'components'
+import { keyGen, rows } from 'utils'
 
 import { withStyles, makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
@@ -22,18 +11,20 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRowUI from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 
-import { useContext } from 'react'
-import { ThemeContext } from 'styled-components'
-
 import { Filter } from '@styled-icons/boxicons-regular/Filter'
 import { sortBy } from 'store/allCoins/actions.js'
 import { useDispatch } from 'react-redux'
+import { ThemeContext } from 'styled-components'
 import styled from 'styled-components'
+
+const StyledFilter = styled(Filter)`
+  width: 20px;
+  margin-left: 1px;
+`
 
 const CoinsTable = (props) => {
   const { data, isLoading } = props
   const themeContext = useContext(ThemeContext)
-
   const dispatch = useDispatch()
 
   const useStyles = makeStyles({
@@ -41,6 +32,8 @@ const CoinsTable = (props) => {
       minWidth: 650,
     },
   })
+
+  const classes = useStyles()
 
   const TableCell = withStyles(() => ({
     head: {
@@ -68,79 +61,6 @@ const CoinsTable = (props) => {
       borderTop: `none`,
     },
   }))(TableRow)
-
-  const StyledFilter = styled(Filter)`
-    width: 20px;
-    margin-left: 1px;
-  `
-
-  const rows = data.map((coin, index) => {
-    const {
-      circulating_supply,
-      current_price,
-      image,
-      market_cap,
-      name,
-      symbol,
-      total_supply,
-      total_volume,
-      price_change_percentage_1h_in_currency: hourChange,
-      price_change_percentage_24h_in_currency: twentyFourHourChange,
-      price_change_percentage_7d_in_currency: sevenDayChange,
-      sparkline_in_7d: sevenDayPriceList,
-    } = coin
-    const dataset = {}
-    dataset.number = <ColumnNumber number={index + 1} />
-    dataset.name = <ColumnName image={image} name={name} symbol={symbol} />
-    dataset.price = <ColumnCurrentPrice price={current_price} />
-    dataset.priceNumeric = current_price
-    dataset.hour = (
-      <ColumnHourChange
-        currentPrice={current_price}
-        hourChange={hourChange}
-        symbol={symbol}
-      />
-    )
-    dataset.hourNumeric = hourChange
-    dataset.hour24 = (
-      <ColumnTwentyFourHourChange
-        symbol={symbol}
-        twentyFourHourChange={twentyFourHourChange}
-      />
-    )
-    dataset.hour24Numeric = twentyFourHourChange
-    dataset.days7 = (
-      <ColumnSevenDayChange sevenDayChange={sevenDayChange} symbol={symbol} />
-    )
-    dataset.days7Numeric = sevenDayChange
-    dataset.volumeMarketCap = (
-      <ColumnVolumeMarketCap
-        color1={colors[index][0]}
-        color2={colors[index][1]}
-        marketCap={market_cap}
-        totalVolume={total_volume}
-      />
-    )
-    dataset.vmcNumeric = total_volume / market_cap
-    dataset.circulatingTotalSupply = (
-      <ColumnCirculatingTotalSupply
-        color1={colors[index][0]}
-        color2={colors[index][1]}
-        circulatingSupply={circulating_supply}
-        totalSupply={total_supply}
-      />
-    )
-    dataset.ctsNumeric = circulating_supply / (total_supply || Infinity)
-    dataset.last7d = (
-      <ColumnCoinListChartLast7d
-        sevenDayChange={sevenDayChange}
-        sevenDayPriceList={sevenDayPriceList}
-      />
-    )
-    return dataset
-  })
-
-  const classes = useStyles()
 
   return (
     <>
@@ -194,7 +114,7 @@ const CoinsTable = (props) => {
             </TableHead>
 
             <TableBody>
-              {rows.map((row) => (
+              {rows(data).map((row) => (
                 <TableRow key={keyGen()}>
                   <TableCell component="th" scope="row">
                     {row.number}
