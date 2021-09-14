@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 const ColumnTwentyFourHourChange = (props) => {
   const { currency } = useSelector((state) => state.config)
   return (
-    <Cell number={props.twentyFourHourChange} width={props.width}>
+    <Cell number={props.twentyFourHourChange}>
       {(currency !== props.symbol && (
         <>
           {getArrow(props.twentyFourHourChange)}

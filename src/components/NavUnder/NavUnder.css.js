@@ -14,8 +14,8 @@ export const NavWrap = styled.div`
 
 export const NavUnderContainer = styled.div`
   min-width: 500px;
-  max-width: 60%;
-  height: 55px;
+  max-width: 70%;
+  height: 46px;
   background: ${(props) => props.theme.secondary};
   display: flex;
   align-items: center;
@@ -25,9 +25,9 @@ export const NavUnderContainer = styled.div`
 `
 
 export const NavUnderLi = styled.li`
-  font-size: 1rem;
-  padding-right: 16px;
-  padding-left: 16px;
+  /* outline: 1px solid green; */
+  font-size: 0.8rem;
+  padding-inline: 16px;
   display: flex;
   align-items: center;
 `
@@ -42,7 +42,7 @@ export const PercentDisplay = styled.div`
   position: relative;
   overflow: hidden;
   width: 55px;
-  height: 14px;
+  height: 12px;
   background: linear-gradient(
     to right,
     #fff 0%,
@@ -55,7 +55,7 @@ export const PercentDisplay = styled.div`
 `
 
 export const Circle = styled.div`
-  height: 14px;
+  height: 12px;
   width: 14px;
   background: ${(props) => props.theme.secondaryInverted};
   border-radius: 7px;

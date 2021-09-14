@@ -1,5 +1,3 @@
-import { Cell } from 'components'
-
-const ColumnNumber = (props) => <Cell width={props.width}>{props.number}</Cell>
+const ColumnNumber = (props) => <>{props.number}</>
 
 export default ColumnNumber

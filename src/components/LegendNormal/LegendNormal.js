@@ -9,9 +9,6 @@ const LegendNormalWrap = styled.div`
   @media ${screenSizeWidth.desktopM} {
     font-size: 1rem;
   }
-  @media ${screenSizeWidth.desktopL} {
-    font-size: 1.2rem;
-  }
 `
 
 const LegendNormal = (props) => (
