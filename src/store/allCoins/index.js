@@ -137,15 +137,16 @@ function allCoinsReducer(state = initialState, action) {
       const configProperty = Object.entries(state.config).find(
         (ele) => ele[1].sortBy === action.payload,
       )[0]
+      const { payload } = action
 
       return {
         ...state,
         coinsData: state.coinsData.sort((a, b) =>
-          state.config[configProperty]['sortByAsc']
-            ? a[action.payload] < b[action.payload]
+          state.config[configProperty].sortByAsc
+            ? a[payload] < b[payload]
               ? -1
               : 1
-            : b[action.payload] < a[action.payload]
+            : b[payload] < a[payload]
             ? -1
             : 1,
         ),
@@ -153,7 +154,7 @@ function allCoinsReducer(state = initialState, action) {
           ...state.config,
           [configProperty]: {
             ...state.config[configProperty],
-            sortByAsc: !state.config[configProperty]['sortByAsc'],
+            sortByAsc: !state.config[configProperty].sortByAsc,
           },
         },
       }
