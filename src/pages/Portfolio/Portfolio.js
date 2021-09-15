@@ -127,18 +127,18 @@ const Portfolio = () => {
                       </ItemLabel>
                       <ItemRow>
                         <Item>
-                          <Label>Current price:</Label>{' '}
+                          <Label>Price now:</Label>{' '}
                           <ColumnCurrentPrice price={current_price} />
                         </Item>
                         <Item>
-                          <Label>Price change 24h:</Label>
+                          <Label>Price 24h chg:</Label>
                           <ColumnTwentyFourHourChange
                             symbol={symbol}
                             twentyFourHourChange={twentyFourHourChange}
                           />
                         </Item>
                         <Item>
-                          <Label>Vol / Market Cap:</Label>
+                          <Label>Vol / Mrkt Cap:</Label>
                           <ColorGreen>
                             {marketCapTotalVolumePercent}%
                           </ColorGreen>
@@ -147,7 +147,7 @@ const Portfolio = () => {
                           </PercentDisplay>
                         </Item>
                         <Item>
-                          <Label>Circ / Total Supply:</Label>
+                          <Label>Circ / Total Sup:</Label>
                           <ColorGreen>
                             {circulatingTotalSupplyPercent}%
                           </ColorGreen>
@@ -165,10 +165,10 @@ const Portfolio = () => {
                       </ItemLabel>
                       <ItemRow>
                         <Item>
-                          <Label>Coin amt:</Label> 1.6
+                          <Label>Amt:</Label> 1.6
                         </Item>
                         <Item>
-                          <Label>Amount val</Label> 1.6 * Price
+                          <Label>Value:</Label> 1.6 * Price
                         </Item>
                         <Item>
                           <Label>Price change since purchase</Label>% change
