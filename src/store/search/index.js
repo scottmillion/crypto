@@ -7,6 +7,7 @@ const initialState = {
 export const GET_SEARCH_DATA_ERROR = 'GET_SEARCH_DATA_ERROR'
 export const GET_SEARCH_DATA_PENDING = 'GET_SEARCH_DATA_PENDING'
 export const GET_SEARCH_DATA_SUCCESS = 'GET_SEARCH_DATA_SUCCESS'
+export const CLEAR_DATA = 'CLEAR_DATA'
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
@@ -25,6 +26,13 @@ function searchReducer(state = initialState, action) {
       return {
         ...state,
         data: action.payload,
+        isLoading: false,
+        error: false,
+      }
+    case CLEAR_DATA:
+      return {
+        ...state,
+        data: [],
         isLoading: false,
         error: false,
       }

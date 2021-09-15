@@ -1,40 +1,22 @@
-import axios from 'axios'
 import React, { useState } from 'react'
 import { Input, SearchList, SearchListItem } from './Search.css'
 import { keyGen } from 'utils'
-
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { clearData, getSearchData } from 'store/search/actions.js'
 
 const Search = () => {
   const [value, setValue] = useState('')
-  const [data, setData] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
-
-  const getAutoCompleteData = async (value) => {
-    setIsLoading(true)
-    try {
-      const { data } = await axios(
-        `https://crypto-app-server.herokuapp.com/coins/${value}`,
-      )
-      setData(data)
-      setIsLoading(false)
-    } catch (error) {
-      console.log('AutoCompleteData API Error!')
-      console.log(error)
-      setIsLoading(false)
-      setError(true)
-    }
-  }
+  const dispatch = useDispatch()
+  const { data, isLoading, error } = useSelector((state) => state.search)
 
   const handleBlur = () => {
-    setData([])
+    dispatch(clearData())
     setValue('')
   }
 
   const handleClickSearchListItem = (coinName) => {
     setTimeout(() => {
-      setData([])
+      dispatch(clearData())
       setValue(coinName)
     }, 10)
   }
@@ -42,7 +24,7 @@ const Search = () => {
   const handleChange = (e) => {
     const { value } = e.target
     setValue(value)
-    value === '' ? setData([]) : getAutoCompleteData(value)
+    value === '' ? dispatch(clearData()) : dispatch(getSearchData(value))
   }
   const displayLoading = isLoading && !error && value !== ''
   const displayData = !isLoading && !error && data.length > 0 && value !== ''

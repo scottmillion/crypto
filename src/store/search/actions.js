@@ -3,6 +3,7 @@ import {
   GET_SEARCH_DATA_ERROR,
   GET_SEARCH_DATA_PENDING,
   GET_SEARCH_DATA_SUCCESS,
+  CLEAR_DATA,
 } from './index'
 
 export const getSearchData = (value) => async (dispatch) => {
@@ -19,3 +20,7 @@ export const getSearchData = (value) => async (dispatch) => {
     dispatch({ type: GET_SEARCH_DATA_ERROR, payload: err })
   }
 }
+
+export const clearData = () => ({
+  type: CLEAR_DATA,
+})
