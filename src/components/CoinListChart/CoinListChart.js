@@ -41,18 +41,20 @@ const options = {
 }
 
 const CoinListChart = (props) => {
-  const data = {
-    labels: new Array(props.prices.length).fill(''),
-    datasets: [
-      {
-        fill: false,
-      },
-    ],
+  const data = (canvas) => {
+    const data = {
+      labels: new Array(props.prices.length).fill(''),
+      datasets: [
+        {
+          fill: false,
+          data: props.prices,
+          borderColor: `${props.sevenDayChange < 0 ? '#FE1040' : '#00FC2A'}`,
+        },
+      ],
+    }
+    return data
   }
-  data.datasets[0].data = props.prices
-  data.datasets[0].borderColor = `${
-    props.sevenDayChange < 0 ? '#FE1040' : '#00FC2A'
-  }`
+
   return (
     <Line
       data={data}

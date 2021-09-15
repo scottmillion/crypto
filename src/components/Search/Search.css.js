@@ -7,10 +7,10 @@ export const Input = styled(DebounceInput)`
   color: inherit;
   font-size: 1.1rem;
   width: 250px;
-  height: 63px;
-  padding-left: 60px;
+  height: 48px;
+  padding-left: 56px;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
 
   &::placeholder {
     color: inherit;
@@ -22,9 +22,6 @@ export const Input = styled(DebounceInput)`
 
   @media ${screenSizeWidth.desktopM} {
     width: 350px;
-  }
-  @media ${screenSizeWidth.desktopL} {
-    width: 450px;
   }
 `
 

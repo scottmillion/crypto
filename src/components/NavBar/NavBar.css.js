@@ -3,9 +3,9 @@ import { DownArrow } from '@styled-icons/boxicons-solid'
 import { Link } from 'react-router-dom'
 
 export const CurrencySymbol = styled.div`
-  width: 3rem;
-  height: 33px;
-  font-size: 1.3rem;
+  width: 2.6rem;
+  height: 30px;
+  font-size: 1.2rem;
   background: #191b1f;
   display: flex;
   justify-content: center;
@@ -23,7 +23,7 @@ export const Nav = styled.div`
 
 export const NavWrap = styled.div`
   width: 100%;
-  height: 97px;
+  height: 80px;
   background: ${(props) => props.theme.secondary};
   display: flex;
   justify-content: center;
@@ -35,13 +35,11 @@ export const NavLeft = styled.div`
 `
 
 export const NavLeftLi = styled.li`
-  font-size: 1.3rem;
   display: inline-block;
-  width: 167px;
-  border-radius: 20px;
+  width: 120px;
+  border-radius: 10px;
   text-align: center;
-  padding-top: 13px;
-  padding-bottom: 13px;
+  padding-block: 12px;
   background: ${(props) => (props.routeMatches ? props.theme.tertiary : '')};
 `
 
@@ -60,20 +58,21 @@ export const NavRightInputContainer = styled.div``
 
 export const NavRightSelectContainer = styled.div`
   position: relative;
-  margin-left: 28px;
+  margin-left: 20px;
   display: flex;
   flex-wrap: nowrap;
-  width: 115px;
-  height: 35px;
-  border-radius: 20px;
+  width: 106px;
+  /* height: 35px; */
+  border-radius: 10px;
   background: ${(props) => props.theme.tertiary};
-  padding: 14px 10px;
-  font-size: 1.1rem;
+  padding: 10px 10px;
+  font-size: 1rem;
 `
 
 export const SearchImage = styled.img`
+  width: 20px;
   position: absolute;
-  margin: 20px 22px 0px 28px;
+  margin: 15px 22px 0px 28px;
 `
 
 export const Select = styled.select`
@@ -85,7 +84,7 @@ export const Select = styled.select`
   background: ${(props) => props.theme.tertiary};
   color: ${(props) => props.theme.mainFont};
   font-size: 1.1rem;
-  margin-left: 5px;
+  margin-left: 3px;
 
   &:focus {
     outline: none;
@@ -95,7 +94,7 @@ export const Select = styled.select`
 export const SelectArrow = styled(DownArrow)`
   position: absolute;
   margin-left: 32px;
-  margin-top: 12px;
+  margin-top: 10px;
   color: #00ff5f;
   pointer-events: none;
 `
@@ -113,10 +112,9 @@ export const StyledLink = styled(Link)`
 
 export const ThemeMode = styled.div`
   display: flex;
-  height: 35px;
-  border-radius: 20px;
+  border-radius: 10px;
   background: ${(props) => props.theme.tertiary};
-  padding: 14px 21px;
-  margin-left: 28px;
+  padding: 8px 14px;
+  margin-left: 20px;
   font-size: 1.1rem;
 `

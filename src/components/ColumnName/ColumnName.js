@@ -1,6 +1,5 @@
-import { Cell } from 'components'
-
 import styled from 'styled-components'
+import { Cell } from 'components'
 
 const Img = styled.img`
   width: 34px;
@@ -9,7 +8,7 @@ const Img = styled.img`
 `
 
 const ColumnName = (props) => (
-  <Cell width={props.width}>
+  <Cell>
     <Img src={props.image} alt={props.name} />
     {props.name} ({props.symbol.toUpperCase()})
   </Cell>

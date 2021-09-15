@@ -8,7 +8,6 @@ export { default as ColumnCirculatingTotalSupply } from './ColumnCirculatingTota
 export { default as ColumnCoinListChartLast7d } from './ColumnCoinListChartLast7d'
 export { default as ColumnCurrentPrice } from './ColumnCurrentPrice'
 export { default as ColumnHourChange } from './ColumnHourChange'
-export { default as ColumnLabels } from './ColumnLabels'
 export { default as ColumnName } from './ColumnName'
 export { default as ColumnNumber } from './ColumnNumber'
 export { default as ColumnPercentBar } from './ColumnPercentBar'

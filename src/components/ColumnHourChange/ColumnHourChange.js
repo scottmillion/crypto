@@ -6,7 +6,7 @@ const ColumnHourChange = (props) => {
   const { currency } = useSelector((state) => state.config)
   const hourChange = props.hourChange || 0 // sometimes api returns null
   return (
-    <Cell number={hourChange} width={props.width}>
+    <Cell number={hourChange}>
       {(currency !== props.symbol && (
         <>
           {getArrow(hourChange)}

@@ -6,7 +6,7 @@ const ColumnSevenDayChange = (props) => {
   const { currency } = useSelector((state) => state.config)
 
   return (
-    <Cell number={props.sevenDayChange} width={props.width}>
+    <Cell number={props.sevenDayChange}>
       {(currency !== props.symbol && (
         <>
           {getArrow(props.sevenDayChange)}

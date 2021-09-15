@@ -11,11 +11,6 @@ const LegendLargeWrap = styled.div`
     font-size: 1.7rem;
     line-height: 2.2rem;
   }
-  @media ${screenSizeWidth.desktopL} {
-    font-size: 2.2rem;
-    font-weight: 500;
-    line-height: 2.9rem;
-  }
 `
 
 const LegendLarge = (props) => (

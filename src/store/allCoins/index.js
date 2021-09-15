@@ -1,19 +1,57 @@
-// Group these into objects! // map over them in ColumnLabels and coinsTable // move sort data to actions.js
 const initialState = {
   config: {
-    hourSortAsc: {
-      value: false,
-      hasFilter: true,
-      key: 'hourSortAsc',
-      order: 3, // use this to order before mapping over
+    num: {
+      sortBy: false,
+      order: 0,
+      key: '#',
+    },
+    name: {
+      sortBy: 'id',
+      sortByAsc: false,
+      order: 1,
+      key: 'Name',
+    },
+    price: {
+      sortBy: 'current_price',
+      sortByAsc: false,
+      order: 2,
+      key: 'Price',
+    },
+    '1h': {
+      sortBy: 'price_change_percentage_1h_in_currency',
+      sortByAsc: false,
+      order: 3,
+      key: '1h',
+    },
+    '24h': {
+      sortBy: 'price_change_percentage_24h_in_currency',
+      sortByAsc: false,
+      order: 4,
+      key: '24h',
+    },
+    '7d': {
+      sortBy: 'price_change_percentage_7d_in_currency',
+      sortByAsc: false,
+      order: 5,
+      key: '7d',
+    },
+    '24hVolumeMarketCap': {
+      sortBy: false,
+      order: 6,
+      key: '24h Volume / Market Cap',
+    },
+    circulatingTotalSupply: {
+      sortBy: false,
+      order: 7,
+      key: 'Circulating / TotalSupply',
+    },
+    last7d: {
+      sortBy: false,
+      order: 8,
+      key: 'Last 7d',
     },
   },
   coinsData: [],
-  hourSortAsc: false,
-  idSortAsc: true,
-  priceSortAsc: false,
-  sevenDaySortAsc: false,
-  twentyFourHourSortAsc: false,
   priceDataLabels: [],
   priceDataPoints: [],
   volumeDataLabels: [],
@@ -96,39 +134,29 @@ function allCoinsReducer(state = initialState, action) {
         volumeError: false,
       }
     case SORT_BY:
-      let sortAsc
-      switch (action.payload) {
-        case 'id':
-          sortAsc = 'idSortAsc'
-          break
-        case 'current_price':
-          sortAsc = 'priceSortAsc'
-          break
-        case 'price_change_percentage_1h_in_currency':
-          sortAsc = 'hourSortAsc'
-          break
-        case 'price_change_percentage_7d_in_currency':
-          sortAsc = 'sevenDaySortAsc'
-          break
-        case 'price_change_percentage_24h_in_currency':
-          sortAsc = 'twentyFourHourSortAsc'
-          break
-        default:
-          sortAsc = 'name'
-      }
+      const configProperty = Object.entries(state.config).find(
+        (ele) => ele[1].sortBy === action.payload,
+      )[0]
+      const { payload } = action
 
       return {
         ...state,
         coinsData: state.coinsData.sort((a, b) =>
-          state[sortAsc]
-            ? a[action.payload] < b[action.payload]
+          state.config[configProperty].sortByAsc
+            ? a[payload] < b[payload]
               ? -1
               : 1
-            : b[action.payload] < a[action.payload]
+            : b[payload] < a[payload]
             ? -1
             : 1,
         ),
-        [sortAsc]: !state[sortAsc],
+        config: {
+          ...state.config,
+          [configProperty]: {
+            ...state.config[configProperty],
+            sortByAsc: !state.config[configProperty].sortByAsc,
+          },
+        },
       }
 
     default:

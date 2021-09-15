@@ -1,14 +1,19 @@
-import { Cell, CoinListChart } from 'components'
+import { CoinListChart } from 'components'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  width: 120px;
+`
 
 const ColumnCoinListChartLast7d = (props) => (
-  <Cell width={props.width}>
+  <Container>
     <CoinListChart
       prices={props.sevenDayPriceList.price.filter(
         (_, index) => index % 8 === 0,
       )}
       sevenDayChange={props.sevenDayChange}
     />
-  </Cell>
+  </Container>
 )
 
 export default ColumnCoinListChartLast7d
