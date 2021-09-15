@@ -47,13 +47,11 @@ const CoinListChart = (props) => {
       datasets: [
         {
           fill: false,
+          data: props.prices,
+          borderColor: `${props.sevenDayChange < 0 ? '#FE1040' : '#00FC2A'}`,
         },
       ],
     }
-    data.datasets[0].data = props.prices
-    data.datasets[0].borderColor = `${
-      props.sevenDayChange < 0 ? '#FE1040' : '#00FC2A'
-    }`
     return data
   }
 
