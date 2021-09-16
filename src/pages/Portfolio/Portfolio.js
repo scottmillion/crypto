@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   ColumnCurrentPrice,
   ColumnTwentyFourHourChange,
   LoadingBox,
 } from 'components'
-import { keyGen } from 'utils'
+import { keyGen, getFormattedDate } from 'utils'
 import {
   getCoinsData,
   setValue,
@@ -37,7 +37,9 @@ import {
 } from './Portfolio.css'
 import styled from 'styled-components'
 
-const Input = styled.input``
+const Input = styled.input`
+  display: block;
+`
 
 const Portfolio = () => {
   const { currency } = useSelector((state) => state.config)
@@ -45,6 +47,17 @@ const Portfolio = () => {
     (state) => state.portfolio,
   )
   const dispatch = useDispatch()
+
+  const [coinName, setCoinName] = useState('')
+  const [coinValue, setCoinValue] = useState('')
+  const [coinPurchaseDate, setCoinPurchaseDate] = useState(getFormattedDate())
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(coinName)
+    console.log(coinValue)
+    console.log(coinPurchaseDate)
+  }
 
   useEffect(() => {
     dispatch(getCoinsData())
@@ -56,27 +69,26 @@ const Portfolio = () => {
       {showPopUp && (
         <PopUpWrap>
           <PopUp>
-            <select
-            // name="currency"
-            // id="current-currency"
-            // value={props.currency}
-            // onChange={props.handleChangeCurrency}
-            >
-              {/* {Object.keys(props.currencyList).map((currency) => {
-                  return (
-                    <option value={currency} key={keyGen()}>
-                      {props.currencyList[currency].name}
-                    </option>
-                  )
-                })} */}
-            </select>
-            <Input
-              type="text"
-              onChange={(e) => dispatch(setValue(e.target.value))}
-              placeholder="13.029381"
-              value={value}
-            />
-            <Input type="date" />
+            <form onSubmit={handleSubmit}>
+              <Input
+                type="text"
+                value={coinName}
+                placeholder="Bitcoin"
+                onChange={(e) => setCoinName(e.target.value)}
+              />
+              <Input
+                type="text"
+                onChange={(e) => setCoinValue(e.target.value)}
+                placeholder="13.029381"
+                value={coinValue}
+              />
+              <Input
+                type="date"
+                onChange={(e) => setCoinPurchaseDate(e.target.value)}
+                value={coinPurchaseDate}
+              />
+              <button>Add Coin</button>
+            </form>
           </PopUp>
         </PopUpWrap>
       )}
