@@ -1,7 +1,14 @@
 const initialState = {
-  data: [],
-  error: false,
-  isLoading: false,
+  navSearch: {
+    data: [],
+    error: false,
+    isLoading: false,
+  },
+  portfolioSearch: {
+    data: [],
+    error: false,
+    isLoading: false,
+  },
 }
 
 export const GET_SEARCH_DATA_ERROR = 'GET_SEARCH_DATA_ERROR'
@@ -14,27 +21,39 @@ function searchReducer(state = initialState, action) {
     case GET_SEARCH_DATA_ERROR:
       return {
         ...state,
-        error: true,
-        isLoading: false,
+        [action.payload.dataName]: {
+          ...[action.payload.dataName],
+          err: true,
+          isLoading: false,
+        },
       }
     case GET_SEARCH_DATA_PENDING:
       return {
         ...state,
-        isLoading: true,
+        [action.payload]: {
+          ...[action.payload],
+          isLoading: true,
+        },
       }
     case GET_SEARCH_DATA_SUCCESS:
       return {
         ...state,
-        data: action.payload,
-        isLoading: false,
-        error: false,
+        [action.payload.dataName]: {
+          ...[action.payload.dataName],
+          data: action.payload.data,
+          isLoading: false,
+          error: false,
+        },
       }
     case CLEAR_DATA:
       return {
         ...state,
-        data: [],
-        isLoading: false,
-        error: false,
+        [action.payload]: {
+          ...[action.payload],
+          data: [],
+          isLoading: false,
+          error: false,
+        },
       }
 
     default:
