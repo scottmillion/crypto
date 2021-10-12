@@ -1,46 +1,58 @@
 const initialState = {
+  myCoins: [],
   data: [],
   isLoading: false,
-  showPopUp: false,
-  value: '',
   error: false,
 }
 
-export const GET_COINS_DATA_ERROR = 'GET_COINS_DATA_ERROR'
-export const GET_COINS_DATA_PENDING = 'GET_COINS_DATA_PENDING'
-export const GET_COINS_DATA_SUCCESS = 'GET_COINS_DATA_SUCCESS'
-export const SET_VALUE = 'SET_VALUE'
-export const TOGGLE_SHOW_POP_UP = 'TOGGLE_SHOW_POP_UP'
+export const GET_MYCOINS_DATA_ERROR = 'GET_MYCOINS_DATA_ERROR'
+export const GET_MYCOINS_DATA_PENDING = 'GET_MYCOINS_DATA_PENDING'
+export const GET_MYCOINS_DATA_SUCCESS = 'GET_MYCOINS_DATA_SUCCESS'
+export const GET_HISTORIC_DATA_ERROR = 'GET_HISTORIC_DATA_ERROR'
+export const GET_HISTORIC_DATA_PENDING = 'GET_HISTORIC_DATA_PENDING'
+export const GET_HISTORIC_DATA_SUCCESS = 'GET_HISTORIC_DATA_SUCCESS'
 
 function portfolioReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_COINS_DATA_ERROR:
+    case GET_MYCOINS_DATA_ERROR:
       return {
         ...state,
         error: true,
         isLoading: false,
       }
-    case GET_COINS_DATA_PENDING:
+    case GET_MYCOINS_DATA_PENDING:
       return {
         ...state,
         isLoading: true,
       }
-    case GET_COINS_DATA_SUCCESS:
+    case GET_MYCOINS_DATA_SUCCESS:
       return {
         ...state,
         data: action.payload,
         isLoading: false,
         error: false,
       }
-    case SET_VALUE:
+    case GET_HISTORIC_DATA_ERROR:
       return {
         ...state,
-        value: action.payload,
+        error: true,
+        isLoading: false,
       }
-    case TOGGLE_SHOW_POP_UP:
+    case GET_HISTORIC_DATA_PENDING:
       return {
         ...state,
-        showPopUp: !state.showPopUp,
+        isLoading: true,
+      }
+    case GET_HISTORIC_DATA_SUCCESS:
+      // necessary for updating existing coin data
+      const filteredCoins = state.myCoins.filter(
+        (o) => o.coinId !== action.payload.coinId,
+      )
+      return {
+        ...state,
+        myCoins: [...filteredCoins, action.payload],
+        isLoading: false,
+        error: false,
       }
     default:
       return state

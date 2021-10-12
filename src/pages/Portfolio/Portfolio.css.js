@@ -122,23 +122,6 @@ export const Label = styled.span`
   margin-right: 16px;
 `
 
-export const PopUp = styled.div`
-  width: 40%;
-  height: 100%;
-  background: white;
-  z-index: 11;
-  margin: auto;
-`
-
-export const PopUpWrap = styled.div`
-  position: absolute;
-  /* display: none; */
-  margin-top: 180px;
-  width: 100%;
-  height: 40%;
-  z-index: 10;
-`
-
 export const PercentDisplay = styled.div`
   position: relative;
   overflow: hidden;

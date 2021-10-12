@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   ColumnCurrentPrice,
   ColumnTwentyFourHourChange,
   LoadingBox,
+  PortfolioPopUp,
 } from 'components'
-import { keyGen, getFormattedDate } from 'utils'
-import {
-  getCoinsData,
-  setValue,
-  toggleShowPopUp,
-} from 'store/portfolio/actions.js'
+import { keyGen } from 'utils'
+import { getCoinsData } from 'store/portfolio/actions.js'
 import {
   ButtonContainer,
   ButtonMain,
@@ -32,74 +29,34 @@ import {
   ItemRow,
   PercentDisplay,
   Circle,
-  PopUp,
-  PopUpWrap,
 } from './Portfolio.css'
-import styled from 'styled-components'
-
-const Input = styled.input`
-  display: block;
-`
 
 const Portfolio = () => {
-  const { currency } = useSelector((state) => state.config)
-  const { data, isLoading, showPopUp, value } = useSelector(
-    (state) => state.portfolio,
-  )
+  const [showPopUp, setShowPopUp] = useState(false)
   const dispatch = useDispatch()
 
-  const [coinName, setCoinName] = useState('')
-  const [coinValue, setCoinValue] = useState('')
-  const [coinPurchaseDate, setCoinPurchaseDate] = useState(getFormattedDate())
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(coinName)
-    console.log(coinValue)
-    console.log(coinPurchaseDate)
-  }
+  const { currency } = useSelector((state) => state.config)
+  const { isLoading, myCoins, data } = useSelector((state) => state.portfolio)
 
   useEffect(() => {
     dispatch(getCoinsData())
     // eslint-disable-next-line
-  }, [currency])
+  }, [myCoins, currency])
 
   return (
     <Container>
       {showPopUp && (
-        <PopUpWrap>
-          <PopUp>
-            <form onSubmit={handleSubmit}>
-              <Input
-                type="text"
-                value={coinName}
-                placeholder="Bitcoin"
-                onChange={(e) => setCoinName(e.target.value)}
-              />
-              <Input
-                type="text"
-                onChange={(e) => setCoinValue(e.target.value)}
-                placeholder="13.029381"
-                value={coinValue}
-              />
-              <Input
-                type="date"
-                onChange={(e) => setCoinPurchaseDate(e.target.value)}
-                value={coinPurchaseDate}
-              />
-              <button>Add Coin</button>
-            </form>
-          </PopUp>
-        </PopUpWrap>
+        <PortfolioPopUp showPopUp={showPopUp} setShowPopUp={setShowPopUp} />
       )}
       <ContentContainer>
         <ButtonContainer>
-          <ButtonMain onClick={() => dispatch(toggleShowPopUp())}>
+          <ButtonMain onClick={() => setShowPopUp(!showPopUp)}>
             Add Asset
           </ButtonMain>
         </ButtonContainer>
         <H1>Your statistics</H1>
-        {(data.length > 0 && !isLoading && (
+        {isLoading && <LoadingBox height={300} />}
+        {myCoins.length > 0 && data.length > 0 && !isLoading && (
           <Content>
             {data.map((coin) => {
               const {
@@ -120,6 +77,9 @@ const Portfolio = () => {
               )
               const circulatingTotalSupplyPercent = Math.round(
                 (100 * circulating_supply) / totalSupply,
+              )
+              const { amountOwned, purchaseDate, historicPrice } = myCoins.find(
+                (coin) => coin.coinId === id,
               )
 
               return (
@@ -146,7 +106,7 @@ const Portfolio = () => {
                           <Label>Price 24h chg:</Label>
                           <ColumnTwentyFourHourChange
                             symbol={symbol}
-                            twentyFourHourChange={twentyFourHourChange}
+                            twentyFourHourChange={twentyFourHourChange || 0}
                           />
                         </Item>
                         <Item>
@@ -177,17 +137,27 @@ const Portfolio = () => {
                       </ItemLabel>
                       <ItemRow>
                         <Item>
-                          <Label>Amt:</Label> 1.6
+                          <Label>Amt:</Label> {amountOwned}
                         </Item>
                         <Item>
-                          <Label>Value:</Label> 1.6 * Price
+                          <Label>Value:</Label>
+                          <ColumnCurrentPrice
+                            price={amountOwned * current_price}
+                          />
                         </Item>
                         <Item>
-                          <Label>Price change since purchase</Label>% change
-                          today vs purchase date
+                          <Label>Price change since purchase</Label>
+                          {Math.round(
+                            (((current_price - historicPrice[currency]) /
+                              historicPrice[currency]) *
+                              100 +
+                              Number.EPSILON) *
+                              100,
+                          ) / 100 || '-'}
+                          %
                         </Item>
                         <Item>
-                          <Label>Purchase date</Label> 03.23.2021
+                          <Label>Purchase date</Label> {purchaseDate}
                         </Item>
                       </ItemRow>
                     </CoinDataRow>
@@ -196,7 +166,7 @@ const Portfolio = () => {
               )
             })}
           </Content>
-        )) || <LoadingBox height={300} />}
+        )}
       </ContentContainer>
     </Container>
   )
