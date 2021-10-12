@@ -6,21 +6,22 @@ import {
   CLEAR_DATA,
 } from './index'
 
-export const getSearchData = (value) => async (dispatch) => {
+export const getSearchData = (value, dataName) => async (dispatch) => {
   try {
-    dispatch({ type: GET_SEARCH_DATA_PENDING })
+    dispatch({ type: GET_SEARCH_DATA_PENDING, payload: dataName })
     const { data } = await axios(
       `https://crypto-app-server.herokuapp.com/coins/${value}`,
     )
     dispatch({
       type: GET_SEARCH_DATA_SUCCESS,
-      payload: data,
+      payload: { data, dataName },
     })
   } catch (err) {
-    dispatch({ type: GET_SEARCH_DATA_ERROR, payload: err })
+    dispatch({ type: GET_SEARCH_DATA_ERROR, payload: { dataName, err } })
   }
 }
 
-export const clearData = () => ({
+export const clearData = (dataName) => ({
   type: CLEAR_DATA,
+  payload: dataName,
 })
