@@ -33,10 +33,10 @@ const PortfolioPopUp = (props) => {
   const [amountOwned, setAmountOwned] = useState('')
   const [purchaseDate, setPurchaseDate] = useState(getFormattedDate())
 
-  const handleClickSearchListItem = (coinName) => {
+  const handleClickSearchListItem = (name) => {
     setTimeout(() => {
-      setCoinName(coinName)
-      setCoinData(data.find((coin) => coin.name === coinName))
+      setCoinName(name)
+      setCoinData(data.find((coin) => coin.name === name))
       dispatch(clearData('portfolioSearch'))
     }, 10)
   }
@@ -101,17 +101,15 @@ const PortfolioPopUp = (props) => {
                   {displayData && (
                     <>
                       {data.map((coin) => {
-                        let coinName = coin.name
+                        let { name } = coin
                         return (
                           <SearchListItem
                             key={keyGen()}
-                            onMouseDown={() =>
-                              handleClickSearchListItem(coinName)
-                            }
+                            onMouseDown={() => handleClickSearchListItem(name)}
                           >
-                            {coinName.length > 21
-                              ? coinName.slice(0, 21) + '...'
-                              : coinName}
+                            {name.length > 21
+                              ? name.slice(0, 21) + '...'
+                              : name}
                           </SearchListItem>
                         )
                       })}
