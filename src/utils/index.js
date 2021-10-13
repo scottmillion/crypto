@@ -12,6 +12,7 @@ export {
 export { convertLargeNumber } from './convertLargeNumber'
 export { formatChartNumber } from './formatChartNumber'
 export { getArrow } from './getArrow'
+export { getFormattedDate } from './getFormattedDate'
 export { keyGen } from './keyGen'
 export { prettierNumber } from './prettierNumber'
 export { numberShortener } from './numberShortener'

@@ -1,35 +1,68 @@
 import axios from 'axios'
 import {
-  GET_COINS_DATA_ERROR,
-  GET_COINS_DATA_PENDING,
-  GET_COINS_DATA_SUCCESS,
-  SET_VALUE,
-  TOGGLE_SHOW_POP_UP,
+  GET_MYCOINS_DATA_ERROR,
+  GET_MYCOINS_DATA_PENDING,
+  GET_MYCOINS_DATA_SUCCESS,
+  GET_HISTORIC_DATA_ERROR,
+  GET_HISTORIC_DATA_PENDING,
+  GET_HISTORIC_DATA_SUCCESS,
 } from './index'
 
 export const getCoinsData = () => async (dispatch, getState) => {
   const state = getState()
   const currency = state.config.currency
+  const myCoins = state.portfolio.myCoins
+
+  const getIds = () => {
+    const coinIds = myCoins.map((coin) => {
+      return coin.coinId
+    })
+    return coinIds.join('%2C%20')
+  }
+
+  const idList = getIds()
+
+  // prevents populating all coins if no ids present
+  if (!idList) {
+    return
+  }
 
   try {
-    dispatch({ type: GET_COINS_DATA_PENDING })
+    dispatch({ type: GET_MYCOINS_DATA_PENDING })
     const { data } = await axios(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=bitcoin%2C%20ethereum%2C%20tether%2C%20dogecoin%2C%20binancecoin%2C%20cardano%2C%20usd-coin%2C%20wrapped-bitcoin%2C%20litecoin&order=market_cap_desc&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${idList}&order=market_cap_desc&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
     )
     dispatch({
-      type: GET_COINS_DATA_SUCCESS,
+      type: GET_MYCOINS_DATA_SUCCESS,
       payload: data,
     })
   } catch (err) {
-    dispatch({ type: GET_COINS_DATA_ERROR, payload: err })
+    dispatch({ type: GET_MYCOINS_DATA_ERROR, payload: err })
   }
 }
 
-export const setValue = (value) => ({
-  type: SET_VALUE,
-  payload: value,
-})
-
-export const toggleShowPopUp = () => ({
-  type: TOGGLE_SHOW_POP_UP,
-})
+export const addCoin = (coinId, amountOwned, purchaseDate) => async (
+  dispatch,
+  getState,
+) => {
+  const formattedDate = purchaseDate.split('-').reverse().join('-')
+  try {
+    dispatch({ type: GET_HISTORIC_DATA_PENDING })
+    const { data } = await axios(
+      `https://api.coingecko.com/api/v3/coins/${coinId}/history?date=${formattedDate}&localization=false`,
+    )
+    //sometimes market_data not available
+    const historicPrice = data?.market_data?.current_price || {}
+    dispatch({
+      type: GET_HISTORIC_DATA_SUCCESS,
+      payload: {
+        coinId,
+        amountOwned: +amountOwned,
+        purchaseDate: formattedDate,
+        historicPrice,
+      },
+    })
+  } catch (err) {
+    dispatch({ type: GET_HISTORIC_DATA_ERROR, payload: err })
+  }
+}

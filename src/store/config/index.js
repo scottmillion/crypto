@@ -51,16 +51,3 @@ function configReducer(state = initialState, action) {
 }
 
 export default configReducer
-
-// selectors
-// const getGlobalData = async () => {
-//   setIsLoading(true)
-//   try {
-//     const { data } = await axios('https://api.coingecko.com/api/v3/global')
-//     setIsLoading(false)
-//     setGlobal(data.data)
-//   } catch (error) {
-//     console.log('Global API Error!')
-//     console.log(error)
-//   }
-// }

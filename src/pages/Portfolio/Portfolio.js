@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   ColumnCurrentPrice,
   ColumnTwentyFourHourChange,
   LoadingBox,
+  PortfolioPopUp,
 } from 'components'
 import { keyGen } from 'utils'
-import {
-  getCoinsData,
-  setValue,
-  toggleShowPopUp,
-} from 'store/portfolio/actions.js'
+import { getCoinsData } from 'store/portfolio/actions.js'
 import {
   ButtonContainer,
   ButtonMain,
@@ -32,62 +29,34 @@ import {
   ItemRow,
   PercentDisplay,
   Circle,
-  PopUp,
-  PopUpWrap,
 } from './Portfolio.css'
-import styled from 'styled-components'
-
-const Input = styled.input``
 
 const Portfolio = () => {
-  const { currency } = useSelector((state) => state.config)
-  const { data, isLoading, showPopUp, value } = useSelector(
-    (state) => state.portfolio,
-  )
+  const [showPopUp, setShowPopUp] = useState(false)
   const dispatch = useDispatch()
+
+  const { currency } = useSelector((state) => state.config)
+  const { isLoading, myCoins, data } = useSelector((state) => state.portfolio)
 
   useEffect(() => {
     dispatch(getCoinsData())
     // eslint-disable-next-line
-  }, [currency])
+  }, [myCoins, currency])
 
   return (
     <Container>
       {showPopUp && (
-        <PopUpWrap>
-          <PopUp>
-            <select
-            // name="currency"
-            // id="current-currency"
-            // value={props.currency}
-            // onChange={props.handleChangeCurrency}
-            >
-              {/* {Object.keys(props.currencyList).map((currency) => {
-                  return (
-                    <option value={currency} key={keyGen()}>
-                      {props.currencyList[currency].name}
-                    </option>
-                  )
-                })} */}
-            </select>
-            <Input
-              type="text"
-              onChange={(e) => dispatch(setValue(e.target.value))}
-              placeholder="13.029381"
-              value={value}
-            />
-            <Input type="date" />
-          </PopUp>
-        </PopUpWrap>
+        <PortfolioPopUp showPopUp={showPopUp} setShowPopUp={setShowPopUp} />
       )}
       <ContentContainer>
         <ButtonContainer>
-          <ButtonMain onClick={() => dispatch(toggleShowPopUp())}>
+          <ButtonMain onClick={() => setShowPopUp(!showPopUp)}>
             Add Asset
           </ButtonMain>
         </ButtonContainer>
         <H1>Your statistics</H1>
-        {(data.length > 0 && !isLoading && (
+        {isLoading && <LoadingBox height={300} />}
+        {myCoins.length > 0 && data.length > 0 && !isLoading && (
           <Content>
             {data.map((coin) => {
               const {
@@ -109,6 +78,9 @@ const Portfolio = () => {
               const circulatingTotalSupplyPercent = Math.round(
                 (100 * circulating_supply) / totalSupply,
               )
+              const { amountOwned, purchaseDate, historicPrice } = myCoins.find(
+                (coin) => coin.coinId === id,
+              )
 
               return (
                 <Row key={keyGen()}>
@@ -127,18 +99,18 @@ const Portfolio = () => {
                       </ItemLabel>
                       <ItemRow>
                         <Item>
-                          <Label>Current price:</Label>{' '}
+                          <Label>Price now:</Label>{' '}
                           <ColumnCurrentPrice price={current_price} />
                         </Item>
                         <Item>
-                          <Label>Price change 24h:</Label>
+                          <Label>Price 24h chg:</Label>
                           <ColumnTwentyFourHourChange
                             symbol={symbol}
-                            twentyFourHourChange={twentyFourHourChange}
+                            twentyFourHourChange={twentyFourHourChange || 0}
                           />
                         </Item>
                         <Item>
-                          <Label>Vol / Market Cap:</Label>
+                          <Label>Vol / Mrkt Cap:</Label>
                           <ColorGreen>
                             {marketCapTotalVolumePercent}%
                           </ColorGreen>
@@ -147,7 +119,7 @@ const Portfolio = () => {
                           </PercentDisplay>
                         </Item>
                         <Item>
-                          <Label>Circ / Total Supply:</Label>
+                          <Label>Circ / Total Sup:</Label>
                           <ColorGreen>
                             {circulatingTotalSupplyPercent}%
                           </ColorGreen>
@@ -165,17 +137,27 @@ const Portfolio = () => {
                       </ItemLabel>
                       <ItemRow>
                         <Item>
-                          <Label>Coin amt:</Label> 1.6
+                          <Label>Amt:</Label> {amountOwned}
                         </Item>
                         <Item>
-                          <Label>Amount val</Label> 1.6 * Price
+                          <Label>Value:</Label>
+                          <ColumnCurrentPrice
+                            price={amountOwned * current_price}
+                          />
                         </Item>
                         <Item>
-                          <Label>Price change since purchase</Label>% change
-                          today vs purchase date
+                          <Label>Price change since purchase</Label>
+                          {Math.round(
+                            (((current_price - historicPrice[currency]) /
+                              historicPrice[currency]) *
+                              100 +
+                              Number.EPSILON) *
+                              100,
+                          ) / 100 || '-'}
+                          %
                         </Item>
                         <Item>
-                          <Label>Purchase date</Label> 03.23.2021
+                          <Label>Purchase date</Label> {purchaseDate}
                         </Item>
                       </ItemRow>
                     </CoinDataRow>
@@ -184,7 +166,7 @@ const Portfolio = () => {
               )
             })}
           </Content>
-        )) || <LoadingBox height={300} />}
+        )}
       </ContentContainer>
     </Container>
   )

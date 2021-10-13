@@ -7,16 +7,18 @@ import { clearData, getSearchData } from 'store/search/actions.js'
 const Search = () => {
   const [value, setValue] = useState('')
   const dispatch = useDispatch()
-  const { data, isLoading, error } = useSelector((state) => state.search)
+  const { data, isLoading, error } = useSelector(
+    (state) => state.search.navSearch,
+  )
 
   const handleBlur = () => {
-    dispatch(clearData())
+    dispatch(clearData('navSearch'))
     setValue('')
   }
 
   const handleClickSearchListItem = (coinName) => {
     setTimeout(() => {
-      dispatch(clearData())
+      dispatch(clearData('navSearch'))
       setValue(coinName)
     }, 10)
   }
@@ -24,7 +26,9 @@ const Search = () => {
   const handleChange = (e) => {
     const { value } = e.target
     setValue(value)
-    value === '' ? dispatch(clearData()) : dispatch(getSearchData(value))
+    value === ''
+      ? dispatch(clearData('navSearch'))
+      : dispatch(getSearchData(value, 'navSearch'))
   }
   const displayLoading = isLoading && !error && value !== ''
   const displayData = !isLoading && !error && data.length > 0 && value !== ''

@@ -45,13 +45,13 @@ export const CoinDataRow = styled.div`
 `
 
 export const CoinInfo = styled.div`
-  font-size: 1.5rem;
+  font-size: 1rem;
   width: 100%;
   text-align: center;
 `
 
 export const CoinInfoWrap = styled.div`
-  flex-basis: 250px;
+  flex-basis: 150px;
   background: ${(props) => props.theme.secondary};
   display: flex;
   align-items: center;
@@ -66,6 +66,7 @@ export const ColorGreen = styled.span`
 export const Container = styled.div`
   width: 100%;
   display: flex;
+  font-size: 12px;
   justify-content: center;
 `
 export const Content = styled.div`
@@ -119,23 +120,6 @@ export const ItemRow = styled.div`
 export const Label = styled.span`
   font-weight: 700;
   margin-right: 16px;
-`
-
-export const PopUp = styled.div`
-  width: 40%;
-  height: 100%;
-  background: white;
-  z-index: 11;
-  margin: auto;
-`
-
-export const PopUpWrap = styled.div`
-  position: absolute;
-  /* display: none; */
-  margin-top: 180px;
-  width: 100%;
-  height: 40%;
-  z-index: 10;
 `
 
 export const PercentDisplay = styled.div`
