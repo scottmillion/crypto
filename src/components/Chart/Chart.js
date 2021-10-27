@@ -32,10 +32,9 @@ const Chart = (props) => {
         },
       }
       options.scales.x.ticks = {
+        ...options.scales.x.ticks,
         autoSkip: true,
         maxTicksLimit: 14,
-        maxRotation: 0,
-        minRotation: 0,
       }
     }
 
@@ -71,6 +70,10 @@ const Chart = (props) => {
         grid: {
           display: false,
           borderWidth: 0,
+        },
+        ticks: {
+          maxRotation: 0,
+          minRotation: 0,
         },
       },
     },
