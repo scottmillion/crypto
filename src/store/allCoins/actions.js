@@ -43,9 +43,10 @@ export const getPrices = () => async (dispatch, getState) => {
     )
     const prices = data.prices.slice(0, 40)
     const priceDataPoints = prices.map((price) => price[1])
-    const priceDataLabels = prices.map((price) =>
-      new Date(price[0]).getDate().toString(),
-    )
+    const priceDataLabels = prices.map((price) => {
+      let date = new Date(price[0]).getDate().toString()
+      return date.length === 1 ? '0' + date : date
+    })
     dispatch({
       type: GET_PRICE_DATA_SUCCESS,
       payload: { priceDataLabels, priceDataPoints },
@@ -66,9 +67,10 @@ export const getVolumes = () => async (dispatch, getState) => {
     )
     const volumes = data.total_volumes.slice(0, 23)
     const volumeDataPoints = volumes.map((volume) => volume[1])
-    const volumeDataLabels = volumes.map((volume) =>
-      new Date(volume[0]).getDate().toString(),
-    )
+    const volumeDataLabels = volumes.map((volume) => {
+      let date = new Date(volume[0]).getDate().toString()
+      return date.length === 1 ? '0' + date : date
+    })
     dispatch({
       type: GET_VOLUME_DATA_SUCCESS,
       payload: { volumeDataLabels, volumeDataPoints },
