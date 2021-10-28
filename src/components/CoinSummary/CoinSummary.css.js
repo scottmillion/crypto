@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 import { Stack } from '@styled-icons/bootstrap/Stack'
 
+export const CenterDiv = styled.div`
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+`
+
 export const CoinData = styled.div`
   /* outline: 1px solid yellow; */
   margin: 5px;
@@ -48,6 +54,11 @@ export const CoinSummaryWrap = styled.div`
   flex-wrap: wrap;
 `
 
+export const CurrentPriceWrap = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+`
+
 export const Img = styled.img`
   width: 60px;
   padding: 24px;
@@ -63,5 +74,6 @@ export const ImgWrap = styled.div`
 `
 
 export const StackSmall = styled(Stack)`
-  width: 20px;
+  margin-top: 10px;
+  width: 30px;
 `

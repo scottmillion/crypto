@@ -2,15 +2,18 @@ import {
   AllTimeStats,
   CoinDataItem,
   ColumnCurrentPrice,
+  ColumnTwentyFourHourChange,
   LinkItem,
   PercentDisplay,
 } from 'components'
 import {
+  CenterDiv,
   CoinData,
   CoinInfo,
   CoinInfoWrap,
   CoinPrices,
   CoinSummaryWrap,
+  CurrentPriceWrap,
   Img,
   ImgWrap,
   StackSmall,
@@ -51,10 +54,18 @@ const CoinSummary = (props) => {
 
       <CoinPrices>
         <div>
-          <span style={{ fontSize: '36px', fontWeight: 600 }}>
+          {console.log(market_data)}
+          <CurrentPriceWrap>
             <ColumnCurrentPrice price={current_price[currency]} />
-          </span>
-          {market_data.price_change_percentage_24h}%
+          </CurrentPriceWrap>
+          <CenterDiv>
+            <ColumnTwentyFourHourChange
+              twentyFourHourChange={
+                market_data.price_change_percentage_24h_in_currency[currency]
+              }
+            />
+          </CenterDiv>
+
           <div>
             <StackSmall />
           </div>

@@ -1,7 +1,16 @@
 import styled from 'styled-components'
 
 export const HighLowContainer = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+`
+
+export const AllTimeData = styled.div`
   text-align: left;
-  width: 80%;
-  margin: 12px auto;
+`
+
+export const Label = styled.div`
+  font-weight: 600;
+  margin-bottom: 5px;
 `

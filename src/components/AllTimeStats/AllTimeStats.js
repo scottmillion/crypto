@@ -1,4 +1,4 @@
-import { HighLowContainer } from './AllTimeStats.css'
+import { AllTimeData, Label, HighLowContainer } from './AllTimeStats.css'
 import { ColumnCurrentPrice } from 'components'
 import { useSelector } from 'react-redux'
 
@@ -18,19 +18,22 @@ const AllTimeStats = (props) => {
       {console.log(props.marketData)}
       {console.log(currency)}
       <HighLowContainer>
-        <div>
-          All Time High:
-          <ColumnCurrentPrice price={ath[currency]} />
-        </div>
-        <div>{ath_change_percentage[currency].toFixed(2)}%</div>
-        <div>{ath_date[currency].slice(0, 10)}</div>
-      </HighLowContainer>
+        <AllTimeData>
+          <div>
+            <Label>ATH:</Label>
 
-      <HighLowContainer>
-        All Time Low:
-        <ColumnCurrentPrice price={atl[currency]} />
-        <div>{atl_change_percentage[currency].toFixed(2)}%</div>
-        <div>{atl_date[currency].slice(0, 10)}</div>
+            <ColumnCurrentPrice price={ath[currency]} />
+          </div>
+          <div>{ath_change_percentage[currency].toFixed(2)}%</div>
+          <div>{ath_date[currency].slice(0, 10)}</div>
+        </AllTimeData>
+        <AllTimeData>
+          <Label>ATL:</Label>
+
+          <ColumnCurrentPrice price={atl[currency]} />
+          <div>{atl_change_percentage[currency].toFixed(2)}%</div>
+          <div>{atl_date[currency].slice(0, 10)}</div>
+        </AllTimeData>
       </HighLowContainer>
     </>
   )
