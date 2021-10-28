@@ -18,49 +18,45 @@ const CoinData = (props) => {
     total_volume,
   } = props.marketData || {}
 
-  const { symbol } = props
   const { currency } = useSelector((state) => state.config)
+  const { symbol } = props
+  const circulatingSupply = `${circulating_supply} ${symbol.toUpperCase()}`
+  const fullyDilutedVal = fully_diluted_valuation[currency]
+  const marketCap = market_cap[currency]
+  const marketCapChange = market_cap_change_percentage_24h_in_currency[currency]
+  const maxSupply = `${max_supply || Infinity} ${symbol.toUpperCase()}`
+  const totalVolume = `${Math.round(
+    total_volume[currency] / current_price[currency],
+  )} ${symbol.toUpperCase()}`
+  const volume24hr = total_volume[currency]
+  const volumeToMarket =
+    (total_volume[currency] / market_cap[currency]).toString().slice(0, 8) +
+    '...'
+
   return (
     <CoinDataWrap>
       <CoinDataItem label="Market Cap:">
-        <ColumnCurrentPrice price={market_cap[currency]} />
+        <ColumnCurrentPrice price={marketCap} />
         <MarginLeft>
-          <ColumnTwentyFourHourChange
-            twentyFourHourChange={
-              market_cap_change_percentage_24h_in_currency[currency]
-            }
-          />
+          <ColumnTwentyFourHourChange twentyFourHourChange={marketCapChange} />
         </MarginLeft>
       </CoinDataItem>
-
       <CoinDataItem label="Fully Diluted Valuation:">
-        <ColumnCurrentPrice price={fully_diluted_valuation[currency]} />
+        <ColumnCurrentPrice price={fullyDilutedVal} />
       </CoinDataItem>
-
       <CoinDataItem label="Volume 24h:">
-        <ColumnCurrentPrice price={total_volume[currency]} />
+        <ColumnCurrentPrice price={volume24hr} />
       </CoinDataItem>
-
-      <CoinDataItem label="Volume / Market:">
-        {(total_volume[currency] / market_cap[currency])
-          .toString()
-          .slice(0, 8) + '...'}
-      </CoinDataItem>
-
+      <CoinDataItem label="Volume / Market:">{volumeToMarket}</CoinDataItem>
       <br />
-
       <CoinDataItem label="Total Volume:" color="#1ad761">
-        {`${Math.round(
-          total_volume[currency] / current_price[currency],
-        )} ${symbol.toUpperCase()}`}
+        {totalVolume}
       </CoinDataItem>
-
       <CoinDataItem label="Circulating Supply:">
-        {`${circulating_supply} ${symbol.toUpperCase()}`}
+        {circulatingSupply}
       </CoinDataItem>
-
       <CoinDataItem label="Max Supply:" color="#2172e5">
-        {`${max_supply || Infinity} ${symbol.toUpperCase()}`}
+        {maxSupply}
       </CoinDataItem>
 
       <PercentDisplay

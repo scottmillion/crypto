@@ -12,9 +12,12 @@ import {
 } from './Coin.css'
 
 const Coin = (props) => {
-  const coinId = props.match.params.name
-  const dispatch = useDispatch()
   const { isLoading, data, error } = useSelector((state) => state.coin)
+  const coinId = props.match.params.name
+  const blockchainSites = data && data.links.blockchain_site
+  const hasBlockchainSites = data && blockchainSites.length >= 3
+  const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(getCoinData(coinId))
     // eslint-disable-next-line
@@ -34,20 +37,20 @@ const Coin = (props) => {
               dangerouslySetInnerHTML={{ __html: data.description.en }}
             />
 
-            {data.links.blockchain_site.length >= 3 && (
+            {hasBlockchainSites && (
               <LinkList>
                 <LinkItem
-                  url={data.links.blockchain_site[0]}
+                  url={blockchainSites[0]}
                   themeColor="secondary"
                   padding="12px 18px"
                 />
                 <LinkItem
-                  url={data.links.blockchain_site[1]}
+                  url={blockchainSites[1]}
                   themeColor="secondary"
                   padding="12px 18px"
                 />
                 <LinkItem
-                  url={data.links.blockchain_site[2]}
+                  url={blockchainSites[2]}
                   themeColor="secondary"
                   padding="12px 18px"
                 />

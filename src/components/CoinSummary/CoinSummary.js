@@ -21,7 +21,12 @@ import {
 const CoinSummary = (props) => {
   const { currency } = useSelector((state) => state.config)
   const { name, image, symbol, links, market_data } = props.data || {}
-  const { current_price } = market_data || {}
+  const coinName = `${name} (${symbol.toUpperCase()})`
+  const currentPrice = market_data.current_price[currency] || {}
+  const hasHomepage = links.homepage.length > 0
+  const homepageUrl = links.homepage[0]
+  const priceChange =
+    market_data.price_change_percentage_24h_in_currency[currency]
 
   return (
     <CoinSummaryWrap>
@@ -30,10 +35,10 @@ const CoinSummary = (props) => {
           <ImgWrap>
             <Img src={image.large} alt="" />
           </ImgWrap>
-          {`${name} (${symbol.toUpperCase()})`}
-          {links.homepage.length > 0 && (
+          {coinName}
+          {hasHomepage && (
             <LinkItem
-              url={links.homepage[0]}
+              url={homepageUrl}
               themeColor="primary"
               padding="4px 0px"
               marginTop="18px"
@@ -44,15 +49,11 @@ const CoinSummary = (props) => {
 
       <CoinPrices>
         <CurrentPriceWrap>
-          <ColumnCurrentPrice price={current_price[currency]} />
+          <ColumnCurrentPrice price={currentPrice} />
         </CurrentPriceWrap>
         <ColumnTwentyFourHourChangeWrap>
-          {market_data.price_change_percentage_24h_in_currency[currency] && (
-            <ColumnTwentyFourHourChange
-              twentyFourHourChange={
-                market_data.price_change_percentage_24h_in_currency[currency]
-              }
-            />
+          {priceChange && (
+            <ColumnTwentyFourHourChange twentyFourHourChange={priceChange} />
           )}
         </ColumnTwentyFourHourChangeWrap>
         <StackSmall />
