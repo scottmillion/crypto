@@ -16,6 +16,7 @@ import {
   CurrentPriceWrap,
   Img,
   ImgWrap,
+  MarginLeft,
   StackSmall,
 } from './CoinSummary.css'
 import { useSelector } from 'react-redux'
@@ -54,16 +55,17 @@ const CoinSummary = (props) => {
 
       <CoinPrices>
         <div>
-          {console.log(market_data)}
           <CurrentPriceWrap>
             <ColumnCurrentPrice price={current_price[currency]} />
           </CurrentPriceWrap>
           <CenterDiv>
-            <ColumnTwentyFourHourChange
-              twentyFourHourChange={
-                market_data.price_change_percentage_24h_in_currency[currency]
-              }
-            />
+            {market_data.price_change_percentage_24h_in_currency[currency] && (
+              <ColumnTwentyFourHourChange
+                twentyFourHourChange={
+                  market_data.price_change_percentage_24h_in_currency[currency]
+                }
+              />
+            )}
           </CenterDiv>
 
           <div>
@@ -77,7 +79,13 @@ const CoinSummary = (props) => {
       <CoinData>
         <CoinDataItem label="Market Cap:">
           <ColumnCurrentPrice price={market_cap[currency]} />
-          {` ${market_cap_change_percentage_24h_in_currency[currency]}`}%
+          <MarginLeft>
+            <ColumnTwentyFourHourChange
+              twentyFourHourChange={
+                market_cap_change_percentage_24h_in_currency[currency]
+              }
+            />
+          </MarginLeft>
         </CoinDataItem>
 
         <CoinDataItem label="Fully Diluted Valuation:">

@@ -73,6 +73,10 @@ export const ImgWrap = styled.div`
   border-radius: 20px;
 `
 
+export const MarginLeft = styled.div`
+  margin-left: 5px;
+`
+
 export const StackSmall = styled(Stack)`
   margin-top: 10px;
   width: 30px;

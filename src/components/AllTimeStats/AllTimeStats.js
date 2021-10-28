@@ -14,28 +14,24 @@ const AllTimeStats = (props) => {
   } = props.marketData || {}
 
   return (
-    <>
-      {console.log(props.marketData)}
-      {console.log(currency)}
-      <HighLowContainer>
-        <AllTimeData>
-          <div>
-            <Label>ATH:</Label>
+    <HighLowContainer>
+      <AllTimeData>
+        <div>
+          <Label>ATH:</Label>
 
-            <ColumnCurrentPrice price={ath[currency]} />
-          </div>
-          <div>{ath_change_percentage[currency].toFixed(2)}%</div>
-          <div>{ath_date[currency].slice(0, 10)}</div>
-        </AllTimeData>
-        <AllTimeData>
-          <Label>ATL:</Label>
+          <ColumnCurrentPrice price={ath[currency]} />
+        </div>
+        <div>{ath_change_percentage[currency].toFixed(2)}%</div>
+        <div>{ath_date[currency].slice(0, 10)}</div>
+      </AllTimeData>
+      <AllTimeData>
+        <Label>ATL:</Label>
 
-          <ColumnCurrentPrice price={atl[currency]} />
-          <div>{atl_change_percentage[currency].toFixed(2)}%</div>
-          <div>{atl_date[currency].slice(0, 10)}</div>
-        </AllTimeData>
-      </HighLowContainer>
-    </>
+        <ColumnCurrentPrice price={atl[currency]} />
+        <div>{atl_change_percentage[currency].toFixed(2)}%</div>
+        <div>{atl_date[currency].slice(0, 10)}</div>
+      </AllTimeData>
+    </HighLowContainer>
   )
 }
 

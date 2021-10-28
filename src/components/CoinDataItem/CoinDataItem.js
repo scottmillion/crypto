@@ -1,10 +1,17 @@
-import { CoinDataItemWrap, BluePlus, CoinDataLabel } from './CoinDataItem.css'
+import {
+  CoinDataItemWrap,
+  BluePlus,
+  CoinDataLabel,
+  DivsSameLine,
+} from './CoinDataItem.css'
 
 const CoinDataItem = (props) => (
   <CoinDataItemWrap>
-    <BluePlus />
-    <CoinDataLabel color={props.color}>{props.label}</CoinDataLabel>
-    {props.children}
+    <DivsSameLine>
+      <BluePlus />
+      <CoinDataLabel color={props.color}>{props.label}</CoinDataLabel>
+      {props.children}
+    </DivsSameLine>
   </CoinDataItemWrap>
 )
 

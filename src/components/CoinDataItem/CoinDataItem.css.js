@@ -20,3 +20,7 @@ export const CoinDataLabel = styled.span`
 export const CoinDataItemWrap = styled.div`
   margin-bottom: 5px;
 `
+
+export const DivsSameLine = styled.div`
+  display: flex;
+`
