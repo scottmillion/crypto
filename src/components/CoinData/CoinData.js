@@ -35,6 +35,7 @@ const CoinData = (props) => {
 
   return (
     <CoinDataWrap>
+      {console.log(fullyDilutedVal)}
       <CoinDataItem label="Market Cap:">
         <ColumnCurrentPrice price={marketCap} />
         <MarginLeft>
