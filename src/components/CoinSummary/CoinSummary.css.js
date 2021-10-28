@@ -1,22 +1,6 @@
 import styled from 'styled-components'
 import { Stack } from '@styled-icons/bootstrap/Stack'
 
-export const CenterDiv = styled.div`
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-`
-
-export const CoinData = styled.div`
-  /* outline: 1px solid yellow; */
-  margin: 5px;
-  flex: 1 1 auto;
-  background: ${(props) => props.theme.secondary};
-  padding-inline: 36px;
-  padding-block: 18px;
-  border-radius: 25px;
-`
-
 export const CoinInfo = styled.div`
   font-size: 1rem;
   width: 100%;
@@ -54,6 +38,12 @@ export const CoinSummaryWrap = styled.div`
   flex-wrap: wrap;
 `
 
+export const ColumnTwentyFourHourChangeWrap = styled.div`
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+`
+
 export const CurrentPriceWrap = styled.div`
   font-size: 24px;
   font-weight: 600;
@@ -71,10 +61,6 @@ export const ImgWrap = styled.div`
   display: flex;
   justify-content: center;
   border-radius: 20px;
-`
-
-export const MarginLeft = styled.div`
-  margin-left: 5px;
 `
 
 export const StackSmall = styled(Stack)`
