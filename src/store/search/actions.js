@@ -6,7 +6,11 @@ import {
   CLEAR_DATA,
 } from './index'
 
-export const getSearchData = (value, dataName) => async (dispatch) => {
+export const getSearchData = (value, dataName) => async (
+  dispatch,
+  getState,
+) => {
+  const oldData = getState().search[dataName]
   try {
     dispatch({ type: GET_SEARCH_DATA_PENDING, payload: dataName })
     const { data } = await axios(
@@ -17,7 +21,11 @@ export const getSearchData = (value, dataName) => async (dispatch) => {
       payload: { data, dataName },
     })
   } catch (err) {
-    dispatch({ type: GET_SEARCH_DATA_ERROR, payload: { dataName, err } })
+    console.log(err)
+    dispatch({
+      type: GET_SEARCH_DATA_ERROR,
+      payload: { data: oldData, dataName, err },
+    })
   }
 }
 

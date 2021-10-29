@@ -22,8 +22,8 @@ function searchReducer(state = initialState, action) {
       return {
         ...state,
         [action.payload.dataName]: {
-          ...[action.payload.dataName],
-          err: true,
+          ...action.payload.data,
+          error: action.payload.err,
           isLoading: false,
         },
       }

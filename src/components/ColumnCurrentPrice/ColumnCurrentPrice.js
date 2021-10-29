@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux'
 
 const ColumnCurrentPrice = (props) => {
   const { currency } = useSelector((state) => state.config)
+  if (!props.price) {
+    return '-'
+  }
   return <>{convertLargeNumber(formatCurrency(props.price, currency, 'en'))}</>
 }
 

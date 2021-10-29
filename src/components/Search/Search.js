@@ -4,23 +4,27 @@ import { keyGen } from 'utils'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearData, getSearchData } from 'store/search/actions.js'
 
+import { useHistory } from 'react-router-dom'
+
 const Search = () => {
   const [value, setValue] = useState('')
   const dispatch = useDispatch()
   const { data, isLoading, error } = useSelector(
     (state) => state.search.navSearch,
   )
+  const history = useHistory()
 
   const handleBlur = () => {
     dispatch(clearData('navSearch'))
     setValue('')
   }
 
-  const handleClickSearchListItem = (coinName) => {
+  const handleClickSearchListItem = (coin) => {
     setTimeout(() => {
       dispatch(clearData('navSearch'))
-      setValue(coinName)
+      setValue('')
     }, 10)
+    history.push(`/coin/${coin.id}`)
   }
 
   const handleChange = (e) => {
@@ -51,15 +55,13 @@ const Search = () => {
         {displayData && (
           <>
             {data.map((coin) => {
-              let coinName = coin.name
+              let { name } = coin
               return (
                 <SearchListItem
                   key={keyGen()}
-                  onMouseDown={() => handleClickSearchListItem(coinName)}
+                  onMouseDown={() => handleClickSearchListItem(coin)}
                 >
-                  {coinName.length > 21
-                    ? coinName.slice(0, 21) + '...'
-                    : coinName}
+                  {name.length > 21 ? name.slice(0, 21) + '...' : name}
                 </SearchListItem>
               )
             })}
