@@ -17,7 +17,7 @@ const ChartDisplay = (props) => {
     !props.isLoading
 
   return (
-    <ChartContainer>
+    <ChartContainer width={props.width}>
       {(displayChart && (
         <>
           <ChartLegend
