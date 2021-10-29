@@ -13,8 +13,7 @@ export const NavWrap = styled.div`
 `
 
 export const NavUnderContainer = styled.div`
-  min-width: 500px;
-  max-width: 70%;
+  max-width: 90%;
   height: 46px;
   background: ${(props) => props.theme.secondary};
   display: flex;
@@ -27,7 +26,7 @@ export const NavUnderContainer = styled.div`
 export const NavUnderLi = styled.li`
   /* outline: 1px solid green; */
   font-size: 0.8rem;
-  padding-inline: 16px;
+  padding-inline: 12px;
   display: flex;
   align-items: center;
 `
