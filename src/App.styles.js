@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme.secondary};
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    
+    min-width: 100vw;
   }
 
   
