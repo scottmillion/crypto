@@ -38,12 +38,12 @@ const initialState = {
     '24hVolumeMarketCap': {
       sortBy: false,
       order: 6,
-      key: '24h Volume / Market Cap',
+      key: '24h Vol / Market Cap',
     },
     circulatingTotalSupply: {
       sortBy: false,
       order: 7,
-      key: 'Circulating / TotalSupply',
+      key: 'Circulating / Total Sup',
     },
     last7d: {
       sortBy: false,
