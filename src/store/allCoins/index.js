@@ -54,6 +54,7 @@ const initialState = {
   coinsData: [],
   priceDataLabels: [],
   priceDataPoints: [],
+  dataPointTimeInterval: 30,
   volumeDataLabels: [],
   volumeDataPoints: [],
   isCoinsDataLoading: false,
@@ -73,6 +74,7 @@ export const GET_PRICE_DATA_SUCCESS = 'GET_PRICE_DATA_SUCCESS'
 export const GET_VOLUME_DATA_ERROR = 'GET_VOLUME_DATA_ERROR'
 export const GET_VOLUME_DATA_PENDING = 'GET_VOLUME_DATA_PENDING'
 export const GET_VOLUME_DATA_SUCCESS = 'GET_VOLUME_DATA_SUCCESS'
+export const SET_TIME_INTERVAL = 'SET_TIME_INTERVAL'
 export const SORT_BY = 'SORT_BY'
 
 function allCoinsReducer(state = initialState, action) {
@@ -132,6 +134,11 @@ function allCoinsReducer(state = initialState, action) {
         volumeDataPoints: action.payload.volumeDataPoints,
         isVolumeDataLoading: false,
         volumeError: false,
+      }
+    case SET_TIME_INTERVAL:
+      return {
+        ...state,
+        dataPointTimeInterval: action.payload,
       }
     case SORT_BY:
       const configProperty = Object.entries(state.config).find(

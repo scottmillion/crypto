@@ -1,8 +1,8 @@
 import Slider from 'react-slick'
-import styled from 'styled-components'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { ChartDisplay } from 'components'
+import { Wrapper, SliderButton } from './ChartSlider.css'
 
 import { useRef } from 'react'
 
@@ -18,26 +18,6 @@ const ChartSlider = (props) => {
     slidesToScroll: 1,
   }
 
-  const Wrapper = styled.div`
-    margin-top: 14px;
-    position: relative;
-  `
-
-  const SliderButton = styled.button`
-    position: absolute;
-    top: 50%;
-    left: ${(props) => (props.left ? props.left : '')};
-    right: ${(props) => (props.right ? props.right : '')};
-    padding-inline: 5px;
-    background: none;
-    color: inherit;
-    border: none;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-    z-index: 1000;
-  `
-
   return (
     <Wrapper>
       <SliderButton left="10px" onClick={() => slider?.current?.slickPrev()}>
@@ -49,7 +29,7 @@ const ChartSlider = (props) => {
       <Slider ref={slider} {...settings}>
         <div>
           <ChartDisplay
-            data={props.coinsData}
+            data={props.data}
             dataLabels={props.priceDataLabels}
             dataPoints={props.priceDataPoints}
             isLoading={props.isPriceDataLoading}
@@ -61,7 +41,7 @@ const ChartSlider = (props) => {
         </div>
         <div>
           <ChartDisplay
-            data={props.coinsData}
+            data={props.data}
             dataLabels={props.volumeDataLabels}
             dataPoints={props.volumeDataPoints}
             isLoading={props.isVolumeDataLoading}
