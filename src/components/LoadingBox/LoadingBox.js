@@ -14,7 +14,8 @@ const Loading = styled.div`
 `
 
 const override = css`
-  width: 90%;
+  width: 300px;
+  margin-inline: 20px;
   border-radius: 7px;
 `
 
