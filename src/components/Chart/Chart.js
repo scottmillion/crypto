@@ -23,7 +23,7 @@ const Chart = (props) => {
       dataset.fill = true
       dataset.backgroundColor = gradient
       dataset.borderColor = props.theme.lineChart
-      dataset.pointBackgroundColor = '#00ff5f'
+      dataset.pointBackgroundColor = props.theme.lineChart
 
       options.elements = {
         point: {
