@@ -129,8 +129,7 @@ export const Select = styled.select`
   color: ${(props) => props.theme.mainFont};
   font-size: 1.1rem;
   margin-left: 3px;
-  padding-top: 5px;
-  padding-bottom: 4px;
+  padding-block: 4px;
 
   &:focus {
     outline: none;
