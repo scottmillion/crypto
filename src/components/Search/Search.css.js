@@ -6,10 +6,9 @@ export const Input = styled(DebounceInput)`
   background: ${(props) => props.theme.tertiary};
   color: inherit;
   font-size: 1.1rem;
-  width: 175px;
-  height: 48px;
   padding-left: 56px;
-  padding-top: 4px;
+  padding-top: 15px;
+  padding-bottom: 11px;
   border: none;
   border-radius: 10px;
 

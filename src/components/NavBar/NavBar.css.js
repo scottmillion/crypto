@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 
 export const CurrencySymbol = styled.div`
   width: 36px;
-  font-size: 1.2rem;
   background: #191b1f;
   display: flex;
   justify-content: center;
