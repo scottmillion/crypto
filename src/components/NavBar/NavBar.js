@@ -4,6 +4,12 @@ import { Search } from 'components'
 import { keyGen } from 'utils'
 import {
   CurrencySymbol,
+  DisplayMenu,
+  Hr,
+  MobileMenu,
+  MobileMenuIcon,
+  MobileMenuItem,
+  MobileMenuLink,
   Nav,
   NavLeft,
   NavLeftUl,
@@ -22,11 +28,15 @@ import {
 import Media from 'react-media'
 import { currencyList, screenSizeWidth } from 'utils'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeCurrency, toggleTheme } from 'store/config/actions.js'
+import {
+  changeCurrency,
+  toggleMenu,
+  toggleTheme,
+} from 'store/config/actions.js'
 
 const NavBar = () => {
   const currentLocation = useLocation().pathname
-  const { currency, currencySymbol, themeOn } = useSelector(
+  const { currency, currencySymbol, displayMenu, themeOn } = useSelector(
     (state) => state.config,
   )
   const dispatch = useDispatch()
@@ -36,42 +46,55 @@ const NavBar = () => {
     dispatch(changeCurrency(value))
   }
 
+  const handleToggleMenu = () => {
+    dispatch(toggleMenu())
+  }
+
   return (
     <NavWrap>
       <Nav>
-        <NavLeft>
-          <NavLeftUl>
-            <NavLeftLi routeMatches={currentLocation === '/'} key={keyGen()}>
-              <StyledLink to="/">Coins</StyledLink>
-            </NavLeftLi>
-            <NavLeftLi
-              routeMatches={currentLocation === '/portfolio'}
-              key={keyGen()}
-            >
-              <StyledLink to="/portfolio">Portfolio</StyledLink>
-            </NavLeftLi>
-          </NavLeftUl>
-        </NavLeft>
-        <NavRight>
-          <Media
-            queries={{
-              desktopSM: screenSizeWidth.desktopSM,
-              desktopM: screenSizeWidth.desktopM,
-            }}
-          >
-            {(matches) => (
-              <>
-                {matches.desktopSM && (
-                  <NavRightInputContainer>
-                    <SearchImage
-                      src={themeOn ? Images.searchIconLight : Images.searchIcon}
-                      alt="search"
-                    />
-                    <Search />
-                  </NavRightInputContainer>
-                )}
+        <Media
+          queries={{
+            desktopSM: screenSizeWidth.desktopSM,
+            desktopM: screenSizeWidth.desktopM,
+            tablet: screenSizeWidth.tablet,
+            tabletS: screenSizeWidth.tabletS,
+          }}
+        >
+          {(matches) => (
+            <>
+              {matches.tablet && (
+                <NavLeft>
+                  <NavLeftUl>
+                    <NavLeftLi
+                      routeMatches={currentLocation === '/'}
+                      key={keyGen()}
+                    >
+                      <StyledLink to="/">Coins</StyledLink>
+                    </NavLeftLi>
+                    <NavLeftLi
+                      routeMatches={currentLocation === '/portfolio'}
+                      key={keyGen()}
+                    >
+                      <StyledLink to="/portfolio">Portfolio</StyledLink>
+                    </NavLeftLi>
+                  </NavLeftUl>
+                </NavLeft>
+              )}
+
+              <NavRight>
+                <NavRightInputContainer>
+                  <SearchImage
+                    src={themeOn ? Images.searchIconLight : Images.searchIcon}
+                    alt="search"
+                  />
+                  <Search />
+                </NavRightInputContainer>
+
                 <NavRightSelectContainer>
-                  <CurrencySymbol>{currencySymbol}</CurrencySymbol>
+                  {matches.desktopSM && (
+                    <CurrencySymbol>{currencySymbol}</CurrencySymbol>
+                  )}
                   <SelectWrap>
                     <Select
                       name="currency"
@@ -91,7 +114,7 @@ const NavBar = () => {
                   </SelectWrap>
                 </NavRightSelectContainer>
 
-                {matches.desktopM && (
+                {matches.tablet && (
                   <ThemeMode>
                     <img
                       src={themeOn ? Images.themeIconLight : Images.themeIcon}
@@ -100,10 +123,42 @@ const NavBar = () => {
                     />
                   </ThemeMode>
                 )}
-              </>
-            )}
-          </Media>
-        </NavRight>
+              </NavRight>
+              {matches.tabletS && (
+                <MobileMenu>
+                  <MobileMenuIcon onClick={handleToggleMenu}></MobileMenuIcon>
+                  {displayMenu && (
+                    <DisplayMenu>
+                      <MobileMenuItem
+                        routeMatches={currentLocation === '/'}
+                        onClick={handleToggleMenu}
+                      >
+                        <MobileMenuLink to="/">Coins</MobileMenuLink>
+                      </MobileMenuItem>
+                      <MobileMenuItem
+                        routeMatches={currentLocation === '/portfolio'}
+                        onClick={handleToggleMenu}
+                      >
+                        <MobileMenuLink to="/portfolio">
+                          Portfolio
+                        </MobileMenuLink>
+                      </MobileMenuItem>
+                      <Hr />
+                      <MobileMenuItem onClick={handleToggleMenu}>
+                        <div
+                          width="20px"
+                          onClick={() => dispatch(toggleTheme())}
+                        >
+                          Theme
+                        </div>
+                      </MobileMenuItem>
+                    </DisplayMenu>
+                  )}
+                </MobileMenu>
+              )}
+            </>
+          )}
+        </Media>
       </Nav>
     </NavWrap>
   )

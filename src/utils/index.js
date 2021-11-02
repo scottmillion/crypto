@@ -7,6 +7,7 @@ export {
   lightTheme,
   monthNames,
   screenSizeWidth,
+  timeIntervals,
   today,
 } from './constants'
 export { convertLargeNumber } from './convertLargeNumber'

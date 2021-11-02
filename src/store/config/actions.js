@@ -4,6 +4,7 @@ import {
   GET_GLOBAL_DATA_PENDING,
   GET_GLOBAL_DATA_SUCCESS,
   CHANGE_CURRENCY,
+  TOGGLE_MENU,
   TOGGLE_THEME,
 } from './index'
 
@@ -28,3 +29,7 @@ export const getGlobalData = () => async (dispatch) => {
     dispatch({ type: GET_GLOBAL_DATA_ERROR, payload: err })
   }
 }
+
+export const toggleMenu = () => ({
+  type: TOGGLE_MENU,
+})

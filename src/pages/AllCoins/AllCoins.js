@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Media from 'react-media'
 import { ChartDisplay, CoinsTable, ChartSlider } from 'components'
-import { screenSizeWidth } from 'utils'
+import { keyGen, screenSizeWidth, timeIntervals } from 'utils'
 import {
   getCoinsData,
   getPrices,
@@ -46,8 +46,8 @@ const AllCoins = () => {
     // eslint-disable-next-line
   }, [currency, dataPointTimeInterval])
 
-  const onClickSelectItem = (e) => {
-    dispatch(setTimeInterval(+e.target.getAttribute('data-interval')))
+  const onClickSelectItem = (days) => {
+    dispatch(setTimeInterval(days))
   }
 
   return (
@@ -101,48 +101,18 @@ const AllCoins = () => {
 
         {!isCoinsDataLoading && (
           <DataSelectContainer>
-            <DataSelectItem
-              onClick={onClickSelectItem}
-              data-interval="1"
-              highlight={dataPointTimeInterval === 1 ? true : false}
-            >
-              1d
-            </DataSelectItem>
-            <DataSelectItem
-              onClick={onClickSelectItem}
-              data-interval="7"
-              highlight={dataPointTimeInterval === 7 ? true : false}
-            >
-              1w
-            </DataSelectItem>
-            <DataSelectItem
-              onClick={onClickSelectItem}
-              data-interval="30"
-              highlight={dataPointTimeInterval === 30 ? true : false}
-            >
-              1m
-            </DataSelectItem>
-            <DataSelectItem
-              onClick={onClickSelectItem}
-              data-interval="90"
-              highlight={dataPointTimeInterval === 90 ? true : false}
-            >
-              3m
-            </DataSelectItem>
-            <DataSelectItem
-              onClick={onClickSelectItem}
-              data-interval="180"
-              highlight={dataPointTimeInterval === 180 ? true : false}
-            >
-              6m
-            </DataSelectItem>
-            <DataSelectItem
-              onClick={onClickSelectItem}
-              data-interval="365"
-              highlight={dataPointTimeInterval === 365 ? true : false}
-            >
-              1y
-            </DataSelectItem>
+            {Object.keys(timeIntervals).map((interval) => {
+              const days = timeIntervals[interval]
+              return (
+                <DataSelectItem
+                  onClick={() => onClickSelectItem(days)}
+                  highlight={dataPointTimeInterval === days}
+                  key={keyGen()}
+                >
+                  {interval}
+                </DataSelectItem>
+              )
+            })}
           </DataSelectContainer>
         )}
 

@@ -9,6 +9,7 @@ export const Input = styled(DebounceInput)`
   width: 250px;
   height: 48px;
   padding-left: 56px;
+  padding-top: 4px;
   border: none;
   border-radius: 10px;
 

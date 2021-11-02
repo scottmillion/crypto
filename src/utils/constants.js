@@ -98,6 +98,7 @@ export const screenSizeWidth = {
   mobileM: `(min-width: 375px)`,
   mobileL: `(min-width: 425px)`,
   tablet: `(min-width: 768px)`,
+  tabletS: `(min-width: 0px) and (max-width: 767px)`,
   mobile: `(min-width: 0px) and (max-width: 899px)`,
   desktopS: `(min-width: 900px)`,
   desktopSM: `(min-width: 1000px)`,
@@ -108,3 +109,12 @@ export const screenSizeWidth = {
 }
 
 export const today = new Date()
+
+export const timeIntervals = {
+  '1d': 1,
+  '1w': 7,
+  '1m': 30,
+  '3m': 90,
+  '6m': 180,
+  '1y': 365,
+}
