@@ -6,7 +6,7 @@ export const Input = styled(DebounceInput)`
   background: ${(props) => props.theme.tertiary};
   color: inherit;
   font-size: 1.1rem;
-  width: 250px;
+  width: 175px;
   height: 48px;
   padding-left: 56px;
   padding-top: 4px;
@@ -19,6 +19,10 @@ export const Input = styled(DebounceInput)`
   }
   &:focus {
     outline: none;
+  }
+
+  @media ${screenSizeWidth.mobileL} {
+    width: 250px;
   }
 
   @media ${screenSizeWidth.desktopM} {

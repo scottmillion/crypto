@@ -96,7 +96,7 @@ export const screenSizeWidth = {
   none: `(min-width: 0px)`,
   mobileS: `(min-width: 320px)`,
   mobileM: `(min-width: 375px)`,
-  mobileL: `(min-width: 425px)`,
+  mobileL: `(min-width: 470px)`,
   tablet: `(min-width: 768px)`,
   tabletS: `(min-width: 0px) and (max-width: 767px)`,
   mobile: `(min-width: 0px) and (max-width: 899px)`,
