@@ -19,7 +19,7 @@ export const Hr = styled.hr`
 
 export const DisplayMenu = styled.div`
   position: absolute;
-  top: 10;
+  margin-top: 7px;
   right: 0;
   color: inherit;
   z-index: 1000000000000000000;
@@ -35,7 +35,7 @@ export const MobileMenu = styled.div`
 `
 
 export const MobileMenuItem = styled.div`
-  padding-block: 4px;
+  padding-block: 6px;
   z-index: Infinity;
   width: 100%;
   text-align: right;
