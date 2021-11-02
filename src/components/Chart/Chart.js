@@ -28,6 +28,8 @@ const Chart = (props) => {
       options.elements = {
         point: {
           radius: 1,
+          hitRadius: 30,
+          hoverRadius: 4,
         },
         line: {
           tension: 0.4,
