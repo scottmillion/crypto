@@ -6,7 +6,7 @@ export const Container = styled.div`
   max-width: 1200px;
   margin: auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     border: none;
   }
 `
