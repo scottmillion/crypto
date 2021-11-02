@@ -8,7 +8,7 @@ export const Input = styled(DebounceInput)`
   font-size: 1.1rem;
   padding-left: 56px;
   padding-top: 15px;
-  padding-bottom: 11px;
+  padding-bottom: 12px;
   width: 175px;
   border: none;
   border-radius: 10px;
