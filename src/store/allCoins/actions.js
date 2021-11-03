@@ -52,9 +52,6 @@ export const getChartsData = () => async (dispatch, getState) => {
       }
       return `${day}-${date.getMonth() + 1}-${date.getFullYear()}`
     })
-    console.log(priceDataPoints.length)
-    console.log(volumeDataPoints.length)
-    console.log(dataLabels.length)
     dispatch({
       type: GET_CHARTS_DATA_SUCCESS,
       payload: { dataLabels, priceDataPoints, volumeDataPoints },
