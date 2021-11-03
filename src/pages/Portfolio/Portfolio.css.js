@@ -34,18 +34,25 @@ export const Circle = styled.div`
 `
 
 export const CoinData = styled.div`
-  margin-left: 30px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
+  @media (min-width: 600px) {
+    margin-left: 30px;
+  }
 `
 
 export const CoinDataRow = styled.div`
   width: 100%;
   height: 48%;
+
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 599px) {
+    margin-top: 12px;
+    margin-bottom: 10px;
+  }
 `
 
 export const CoinInfo = styled.div`
@@ -87,7 +94,7 @@ export const H1 = styled.h1`
   margin-bottom: 40px;
 `
 export const Img = styled.img`
-  width: 60px;
+  width: 100px;
   padding: 24px;
   background: ${(props) => props.theme.primary};
 `
@@ -114,6 +121,7 @@ export const ItemLabel = styled.div`
 
 export const ItemRow = styled.div`
   flex-basis: 100%;
+  flex-wrap: wrap;
   padding: 24px 0px 24px 34px;
   background: ${(props) => props.theme.secondary};
   border-radius: 20px;
@@ -145,8 +153,14 @@ export const PercentDisplay = styled.div`
 
 export const Row = styled.div`
   width: 100%;
-  height: 280px;
+  height: 460px;
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: 40px;
+  flex-direction: column;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    height: 280px;
+  }
 `
