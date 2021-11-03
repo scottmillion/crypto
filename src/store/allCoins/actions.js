@@ -40,9 +40,9 @@ export const getChartsData = () => async (dispatch, getState) => {
     const { data } = await axios(
       `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=${dataPointTimeInterval}&interval=daily`,
     )
-    const prices = data.prices
+    const prices = data.prices.slice(0, -1)
     const priceDataPoints = prices.map((price) => price[1])
-    const volumes = data.total_volumes
+    const volumes = data.total_volumes.slice(0, -1)
     const volumeDataPoints = volumes.map((volume) => volume[1])
     const dataLabels = prices.map((price) => {
       const date = new Date(price[0])
