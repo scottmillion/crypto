@@ -30,9 +30,9 @@ const ChartSlider = (props) => {
         <div>
           <ChartDisplay
             data={props.data}
-            dataLabels={props.priceDataLabels}
+            dataLabels={props.dataLabels}
             dataPoints={props.priceDataPoints}
-            isLoading={props.isPriceDataLoading}
+            isLoading={props.isLoading}
             label="Price"
             legendTitle="Price"
             type="Line"
@@ -42,9 +42,9 @@ const ChartSlider = (props) => {
         <div>
           <ChartDisplay
             data={props.data}
-            dataLabels={props.volumeDataLabels}
+            dataLabels={props.dataLabels}
             dataPoints={props.volumeDataPoints}
-            isLoading={props.isVolumeDataLoading}
+            isLoading={props.isLoading}
             label="Volume"
             legendTitle="Volume 24h"
             type="Bar"

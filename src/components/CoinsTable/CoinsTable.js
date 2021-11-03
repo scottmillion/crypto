@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { LoadingBox } from 'components'
 import { keyGen, rows } from 'utils'
 
@@ -22,7 +22,7 @@ const StyledFilter = styled(Filter)`
   margin-left: 1px;
 `
 
-const CoinsTable = (props) => {
+const CoinsTable = React.memo((props) => {
   const { data, isLoading } = props
   const themeContext = useContext(ThemeContext)
   const dispatch = useDispatch()
@@ -65,7 +65,7 @@ const CoinsTable = (props) => {
 
   return (
     <>
-      {(!isLoading && data && (
+      {(!isLoading && data.length > 1 && (
         <TableContainer component={Paper} elevation={0} square={true}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -107,6 +107,6 @@ const CoinsTable = (props) => {
       )) || <LoadingBox height={250} />}
     </>
   )
-}
+})
 
 export default CoinsTable

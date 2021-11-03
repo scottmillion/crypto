@@ -1,7 +1,8 @@
 import { Chart, ChartLegend, LoadingBox } from 'components'
 import { ChartContainer, ChartWrap } from './ChartDisplay.css'
+import React from 'react'
 
-const ChartDisplay = (props) => {
+const ChartDisplay = React.memo((props) => {
   let type
   if (props.label === 'Price') {
     type = 'current_price'
@@ -9,16 +10,15 @@ const ChartDisplay = (props) => {
   if (props.label === 'Volume') {
     type = 'total_volume'
   }
-  const displayChart =
+  const displayChart = (props) =>
     type &&
     props.data.length > 0 &&
     props.dataLabels.length > 0 &&
     props.dataPoints.length > 0 &&
     !props.isLoading
-
   return (
     <ChartContainer width={props.width}>
-      {(displayChart && (
+      {(displayChart(props) && (
         <>
           <ChartLegend
             legendDisplayNumber={
@@ -38,6 +38,6 @@ const ChartDisplay = (props) => {
       )) || <LoadingBox height={200} />}
     </ChartContainer>
   )
-}
+})
 
 export default ChartDisplay

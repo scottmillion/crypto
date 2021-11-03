@@ -5,8 +5,7 @@ import { ChartDisplay, CoinsTable, ChartSlider } from 'components'
 import { keyGen, screenSizeWidth, timeIntervals } from 'utils'
 import {
   getCoinsData,
-  getPrices,
-  getVolumes,
+  getChartsData,
   setTimeInterval,
 } from 'store/allCoins/actions.js'
 import {
@@ -23,28 +22,26 @@ const AllCoins = () => {
   const dispatch = useDispatch()
   const {
     coinsData,
+    dataLabels,
     dataPointTimeInterval,
-    priceDataLabels,
     priceDataPoints,
-    volumeDataLabels,
     volumeDataPoints,
     isCoinsDataLoading,
-    isPriceDataLoading,
-    isVolumeDataLoading,
+    isChartsDataLoading,
   } = useSelector((state) => state.allCoins)
 
   const { currency } = useSelector((state) => state.config)
 
   useEffect(() => {
+    dispatch(getChartsData())
     dispatch(getCoinsData())
     // eslint-disable-next-line
   }, [currency])
 
   useEffect(() => {
-    dispatch(getPrices())
-    dispatch(getVolumes())
+    dispatch(getChartsData())
     // eslint-disable-next-line
-  }, [currency, dataPointTimeInterval])
+  }, [dataPointTimeInterval])
 
   const onClickSelectItem = (days) => {
     dispatch(setTimeInterval(days))
@@ -66,18 +63,18 @@ const AllCoins = () => {
                 <ChartsContainer>
                   <ChartDisplay
                     data={coinsData}
-                    dataLabels={priceDataLabels}
+                    dataLabels={dataLabels}
                     dataPoints={priceDataPoints}
-                    isLoading={isPriceDataLoading}
+                    isLoading={isCoinsDataLoading || isChartsDataLoading}
                     label="Price"
                     legendTitle="Price"
                     type="Line"
                   />
                   <ChartDisplay
                     data={coinsData}
-                    dataLabels={volumeDataLabels}
+                    dataLabels={dataLabels}
                     dataPoints={volumeDataPoints}
-                    isLoading={isVolumeDataLoading}
+                    isLoading={isCoinsDataLoading || isChartsDataLoading}
                     label="Volume"
                     legendTitle="Volume 24h"
                     type="Bar"
@@ -87,37 +84,36 @@ const AllCoins = () => {
               {matches.mobile && (
                 <ChartSlider
                   data={coinsData}
-                  priceDataLabels={priceDataLabels}
+                  dataLabels={dataLabels}
                   priceDataPoints={priceDataPoints}
-                  isPriceDataLoading={isPriceDataLoading}
-                  volumeDataLabels={volumeDataLabels}
                   volumeDataPoints={volumeDataPoints}
-                  isVolumeDataLoading={isVolumeDataLoading}
+                  isLoading={isCoinsDataLoading || isChartsDataLoading}
                 />
               )}
             </>
           )}
         </Media>
 
-        {!isCoinsDataLoading && (
-          <DataSelectContainer>
-            {Object.keys(timeIntervals).map((interval) => {
-              const days = timeIntervals[interval]
-              return (
-                <DataSelectItem
-                  onClick={() => onClickSelectItem(days)}
-                  highlight={dataPointTimeInterval === days}
-                  key={keyGen()}
-                >
-                  {interval}
-                </DataSelectItem>
-              )
-            })}
-          </DataSelectContainer>
-        )}
+        <DataSelectContainer>
+          {Object.keys(timeIntervals).map((interval) => {
+            const days = timeIntervals[interval]
+            return (
+              <DataSelectItem
+                onClick={() => onClickSelectItem(days)}
+                highlight={dataPointTimeInterval === days}
+                key={keyGen()}
+              >
+                {interval}
+              </DataSelectItem>
+            )
+          })}
+        </DataSelectContainer>
 
         <CoinContainer>
-          <CoinsTable data={coinsData} isLoading={isCoinsDataLoading} />
+          <CoinsTable
+            data={coinsData}
+            isLoading={isCoinsDataLoading || isChartsDataLoading}
+          />
         </CoinContainer>
       </ContentContainer>
     </Container>
