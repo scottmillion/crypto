@@ -10,7 +10,7 @@ const ChartDisplay = React.memo((props) => {
     if (width > 899) {
       return width / 4.55
     }
-    return width / 2.22
+    return width / 2.2
   }
 
   let type
