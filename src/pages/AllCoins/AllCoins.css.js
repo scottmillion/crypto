@@ -30,14 +30,19 @@ export const ContentContainer = styled.div`
 export const DataSelectContainer = styled.div`
   background: ${(props) => props.theme.secondary};
   border-radius: 20px;
-  padding-block: 15px;
+  padding-block: 10px;
   padding-inline: 6px;
   margin-top: 25px;
   margin-inline: auto;
+  width: 100%;
   display: flex;
   min-width: 350px;
-  width: 50%;
   justify-content: space-around;
+
+  @media (min-width: 768px) {
+    width: 500px;
+    padding-block: 15px;
+  }
 `
 
 export const DataSelectItem = styled.div`
