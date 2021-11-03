@@ -12,11 +12,15 @@ export const ButtonMain = styled.button`
   color: ${(props) => props.theme.mainFont};
   font-size: 1.4rem;
   font-weight: 700;
-  padding: 34px 250px;
+  padding: 14px 60px;
+  margin-bottom: 10px;
   border-radius: 20px;
   &:hover {
     background: ${(props) => props.theme.secondary};
     border: 1px solid ${(props) => props.theme.secondaryInverted};
+  }
+  @media (min-width: 768px) {
+    padding: 24px 150px;
   }
 `
 

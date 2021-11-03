@@ -6,11 +6,13 @@ import {
   CloseOption,
   CoinThumbnail,
   Img,
+  ImgPlaceHolder,
   ImgWrap,
   Form,
   FormContainer,
   H2,
   Input,
+  P,
   PopUp,
   PopUpContent,
   PopUpWrap,
@@ -70,13 +72,13 @@ const PortfolioPopUp = (props) => {
             <CoinThumbnail>
               <ImgWrap>
                 {(coinData.large && <Img src={coinData.large} alt="" />) || (
-                  <div>
+                  <ImgPlaceHolder>
                     <p>1. Type coin name, then select from dropdown</p>
                     <br />
                     <p>2. Type amount owned (default: 0)</p>
                     <br />
                     <p>3. Type date purchased (default: today)</p>
-                  </div>
+                  </ImgPlaceHolder>
                 )}
               </ImgWrap>
               {coinData.name && coinData.symbol && (
@@ -130,10 +132,10 @@ const PortfolioPopUp = (props) => {
               />
             </Form>
           </FormContainer>
-          <p>
+          <P>
             **If you submit a coin already in your inventory it will overwrite
             previous data.
-          </p>
+          </P>
           <Buttons>
             <CloseButton onClick={() => props.setShowPopUp(!props.showPopUp)}>
               Close
