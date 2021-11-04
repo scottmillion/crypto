@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Media from 'react-media'
-import { ChartDisplay, CoinsTable, ChartSlider } from 'components'
+import { ChartDisplay, CoinsTable, ChartSlider, LoadingBox } from 'components'
 import { keyGen, screenSizeWidth, timeIntervals } from 'utils'
 import {
   getCoinsData,
@@ -110,10 +110,15 @@ const AllCoins = () => {
         </DataSelectContainer>
 
         <CoinContainer>
-          <CoinsTable
-            data={coinsData}
-            isLoading={isCoinsDataLoading || isChartsDataLoading}
-          />
+          {(isCoinsDataLoading || isChartsDataLoading) && (
+            <LoadingBox height={250} />
+          )}
+          {(!isCoinsDataLoading || !isChartsDataLoading) && (
+            <CoinsTable
+              data={coinsData}
+              isLoading={isCoinsDataLoading || isChartsDataLoading}
+            />
+          )}
         </CoinContainer>
       </ContentContainer>
     </Container>

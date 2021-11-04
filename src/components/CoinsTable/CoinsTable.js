@@ -1,7 +1,5 @@
 import React, { useContext } from 'react'
-import { LoadingBox } from 'components'
 import { keyGen, rows } from 'utils'
-
 import { withStyles, makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -65,7 +63,7 @@ const CoinsTable = React.memo((props) => {
 
   return (
     <>
-      {(!isLoading && data.length > 1 && (
+      {!isLoading && data.length > 1 && (
         <TableContainer component={Paper} elevation={0} square={true}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -104,7 +102,7 @@ const CoinsTable = React.memo((props) => {
             </TableBody>
           </Table>
         </TableContainer>
-      )) || <LoadingBox height={250} />}
+      )}
     </>
   )
 })
