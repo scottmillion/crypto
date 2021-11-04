@@ -66,16 +66,10 @@ const NavBar = () => {
               {matches.tablet && (
                 <NavLeft>
                   <NavLeftUl>
-                    <NavLeftLi
-                      routeMatches={currentLocation === '/'}
-                      key={keyGen()}
-                    >
+                    <NavLeftLi routeMatches={currentLocation === '/'}>
                       <StyledLink to="/">Coins</StyledLink>
                     </NavLeftLi>
-                    <NavLeftLi
-                      routeMatches={currentLocation === '/portfolio'}
-                      key={keyGen()}
-                    >
+                    <NavLeftLi routeMatches={currentLocation === '/portfolio'}>
                       <StyledLink to="/portfolio">Portfolio</StyledLink>
                     </NavLeftLi>
                   </NavLeftUl>
