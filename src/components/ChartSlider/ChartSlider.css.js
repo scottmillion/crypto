@@ -5,7 +5,7 @@ export const SliderButton = styled.button`
   top: 50%;
   left: ${(props) => (props.left ? props.left : '')};
   right: ${(props) => (props.right ? props.right : '')};
-  padding-inline: 5px;
+  margin-inline: 5px;
   background: none;
   color: inherit;
   border: none;
