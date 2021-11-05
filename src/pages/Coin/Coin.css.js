@@ -29,9 +29,11 @@ export const H1 = styled.h1`
   font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 10px;
+  margin-left: 6px;
 `
 
 export const H2 = styled.h1`
+  margin-left: 6px;
   font-size: 1.4rem;
   font-weight: 500;
   margin-block: 10px;
