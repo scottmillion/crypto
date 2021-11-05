@@ -102,6 +102,18 @@ export const Input = styled(DebounceInput)`
   border-radius: 10px;
   margin-bottom: 12px;
 
+  /* Chrome, Safari, Edge, Opera */
+  &&::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  && [type='number'] {
+    -moz-appearance: textfield;
+  }
+
   &::placeholder {
     color: inherit;
     font-size: 1.1rem;

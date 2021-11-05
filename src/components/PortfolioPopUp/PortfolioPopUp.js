@@ -43,12 +43,16 @@ const PortfolioPopUp = (props) => {
     }, 10)
   }
 
-  const handleChange = (e) => {
+  const handleCoinNameChange = (e) => {
     const { value } = e.target
     setCoinName(value)
     value === ''
       ? dispatch(clearData('portfolioSearch'))
       : dispatch(getSearchData(value, 'portfolioSearch'))
+  }
+
+  const handleAmountChange = (value) => {
+    setAmountOwned(value)
   }
 
   const handleSubmit = (e) => {
@@ -93,7 +97,7 @@ const PortfolioPopUp = (props) => {
                   type="text"
                   value={coinName}
                   placeholder="Coin Name..."
-                  onChange={handleChange}
+                  onChange={handleCoinNameChange}
                   minLength={1}
                   debounceTimeout={300}
                 />
@@ -120,8 +124,8 @@ const PortfolioPopUp = (props) => {
                 </SearchList>
               </div>
               <Input
-                type="text"
-                onChange={(e) => setAmountOwned(e.target.value)}
+                type="number"
+                onChange={(e) => handleAmountChange(e.target.value)}
                 placeholder="Amount Owned..."
                 value={amountOwned}
               />
