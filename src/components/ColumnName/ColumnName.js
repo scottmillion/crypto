@@ -17,9 +17,8 @@ const ColumnName = (props) => (
   <Cell>
     <Img src={props.image} alt={props.name} />
     <StyledLink to={`/coin/${props.id}`}>
-      {props.name} ({props.symbol.toUpperCase()}
+      {props.name} ({props.symbol.toUpperCase()})
     </StyledLink>
-    )
   </Cell>
 )
 

@@ -67,6 +67,9 @@ const CoinsTable = React.memo((props) => {
         display: 'none',
       },
     },
+    root: {
+      backgroundColor: 'transparent',
+    },
   }))
 
   const classes = useStyles()
@@ -80,7 +83,6 @@ const CoinsTable = React.memo((props) => {
     },
     body: {
       backgroundColor: themeContext.secondary,
-
       color: themeContext.mainFont,
       fontSize: 12,
       border: 'none',
@@ -102,7 +104,12 @@ const CoinsTable = React.memo((props) => {
   return (
     <>
       {!isLoading && data.length > 1 && (
-        <TableContainer component={Paper} elevation={0} square={true}>
+        <TableContainer
+          component={Paper}
+          elevation={0}
+          square={true}
+          className={classes.root}
+        >
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <HeaderRow>

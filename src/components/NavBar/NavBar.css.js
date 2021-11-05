@@ -66,10 +66,12 @@ export const Nav = styled.div`
 
 export const NavWrap = styled.div`
   width: 100%;
-  padding-block: 10px;
+  padding-block: 4px;
   background: ${(props) => props.theme.secondary};
 
-  /* justify-content: center; */
+  @media (min-width: 768px) {
+    padding-block: 10px;
+  }
 `
 
 export const NavLeft = styled.div`
