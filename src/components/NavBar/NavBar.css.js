@@ -18,18 +18,18 @@ export const Hr = styled.hr`
 
 export const DisplayMenu = styled.div`
   position: absolute;
-  margin-top: 7px;
+  margin-top: 5px;
   right: 0;
   color: inherit;
   z-index: 1000000000000000000;
   background: ${(props) => props.theme.tertiary};
   padding: 4px 10px 4px 20px;
-  font-size: 1rem;
+  font-size: 14px;
 `
 
 export const MobileMenu = styled.div`
   position: relative;
-  width: 34px;
+  width: 28px;
   padding: 8px 0px;
 `
 
@@ -103,19 +103,28 @@ export const NavRightInputContainer = styled.div``
 
 export const NavRightSelectContainer = styled.div`
   position: relative;
-  margin-left: 20px;
+  margin-left: 10px;
   display: flex;
   flex-wrap: nowrap;
   border-radius: 10px;
   background: ${(props) => props.theme.tertiary};
   padding: 10px 2px 9px 10px;
   font-size: 1rem;
+
+  @media (min-width: 768px) {
+    margin-left: 20px;
+  }
 `
 
 export const SearchImage = styled.img`
-  width: 20px;
   position: absolute;
-  margin: 15px 22px 0px 28px;
+  margin: 12px 0px 0px 14px;
+  width: 16px;
+
+  @media (min-width: 768px) {
+    margin: 15px 0px 0px 28px;
+    width: 20px;
+  }
 `
 
 export const Select = styled.select`
@@ -133,6 +142,13 @@ export const Select = styled.select`
   &:focus {
     outline: none;
   }
+
+  @media (max-width: 767px) {
+    padding-block: 2px;
+    font-size: 14px;
+    margin-left: 0px;
+    width: 48px;
+  }
 `
 
 export const SelectArrow = styled(DownArrow)`
@@ -141,6 +157,11 @@ export const SelectArrow = styled(DownArrow)`
   margin-top: 10px;
   color: #00ff5f;
   pointer-events: none;
+
+  @media (max-width: 767px) {
+    margin-top: 6px;
+    margin-left: 26px;
+  }
 `
 
 export const SelectWrap = styled.div`
