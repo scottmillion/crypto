@@ -47,6 +47,18 @@ export const currencyList = {
   },
 }
 
+export const displayClasses = [
+  'xxs',
+  'none',
+  'xxxs',
+  'xs',
+  's',
+  'm',
+  'l',
+  'xl',
+  'xxl',
+]
+
 export const darkTheme = {
   mainFont: '#FFF',
   primary: '#1F2128',

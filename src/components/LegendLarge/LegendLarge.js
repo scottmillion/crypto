@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { screenSizeWidth } from 'utils'
 
 const LegendLargeWrap = styled.div`
-  @media ${screenSizeWidth.none} {
+  font-size: 14px;
+  @media (min-width: 400px) {
     font-size: 1.3rem;
     line-height: 1.8rem;
   }

@@ -36,7 +36,6 @@ export const DataSelectContainer = styled.div`
   margin-inline: auto;
   width: 100%;
   display: flex;
-  min-width: 350px;
   justify-content: space-around;
 
   @media (min-width: 768px) {
@@ -59,6 +58,11 @@ export const DataSelectItem = styled.div`
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+
+  @media (max-width: 400px) {
+    font-size: 10px;
+    padding-inline: 8px;
+  }
 `
 
 export const H1 = styled.h1`

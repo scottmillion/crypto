@@ -66,6 +66,7 @@ const Chart = (props) => {
         },
       },
       x: {
+        display: props.displayXAxis,
         grid: {
           display: false,
           borderWidth: 0,

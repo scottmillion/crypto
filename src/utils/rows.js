@@ -17,6 +17,7 @@ export function rows(data) {
     const {
       circulating_supply,
       current_price,
+      id,
       image,
       market_cap,
       name,
@@ -30,7 +31,9 @@ export function rows(data) {
     } = coin
     const dataset = {}
     dataset.number = <ColumnNumber number={index + 1} />
-    dataset.name = <ColumnName image={image} name={name} symbol={symbol} />
+    dataset.name = (
+      <ColumnName image={image} name={name} symbol={symbol} id={id} />
+    )
     dataset.price = <ColumnCurrentPrice price={current_price} />
     dataset.priceNumeric = current_price
     dataset.hour = (

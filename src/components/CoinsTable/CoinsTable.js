@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { keyGen, rows } from 'utils'
+import { keyGen, displayClasses, rows } from 'utils'
 import { withStyles, makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRowUI from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-
 import { Filter } from '@styled-icons/boxicons-regular/Filter'
 import { sortBy } from 'store/allCoins/actions.js'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,11 +25,49 @@ const CoinsTable = React.memo((props) => {
   const dispatch = useDispatch()
   const { config } = useSelector((state) => state.allCoins)
 
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 650,
+  const useStyles = makeStyles((theme) => ({
+    none: {},
+    xxxs: {
+      [theme.breakpoints.down('315')]: {
+        display: 'none',
+      },
     },
-  })
+    xxs: {
+      [theme.breakpoints.down('370')]: {
+        display: 'none',
+      },
+    },
+    xs: {
+      [theme.breakpoints.down('500')]: {
+        display: 'none',
+      },
+    },
+    s: {
+      [theme.breakpoints.down('620')]: {
+        display: 'none',
+      },
+    },
+    m: {
+      [theme.breakpoints.down('768')]: {
+        display: 'none',
+      },
+    },
+    l: {
+      [theme.breakpoints.down('900')]: {
+        display: 'none',
+      },
+    },
+    xl: {
+      [theme.breakpoints.down('1100')]: {
+        display: 'none',
+      },
+    },
+    xxl: {
+      [theme.breakpoints.down('1220')]: {
+        display: 'none',
+      },
+    },
+  }))
 
   const classes = useStyles()
 
@@ -43,6 +80,7 @@ const CoinsTable = React.memo((props) => {
     },
     body: {
       backgroundColor: themeContext.secondary,
+
       color: themeContext.mainFont,
       fontSize: 12,
       border: 'none',
@@ -68,8 +106,11 @@ const CoinsTable = React.memo((props) => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <HeaderRow>
-                {Object.keys(config).map((label) => (
-                  <TableCell key={keyGen()}>
+                {Object.keys(config).map((label, index) => (
+                  <TableCell
+                    key={keyGen()}
+                    className={classes[displayClasses[index]]}
+                  >
                     {config[label].key}
                     {config[label].sortBy && (
                       <StyledFilter
@@ -86,17 +127,21 @@ const CoinsTable = React.memo((props) => {
             <TableBody>
               {rows(data).map((row) => (
                 <TableRow key={keyGen()}>
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" className={classes.xxs}>
                     {row.number}
                   </TableCell>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.price}</TableCell>
-                  <TableCell>{row.hour}</TableCell>
-                  <TableCell>{row.hour24}</TableCell>
-                  <TableCell>{row.days7}</TableCell>
-                  <TableCell>{row.volumeMarketCap}</TableCell>
-                  <TableCell>{row.circulatingTotalSupply}</TableCell>
-                  <TableCell>{row.last7d}</TableCell>
+                  <TableCell className={classes.xxxs}>{row.price}</TableCell>
+                  <TableCell className={classes.xs}>{row.hour}</TableCell>
+                  <TableCell className={classes.s}>{row.hour24}</TableCell>
+                  <TableCell className={classes.m}>{row.days7}</TableCell>
+                  <TableCell className={classes.l}>
+                    {row.volumeMarketCap}
+                  </TableCell>
+                  <TableCell className={classes.xl}>
+                    {row.circulatingTotalSupply}
+                  </TableCell>
+                  <TableCell className={classes.xxl}>{row.last7d}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

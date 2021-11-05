@@ -3,6 +3,7 @@ export {
   coinListPercentDisplayColors,
   columnLabelsText,
   currencyList,
+  displayClasses,
   darkTheme,
   lightTheme,
   monthNames,

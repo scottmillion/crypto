@@ -37,6 +37,7 @@ const ChartDisplay = React.memo((props) => {
                 dataPoints={props.dataPoints}
                 label={props.label}
                 type={props.type}
+                displayXAxis={window.innerWidth > 400}
               />
             </ChartWrap>
           </>

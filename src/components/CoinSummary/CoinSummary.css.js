@@ -50,7 +50,7 @@ export const CurrentPriceWrap = styled.div`
 `
 
 export const Img = styled.img`
-  width: 60px;
+  width: 100px;
   padding: 24px;
   background: ${(props) => props.theme.primary};
 `
