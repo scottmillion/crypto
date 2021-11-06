@@ -3,6 +3,8 @@ import { Menu } from '@styled-icons/boxicons-regular/Menu'
 import { DownArrow } from '@styled-icons/boxicons-solid'
 import { Link } from 'react-router-dom'
 
+import { DarkTheme } from '@styled-icons/fluentui-system-regular/DarkTheme'
+
 export const CurrencySymbol = styled.div`
   width: 36px;
   background: #191b1f;
@@ -177,10 +179,14 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
 `
 
+export const ThemeIcon = styled(DarkTheme)`
+  width: 26px;
+`
+
 export const ThemeMode = styled.div`
   display: flex;
   border-radius: 10px;
   background: ${(props) => props.theme.tertiary};
-  padding: 8px 14px;
+  padding: 10px 10px;
   margin-left: 20px;
 `
