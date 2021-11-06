@@ -23,6 +23,7 @@ import {
   SelectArrow,
   SelectWrap,
   StyledLink,
+  ThemeIcon,
   ThemeMode,
 } from './NavBar.css'
 import Media from 'react-media'
@@ -110,11 +111,7 @@ const NavBar = () => {
 
                 {matches.tablet && (
                   <ThemeMode>
-                    <img
-                      src={themeOn ? Images.themeIconLight : Images.themeIcon}
-                      alt="mode"
-                      onClick={() => dispatch(toggleTheme())}
-                    />
+                    <ThemeIcon onClick={() => dispatch(toggleTheme())} />
                   </ThemeMode>
                 )}
               </NavRight>
@@ -139,12 +136,7 @@ const NavBar = () => {
                       </MobileMenuItem>
                       <Hr />
                       <MobileMenuItem onClick={handleToggleMenu}>
-                        <div
-                          width="20px"
-                          onClick={() => dispatch(toggleTheme())}
-                        >
-                          Theme
-                        </div>
+                        <div onClick={() => dispatch(toggleTheme())}>Theme</div>
                       </MobileMenuItem>
                     </DisplayMenu>
                   )}
