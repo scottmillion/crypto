@@ -1,9 +1,13 @@
 import { DebounceInput } from 'react-debounce-input'
 import styled from 'styled-components'
-import { screenSizeWidth } from 'utils'
 
 export const Buttons = styled.div`
   padding-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
 `
 
 export const CloseOption = styled.div`
@@ -12,8 +16,12 @@ export const CloseOption = styled.div`
   top: 16px;
   right: 20px;
   color: #06d554;
-  font-size: 72px;
+  font-size: 56px;
   font-weight: 600;
+
+  @media (min-width: 600px) {
+    font-size: 72px;
+  }
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -37,7 +45,6 @@ export const CoinThumbnail = styled.div`
 `
 
 export const Form = styled.form`
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,7 +53,17 @@ export const Form = styled.form`
 
 export const FormContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
+  flex-direction: column-reverse;
+
+  @media (max-width: 599px) {
+    align-items: center;
+  }
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 `
 
 export const H2 = styled.h2`
@@ -55,9 +72,13 @@ export const H2 = styled.h2`
 `
 
 export const Img = styled.img`
-  width: 60px;
+  width: 100px;
   padding: 24px;
   background: ${(props) => props.theme.primary};
+`
+
+export const ImgPlaceHolder = styled.div`
+  font-size: 10px;
 `
 
 export const ImgWrap = styled.div`
@@ -73,12 +94,25 @@ export const Input = styled(DebounceInput)`
   color: inherit;
   font-size: 1.1rem;
   height: 48px;
+  width: 250px;
   font-family: inherit;
   padding-left: 56px;
   padding-right: 20px;
-
   border: none;
   border-radius: 10px;
+  margin-bottom: 12px;
+
+  /* Chrome, Safari, Edge, Opera */
+  &&::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  && [type='number'] {
+    -moz-appearance: textfield;
+  }
 
   &::placeholder {
     color: inherit;
@@ -88,18 +122,39 @@ export const Input = styled(DebounceInput)`
     outline: none;
   }
 
-  @media ${screenSizeWidth.desktopM} {
+  @media (min-width: 600px) {
     width: 350px;
+    margin-bottom: 0px;
+  }
+
+  @media (max-width: 599px) {
+    font-size: 14px;
+    padding-left: 32px;
+
+    &::placeholder {
+      font-size: 14px;
+    }
   }
 `
 
+export const P = styled.p`
+  padding-inline: 20px;
+  text-align: center;
+`
+
 export const PopUp = styled.div`
-  width: 40%;
-  height: 40%;
+  width: 90%;
+  height: 600px;
   z-index: 11;
   background: ${(props) => props.theme.primary};
   margin: auto;
   border-radius: 20px;
+  @media (min-width: 600px) {
+    height: 350px;
+  }
+  @media (min-width: 768px) {
+    width: 650px;
+  }
 `
 
 export const PopUpContent = styled.div`
@@ -133,6 +188,12 @@ export const SearchList = styled.div`
   margin-left: 42px;
   font-size: 1rem;
   z-index: 10000000;
+
+  @media (max-width: 599px) {
+    margin-top: -12px;
+    margin-left: 22px;
+    padding: 0px 20px 0px 20px;
+  }
 `
 
 export const SearchListItem = styled.div`
@@ -156,10 +217,15 @@ export const CloseButton = styled.button`
   font-weight: 700;
   margin-inline: 4px;
   padding: 14px 60px;
+  margin-bottom: 10px;
   border-radius: 12px;
   &:hover {
     background: ${(props) => props.theme.secondary};
     border: 1px solid ${(props) => props.theme.secondaryInverted};
+  }
+
+  @media (min-width: 600px) {
+    margin-bottom: 0px;
   }
 `
 

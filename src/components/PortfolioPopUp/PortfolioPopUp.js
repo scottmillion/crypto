@@ -6,11 +6,13 @@ import {
   CloseOption,
   CoinThumbnail,
   Img,
+  ImgPlaceHolder,
   ImgWrap,
   Form,
   FormContainer,
   H2,
   Input,
+  P,
   PopUp,
   PopUpContent,
   PopUpWrap,
@@ -41,12 +43,16 @@ const PortfolioPopUp = (props) => {
     }, 10)
   }
 
-  const handleChange = (e) => {
+  const handleCoinNameChange = (e) => {
     const { value } = e.target
     setCoinName(value)
     value === ''
       ? dispatch(clearData('portfolioSearch'))
       : dispatch(getSearchData(value, 'portfolioSearch'))
+  }
+
+  const handleAmountChange = (value) => {
+    setAmountOwned(value)
   }
 
   const handleSubmit = (e) => {
@@ -70,13 +76,13 @@ const PortfolioPopUp = (props) => {
             <CoinThumbnail>
               <ImgWrap>
                 {(coinData.large && <Img src={coinData.large} alt="" />) || (
-                  <div>
+                  <ImgPlaceHolder>
                     <p>1. Type coin name, then select from dropdown</p>
                     <br />
                     <p>2. Type amount owned (default: 0)</p>
                     <br />
                     <p>3. Type date purchased (default: today)</p>
-                  </div>
+                  </ImgPlaceHolder>
                 )}
               </ImgWrap>
               {coinData.name && coinData.symbol && (
@@ -91,7 +97,7 @@ const PortfolioPopUp = (props) => {
                   type="text"
                   value={coinName}
                   placeholder="Coin Name..."
-                  onChange={handleChange}
+                  onChange={handleCoinNameChange}
                   minLength={1}
                   debounceTimeout={300}
                 />
@@ -118,8 +124,8 @@ const PortfolioPopUp = (props) => {
                 </SearchList>
               </div>
               <Input
-                type="text"
-                onChange={(e) => setAmountOwned(e.target.value)}
+                type="number"
+                onChange={(e) => handleAmountChange(e.target.value)}
                 placeholder="Amount Owned..."
                 value={amountOwned}
               />
@@ -130,10 +136,10 @@ const PortfolioPopUp = (props) => {
               />
             </Form>
           </FormContainer>
-          <p>
+          <P>
             **If you submit a coin already in your inventory it will overwrite
             previous data.
-          </p>
+          </P>
           <Buttons>
             <CloseButton onClick={() => props.setShowPopUp(!props.showPopUp)}>
               Close

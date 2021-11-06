@@ -7,11 +7,9 @@ import {
 
 const CoinDataItem = (props) => (
   <CoinDataItemWrap>
-    <DivsSameLine>
-      <BluePlus />
-      <CoinDataLabel color={props.color}>{props.label}</CoinDataLabel>
-      {props.children}
-    </DivsSameLine>
+    <BluePlus />
+    <CoinDataLabel color={props.color}>{props.label}</CoinDataLabel>
+    <DivsSameLine>{props.children}</DivsSameLine>
   </CoinDataItemWrap>
 )
 

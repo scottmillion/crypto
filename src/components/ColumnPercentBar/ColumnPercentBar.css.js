@@ -7,6 +7,7 @@ export const BulletPoint = styled.span`
 export const TopItemsWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 140px;
 `
 
 export const TopItem = styled.div`
@@ -17,7 +18,7 @@ export const TopItem = styled.div`
 export const PercentDisplay = styled.div`
   margin-bottom: 16px;
   overflow: hidden;
-  min-width: 150px;
+  width: 140px;
   height: 8px;
   background: linear-gradient(
     ${(props) =>

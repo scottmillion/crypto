@@ -13,21 +13,24 @@ export const NavWrap = styled.div`
 `
 
 export const NavUnderContainer = styled.div`
-  min-width: 500px;
-  max-width: 70%;
-  height: 46px;
+  max-width: 90%;
+  height: 30px;
   background: ${(props) => props.theme.secondary};
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
+
+  @media (min-width: 768px) {
+    height: 46px;
+  }
 `
 
 export const NavUnderLi = styled.li`
   /* outline: 1px solid green; */
-  font-size: 0.8rem;
-  padding-inline: 16px;
+  font-size: 12px;
+  padding-inline: 12px;
   display: flex;
   align-items: center;
 `

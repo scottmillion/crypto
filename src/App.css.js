@@ -5,4 +5,8 @@ export const Container = styled.div`
   border: 10px solid ${(props) => props.theme.secondary};
   max-width: 1200px;
   margin: auto;
+
+  @media (max-width: 767px) {
+    border: none;
+  }
 `

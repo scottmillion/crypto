@@ -23,18 +23,17 @@ const Chart = (props) => {
       dataset.fill = true
       dataset.backgroundColor = gradient
       dataset.borderColor = props.theme.lineChart
+      dataset.pointBackgroundColor = props.theme.lineChart
+
       options.elements = {
         point: {
-          radius: 0,
+          radius: 1,
+          hitRadius: 30,
+          hoverRadius: 4,
         },
         line: {
           tension: 0.4,
         },
-      }
-      options.scales.x.ticks = {
-        ...options.scales.x.ticks,
-        autoSkip: true,
-        maxTicksLimit: 14,
       }
     }
 
@@ -67,6 +66,7 @@ const Chart = (props) => {
         },
       },
       x: {
+        display: props.displayXAxis,
         grid: {
           display: false,
           borderWidth: 0,
@@ -74,6 +74,11 @@ const Chart = (props) => {
         ticks: {
           maxRotation: 0,
           minRotation: 0,
+          callback: function (value, index) {
+            return props.dataLabels[index].slice(0, 2)
+          },
+          autoSkip: true,
+          maxTicksLimit: 15,
         },
       },
     },

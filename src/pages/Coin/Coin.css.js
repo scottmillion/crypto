@@ -8,7 +8,7 @@ export const Container = styled.div`
 `
 
 export const ContentContainer = styled.div`
-  width: 90%;
+  width: calc(90% + 10px);
 `
 export const Description = styled.div`
   background: ${(props) => props.theme.secondary};
@@ -29,9 +29,11 @@ export const H1 = styled.h1`
   font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 10px;
+  margin-left: 8px;
 `
 
 export const H2 = styled.h1`
+  margin-left: 8px;
   font-size: 1.4rem;
   font-weight: 500;
   margin-block: 10px;

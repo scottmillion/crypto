@@ -8,6 +8,7 @@ export const HighLowContainer = styled.div`
 
 export const AllTimeData = styled.div`
   text-align: left;
+  padding-inline: 5px;
 `
 
 export const Label = styled.div`

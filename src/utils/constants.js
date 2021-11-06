@@ -47,6 +47,18 @@ export const currencyList = {
   },
 }
 
+export const displayClasses = [
+  'xxs',
+  'none',
+  'xxxs',
+  'xs',
+  's',
+  'm',
+  'l',
+  'xl',
+  'xxl',
+]
+
 export const darkTheme = {
   mainFont: '#FFF',
   primary: '#1F2128',
@@ -96,9 +108,10 @@ export const screenSizeWidth = {
   none: `(min-width: 0px)`,
   mobileS: `(min-width: 320px)`,
   mobileM: `(min-width: 375px)`,
-  mobileL: `(min-width: 425px)`,
+  mobileL: `(min-width: 470px)`,
   tablet: `(min-width: 768px)`,
-  mobile: `(max-width: 899px)`,
+  tabletS: `(min-width: 0px) and (max-width: 767px)`,
+  mobile: `(min-width: 0px) and (max-width: 899px)`,
   desktopS: `(min-width: 900px)`,
   desktopSM: `(min-width: 1000px)`,
   desktopM: `(min-width: 1200px)`,
@@ -108,3 +121,12 @@ export const screenSizeWidth = {
 }
 
 export const today = new Date()
+
+export const timeIntervals = {
+  '1d': 1,
+  '1w': 7,
+  '1m': 30,
+  '3m': 90,
+  '6m': 180,
+  '1y': 365,
+}

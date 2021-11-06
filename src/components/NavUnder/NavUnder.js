@@ -27,21 +27,22 @@ const NavUnder = () => {
   }, [currency])
 
   return (
-    <NavWrap>
-      <NavUnderContainer>
-        {error && <div>API Error. Refresh Page.</div>}
-        {isLoading && <LoadingBox bar />}
-        {data && !isLoading && (
-          <Media
-            queries={{
-              desktopS: screenSizeWidth.desktopS,
-              desktopSM: screenSizeWidth.desktopSM,
-              desktopM: screenSizeWidth.desktopM,
-              desktopML: screenSizeWidth.desktopML,
-              desktopL: screenSizeWidth.desktopL,
-            }}
-          >
-            {(matches) => (
+    <Media
+      queries={{
+        mobileL: screenSizeWidth.mobileL,
+        desktopS: screenSizeWidth.desktopS,
+        desktopSM: screenSizeWidth.desktopSM,
+        desktopM: screenSizeWidth.desktopM,
+        desktopML: screenSizeWidth.desktopML,
+        desktopL: screenSizeWidth.desktopL,
+      }}
+    >
+      {(matches) => (
+        <NavWrap>
+          <NavUnderContainer>
+            {error && <div>API Error. Refresh Page.</div>}
+            {isLoading && <LoadingBox bar />}
+            {data && !isLoading && (
               <NavUnderUl>
                 {matches.desktopML && (
                   <NavUnderLi>Coins {data.active_cryptocurrencies}</NavUnderLi>
@@ -96,28 +97,30 @@ const NavUnder = () => {
                     />
                   </PercentDisplay>
                 </NavUnderLi>
-                <NavUnderLi>
-                  <NavUnderImg marginRight="-4">
-                    <img
-                      src="https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880"
-                      alt="eth thumb"
-                    />
-                  </NavUnderImg>
-                  {Math.round(data.market_cap_percentage.eth)}%
-                  <PercentDisplay
-                    percent={Math.round(data.market_cap_percentage.eth)}
-                  >
-                    <Circle
+                {matches.mobileL && (
+                  <NavUnderLi>
+                    <NavUnderImg marginRight="-4">
+                      <img
+                        src="https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880"
+                        alt="eth thumb"
+                      />
+                    </NavUnderImg>
+                    {Math.round(data.market_cap_percentage.eth)}%
+                    <PercentDisplay
                       percent={Math.round(data.market_cap_percentage.eth)}
-                    />
-                  </PercentDisplay>
-                </NavUnderLi>
+                    >
+                      <Circle
+                        percent={Math.round(data.market_cap_percentage.eth)}
+                      />
+                    </PercentDisplay>
+                  </NavUnderLi>
+                )}
               </NavUnderUl>
             )}
-          </Media>
-        )}
-      </NavUnderContainer>
-    </NavWrap>
+          </NavUnderContainer>
+        </NavWrap>
+      )}
+    </Media>
   )
 }
 

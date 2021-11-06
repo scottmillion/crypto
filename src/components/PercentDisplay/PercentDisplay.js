@@ -2,7 +2,7 @@ import { Circle, Total, Val1, Val2 } from './PercentDisplay.css'
 
 const borderRadius = 10
 const height = 8
-const maxWidth = 250
+const maxWidth = 180
 
 const PercentDisplay = (props) => {
   const val1 = (props.val1 / props.total) * maxWidth

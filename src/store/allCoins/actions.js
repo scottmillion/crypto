@@ -3,12 +3,10 @@ import {
   GET_COINS_DATA_ERROR,
   GET_COINS_DATA_PENDING,
   GET_COINS_DATA_SUCCESS,
-  GET_PRICE_DATA_ERROR,
-  GET_PRICE_DATA_PENDING,
-  GET_PRICE_DATA_SUCCESS,
-  GET_VOLUME_DATA_ERROR,
-  GET_VOLUME_DATA_PENDING,
-  GET_VOLUME_DATA_SUCCESS,
+  GET_CHARTS_DATA_ERROR,
+  GET_CHARTS_DATA_PENDING,
+  GET_CHARTS_DATA_SUCCESS,
+  SET_TIME_INTERVAL,
   SORT_BY,
 } from './index'
 
@@ -32,53 +30,50 @@ export const getCoinsData = () => async (dispatch, getState) => {
   }
 }
 
-export const getPrices = () => async (dispatch, getState) => {
+export const getChartsData = () => async (dispatch, getState) => {
   const state = getState()
-  const currency = state.config.currency
+  const { currency } = state.config
+  const { dataPointTimeInterval } = state.allCoins
 
   try {
-    dispatch({ type: GET_PRICE_DATA_PENDING })
+    dispatch({ type: GET_CHARTS_DATA_PENDING })
     const { data } = await axios(
-      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=40&interval=daily`,
+      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=${dataPointTimeInterval}&interval=daily`,
     )
-    const prices = data.prices.slice(0, 40)
+
+    const prices = data.prices
     const priceDataPoints = prices.map((price) => price[1])
-    const priceDataLabels = prices.map((price) => {
-      let date = new Date(price[0]).getDate().toString()
-      return date.length === 1 ? '0' + date : date
-    })
-    dispatch({
-      type: GET_PRICE_DATA_SUCCESS,
-      payload: { priceDataLabels, priceDataPoints },
-    })
-  } catch (err) {
-    dispatch({ type: GET_PRICE_DATA_ERROR, payload: err })
-  }
-}
-
-export const getVolumes = () => async (dispatch, getState) => {
-  const state = getState()
-  const currency = state.config.currency
-
-  try {
-    dispatch({ type: GET_VOLUME_DATA_PENDING })
-    const { data } = await axios(
-      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=23&interval=daily`,
-    )
-    const volumes = data.total_volumes.slice(0, 23)
+    const volumes = data.total_volumes
     const volumeDataPoints = volumes.map((volume) => volume[1])
-    const volumeDataLabels = volumes.map((volume) => {
-      let date = new Date(volume[0]).getDate().toString()
-      return date.length === 1 ? '0' + date : date
+
+    // handles data returning today twice (possibly today and current) and sometimes not
+    if (prices.length === dataPointTimeInterval + 1) {
+      prices.pop()
+      volumes.pop()
+    }
+
+    const dataLabels = prices.map((price) => {
+      const date = new Date(price[0])
+      let day = date.getDate().toString()
+      if (day.length === 1) {
+        day = '0' + day
+      }
+      return `${day}-${date.getMonth() + 1}-${date.getFullYear()}`
     })
+
     dispatch({
-      type: GET_VOLUME_DATA_SUCCESS,
-      payload: { volumeDataLabels, volumeDataPoints },
+      type: GET_CHARTS_DATA_SUCCESS,
+      payload: { dataLabels, priceDataPoints, volumeDataPoints },
     })
   } catch (err) {
-    dispatch({ type: GET_VOLUME_DATA_ERROR, payload: err })
+    dispatch({ type: GET_CHARTS_DATA_ERROR, payload: err })
   }
 }
+
+export const setTimeInterval = (interval) => ({
+  type: SET_TIME_INTERVAL,
+  payload: { dataPointTimeInterval: interval },
+})
 
 export const sortBy = (value) => (dispatch) => {
   dispatch({
