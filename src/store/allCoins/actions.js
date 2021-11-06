@@ -72,7 +72,7 @@ export const getChartsData = () => async (dispatch, getState) => {
 
 export const setTimeInterval = (interval) => ({
   type: SET_TIME_INTERVAL,
-  payload: interval,
+  payload: { dataPointTimeInterval: interval },
 })
 
 export const sortBy = (value) => (dispatch) => {

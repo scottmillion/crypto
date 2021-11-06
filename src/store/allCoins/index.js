@@ -108,16 +108,14 @@ function allCoinsReducer(state = initialState, action) {
     case GET_CHARTS_DATA_SUCCESS:
       return {
         ...state,
-        dataLabels: action.payload.dataLabels,
-        priceDataPoints: action.payload.priceDataPoints,
-        volumeDataPoints: action.payload.volumeDataPoints,
+        ...action.payload,
         isChartsDataLoading: false,
         chartsError: false,
       }
     case SET_TIME_INTERVAL:
       return {
         ...state,
-        dataPointTimeInterval: action.payload,
+        ...action.payload,
       }
     case SORT_BY:
       const configProperty = Object.entries(state.config).find(
