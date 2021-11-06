@@ -66,6 +66,7 @@ export const DataSelectItem = styled.div`
 `
 
 export const H1 = styled.h1`
+  margin-left: 3px;
   font-size: 1.4rem;
   font-weight: 500;
 `
