@@ -126,7 +126,7 @@ export const SearchImage = styled.img`
   width: 16px;
 
   @media (min-width: 768px) {
-    margin: 15px 0px 0px 28px;
+    margin: 14px 0px 0px 28px;
     width: 20px;
   }
 `
@@ -180,7 +180,7 @@ export const StyledLink = styled(Link)`
 `
 
 export const ThemeIcon = styled(DarkTheme)`
-  width: 26px;
+  width: 27px;
 `
 
 export const ThemeMode = styled.div`

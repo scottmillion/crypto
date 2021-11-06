@@ -25,7 +25,7 @@ export const Input = styled(DebounceInput)`
 
   @media (min-width: 768px) {
     padding-left: 56px;
-    padding-top: 15px;
+    padding-top: 14px;
     padding-bottom: 12px;
     font-size: 1.1rem;
     &::placeholder {
