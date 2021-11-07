@@ -8,7 +8,14 @@ const ColumnCurrentPrice = (props) => {
   if (!props.price) {
     return '-'
   }
-  return <>{convertLargeNumber(formatCurrency(props.price, currency, 'en'))}</>
+  return (
+    <>
+      {convertLargeNumber(formatCurrency(props.price, currency, 'en')).slice(
+        0,
+        10,
+      )}
+    </>
+  )
 }
 
 export default ColumnCurrentPrice
