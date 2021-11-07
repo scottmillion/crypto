@@ -21,7 +21,7 @@ import {
   H1,
 } from './AllCoins.css'
 
-const AllCoins = React.memo((props) => {
+const AllCoins = (props) => {
   const dispatch = useDispatch()
   const {
     coinsData,
@@ -130,6 +130,6 @@ const AllCoins = React.memo((props) => {
       </ContentContainer>
     </Container>
   )
-})
+}
 
 export default AllCoins
