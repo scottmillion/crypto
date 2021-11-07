@@ -10,7 +10,7 @@ import {
   SORT_BY,
 } from './index'
 
-export const getCoinsData = () => async (dispatch, getState) => {
+export const getCoinsData = (queryOrder) => async (dispatch, getState) => {
   const state = getState()
   const currency = state.config.currency
 
@@ -18,9 +18,12 @@ export const getCoinsData = () => async (dispatch, getState) => {
     dispatch({ type: GET_COINS_DATA_PENDING })
     const { data } = await axios(
       `
-      https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d
+      https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d
+
+      
       `,
     )
+
     dispatch({
       type: GET_COINS_DATA_SUCCESS,
       payload: data,
@@ -42,8 +45,10 @@ export const getChartsData = () => async (dispatch, getState) => {
     )
 
     const prices = data.prices
+    const latestPrice = prices[prices.length - 1][1]
     const priceDataPoints = prices.map((price) => price[1])
     const volumes = data.total_volumes
+    const latestVolume = volumes[volumes.length - 1][1]
     const volumeDataPoints = volumes.map((volume) => volume[1])
 
     // handles data returning today twice (possibly today and current) and sometimes not
@@ -63,7 +68,13 @@ export const getChartsData = () => async (dispatch, getState) => {
 
     dispatch({
       type: GET_CHARTS_DATA_SUCCESS,
-      payload: { dataLabels, priceDataPoints, volumeDataPoints },
+      payload: {
+        dataLabels,
+        latestPrice,
+        latestVolume,
+        priceDataPoints,
+        volumeDataPoints,
+      },
     })
   } catch (err) {
     dispatch({ type: GET_CHARTS_DATA_ERROR, payload: err })
