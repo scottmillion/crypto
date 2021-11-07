@@ -20,10 +20,11 @@ export const changeCurrency = (value) => ({
 export const getGlobalData = () => async (dispatch) => {
   try {
     dispatch({ type: GET_GLOBAL_DATA_PENDING })
-    const { data } = await axios('https://api.coingecko.com/api/v3/global')
+    let { data } = await axios('https://api.coingecko.com/api/v3/global')
+    data = data.data
     dispatch({
       type: GET_GLOBAL_DATA_SUCCESS,
-      payload: data.data,
+      payload: { data },
     })
   } catch (err) {
     dispatch({ type: GET_GLOBAL_DATA_ERROR, payload: err })

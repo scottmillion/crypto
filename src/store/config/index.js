@@ -37,9 +37,10 @@ function configReducer(state = initialState, action) {
         isLoading: true,
       }
     case GET_GLOBAL_DATA_SUCCESS:
+      console.log(action.payload)
       return {
         ...state,
-        data: action.payload,
+        ...action.payload,
         isLoading: false,
       }
     case TOGGLE_MENU:
