@@ -54,6 +54,8 @@ const initialState = {
   coinsData: [],
   dataLabels: [],
   dataPointTimeInterval: 30,
+  latestPrice: null,
+  latestVolume: null,
   priceDataPoints: [],
   volumeDataPoints: [],
   isCoinsDataLoading: false,
