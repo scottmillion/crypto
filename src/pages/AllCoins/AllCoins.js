@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import Media from 'react-media'
 import { ChartDisplay, CoinsTable, ChartSlider, LoadingBox } from 'components'
 import { keyGen, screenSizeWidth, timeIntervals } from 'utils'
+
+import queryString from 'query-string'
+
 import {
   getCoinsData,
   getChartsData,
@@ -18,7 +21,7 @@ import {
   H1,
 } from './AllCoins.css'
 
-const AllCoins = () => {
+const AllCoins = React.memo((props) => {
   const dispatch = useDispatch()
   const {
     coinsData,
@@ -33,8 +36,10 @@ const AllCoins = () => {
   const { currency } = useSelector((state) => state.config)
 
   useEffect(() => {
+    console.log('here')
+    const parsed = queryString.parse(props.location.search)
     dispatch(getChartsData())
-    dispatch(getCoinsData())
+    dispatch(getCoinsData(parsed))
     // eslint-disable-next-line
   }, [currency])
 
@@ -110,19 +115,21 @@ const AllCoins = () => {
         </DataSelectContainer>
 
         <CoinContainer>
-          {(isCoinsDataLoading || isChartsDataLoading) && (
-            <LoadingBox height={250} />
-          )}
-          {(!isCoinsDataLoading || !isChartsDataLoading) && (
-            <CoinsTable
-              data={coinsData}
-              isLoading={isCoinsDataLoading || isChartsDataLoading}
-            />
-          )}
+          {(isCoinsDataLoading ||
+            isChartsDataLoading ||
+            coinsData.length < 1) && <LoadingBox height={250} />}
+          {coinsData.length >= 1 &&
+            !isCoinsDataLoading &&
+            !isChartsDataLoading && (
+              <CoinsTable
+                data={coinsData}
+                isLoading={isCoinsDataLoading || isChartsDataLoading}
+              />
+            )}
         </CoinContainer>
       </ContentContainer>
     </Container>
   )
-}
+})
 
 export default AllCoins
