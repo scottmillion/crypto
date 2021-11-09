@@ -20,11 +20,7 @@ const App = () => {
           <NavBar />
           <NavUnder />
           <Switch>
-            <Route
-              exact
-              path="/"
-              component={(props) => <AllCoins {...props} />}
-            />
+            <Route exact path="/" component={AllCoins} />
             <Route exact path="/portfolio" component={Portfolio} />
             <Route exact path="/coin/:name" component={Coin} />
           </Switch>
