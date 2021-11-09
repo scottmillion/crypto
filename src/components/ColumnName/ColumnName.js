@@ -24,7 +24,13 @@ const ColumnName = (props) => {
   return (
     <Cell>
       <Img src={props.image} alt={props.name} />
-      <StyledLink to={`/coin/${props.id}`}>
+      <StyledLink
+        to={
+          window.location.search
+            ? `/coin/${props.id}/${window.location.search}`
+            : `/coin/${props.id}`
+        }
+      >
         {name} ({symbol})
       </StyledLink>
     </Cell>
