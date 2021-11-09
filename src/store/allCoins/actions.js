@@ -13,7 +13,6 @@ import {
 export const getCoinsData = (queryOrder) => async (dispatch, getState) => {
   const state = getState()
   const currency = state.config.currency
-
   try {
     dispatch({ type: GET_COINS_DATA_PENDING })
     const { data } = await axios(
@@ -21,11 +20,16 @@ export const getCoinsData = (queryOrder) => async (dispatch, getState) => {
       https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d
       `,
     )
-
     dispatch({
       type: GET_COINS_DATA_SUCCESS,
       payload: data,
     })
+    if (queryOrder.sortBy) {
+      dispatch({
+        type: SORT_BY,
+        payload: queryOrder.sortBy,
+      })
+    }
   } catch (err) {
     dispatch({ type: GET_COINS_DATA_ERROR, payload: err })
   }

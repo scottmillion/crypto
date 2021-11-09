@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ThemeContext } from 'styled-components'
 import styled from 'styled-components'
 
+import { useHistory } from 'react-router-dom'
+
 const StyledFilter = styled(Filter)`
   width: 20px;
   margin-left: 1px;
@@ -24,6 +26,8 @@ const CoinsTable = React.memo((props) => {
   const themeContext = useContext(ThemeContext)
   const dispatch = useDispatch()
   const { config } = useSelector((state) => state.allCoins)
+
+  let history = useHistory()
 
   const useStyles = makeStyles((theme) => ({
     none: {},
@@ -72,6 +76,11 @@ const CoinsTable = React.memo((props) => {
     },
   }))
 
+  const onFilterColumn = (sortByText) => {
+    history.push(`/?sortBy=${sortByText}`)
+    dispatch(sortBy(sortByText))
+  }
+
   const classes = useStyles()
 
   const TableCell = withStyles(() => ({
@@ -119,7 +128,7 @@ const CoinsTable = React.memo((props) => {
                 {config[label].key}
                 {config[label].sortBy && (
                   <StyledFilter
-                    onClick={() => dispatch(sortBy(`${config[label].sortBy}`))}
+                    onClick={() => onFilterColumn(config[label].sortBy)}
                   />
                 )}
               </TableCell>
