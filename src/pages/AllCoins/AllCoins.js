@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import { useDispatch, useSelector } from 'react-redux'
 import Media from 'react-media'
 import { ChartDisplay, CoinsTable, ChartSlider, LoadingBox } from 'components'
@@ -21,7 +23,7 @@ import {
   H1,
 } from './AllCoins.css'
 
-const AllCoins = (props) => {
+const AllCoins = () => {
   const dispatch = useDispatch()
   const {
     coinsData,
@@ -34,10 +36,10 @@ const AllCoins = (props) => {
   } = useSelector((state) => state.allCoins)
 
   const { currency } = useSelector((state) => state.config)
+  const location = useLocation()
 
   useEffect(() => {
-    console.log('here')
-    const parsed = queryString.parse(props.location.search)
+    const parsed = queryString.parse(location.search)
     dispatch(getChartsData())
     dispatch(getCoinsData(parsed))
     // eslint-disable-next-line
