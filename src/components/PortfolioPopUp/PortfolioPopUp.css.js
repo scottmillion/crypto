@@ -145,7 +145,7 @@ export const P = styled.p`
 export const PopUp = styled.div`
   width: 90%;
   height: 600px;
-  z-index: 11;
+  z-index: 4000;
   background: ${(props) => props.theme.primary};
   margin: auto;
   border-radius: 20px;
@@ -187,7 +187,7 @@ export const SearchList = styled.div`
   padding: 0px 20px 0px 20px;
   margin-left: 42px;
   font-size: 1rem;
-  z-index: 10000000;
+  z-index: 4001;
 
   @media (max-width: 599px) {
     margin-top: -12px;
@@ -198,7 +198,7 @@ export const SearchList = styled.div`
 
 export const SearchListItem = styled.div`
   padding: 2px 0px;
-  z-index: Infinity;
+  z-index: 4002;
   &:hover {
     background: ${(props) => props.theme.primary};
   }
