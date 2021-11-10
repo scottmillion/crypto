@@ -24,10 +24,13 @@ export const getCoinsData = (queryOrder) => async (dispatch, getState) => {
       type: GET_COINS_DATA_SUCCESS,
       payload: data,
     })
-    if (queryOrder.sortBy) {
+
+    if ('sortBy' in queryOrder && 'sortByAsc' in queryOrder) {
+      let { sortBy, sortByAsc } = queryOrder
+
       dispatch({
         type: SORT_BY,
-        payload: queryOrder.sortBy,
+        payload: { sortBy, sortByAsc },
       })
     }
   } catch (err) {
@@ -88,9 +91,9 @@ export const setTimeInterval = (interval) => ({
   payload: { dataPointTimeInterval: interval },
 })
 
-export const sortBy = (value) => (dispatch) => {
+export const sortBy = (sortBy, sortByAsc) => (dispatch) => {
   dispatch({
     type: SORT_BY,
-    payload: value,
+    payload: { sortBy, sortByAsc },
   })
 }

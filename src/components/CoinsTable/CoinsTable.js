@@ -76,9 +76,10 @@ const CoinsTable = React.memo((props) => {
     },
   }))
 
-  const onFilterColumn = (sortByText) => {
-    history.push(`/?sortBy=${sortByText}`)
-    dispatch(sortBy(sortByText))
+  const onFilterColumn = (sortByText, label) => {
+    const sortByAsc = !config[label].sortByAsc
+    history.push(`/?sortBy=${sortByText}&sortByAsc=${sortByAsc}`)
+    dispatch(sortBy(sortByText, sortByAsc))
   }
 
   const classes = useStyles()
@@ -128,7 +129,7 @@ const CoinsTable = React.memo((props) => {
                 {config[label].key}
                 {config[label].sortBy && (
                   <StyledFilter
-                    onClick={() => onFilterColumn(config[label].sortBy)}
+                    onClick={() => onFilterColumn(config[label].sortBy, label)}
                   />
                 )}
               </TableCell>

@@ -39,7 +39,7 @@ const AllCoins = () => {
   const location = useLocation()
 
   useEffect(() => {
-    const parsed = queryString.parse(location.search)
+    const parsed = queryString.parse(location.search, { parseBooleans: true })
     dispatch(getChartsData())
     dispatch(getCoinsData(parsed))
     // eslint-disable-next-line
