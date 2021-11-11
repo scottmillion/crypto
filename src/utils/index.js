@@ -7,6 +7,7 @@ export {
   darkTheme,
   lightTheme,
   monthNames,
+  myCoinsSeedData,
   screenSizeWidth,
   timeIntervals,
   today,

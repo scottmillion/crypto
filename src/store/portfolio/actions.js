@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {
+  DELETE_COIN,
   GET_MYCOINS_DATA_ERROR,
   GET_MYCOINS_DATA_PENDING,
   GET_MYCOINS_DATA_SUCCESS,
@@ -66,3 +67,8 @@ export const addCoin = (coinId, amountOwned, purchaseDate) => async (
     dispatch({ type: GET_HISTORIC_DATA_ERROR, payload: err })
   }
 }
+
+export const deleteCoin = (id) => ({
+  type: DELETE_COIN,
+  payload: id,
+})
