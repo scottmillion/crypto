@@ -30,8 +30,9 @@ const CoinData = (props) => {
   )} ${symbol.toUpperCase()}`
   const volume24hr = total_volume[currency]
   const volumeToMarket =
-    (total_volume[currency] / market_cap[currency]).toString().slice(0, 8) +
-    '...'
+    (total_volume[currency] / market_cap[currency] || '')
+      .toString()
+      .slice(0, 8) + '...'
 
   return (
     <CoinDataWrap>

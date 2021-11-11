@@ -32,28 +32,39 @@ const Coin = (props) => {
         {!isLoading && !error && data && (
           <>
             <CoinSummary data={data} />
-            <H2>Description:</H2>
-            <Description
-              dangerouslySetInnerHTML={{ __html: data.description.en }}
-            />
+            {data.description.en && (
+              <>
+                <H2>Description:</H2>
+
+                <Description
+                  dangerouslySetInnerHTML={{ __html: data.description.en }}
+                />
+              </>
+            )}
 
             {hasBlockchainSites && (
               <LinkList>
-                <LinkItem
-                  url={blockchainSites[0]}
-                  themeColor="secondary"
-                  padding="12px 18px"
-                />
-                <LinkItem
-                  url={blockchainSites[1]}
-                  themeColor="secondary"
-                  padding="12px 18px"
-                />
-                <LinkItem
-                  url={blockchainSites[2]}
-                  themeColor="secondary"
-                  padding="12px 18px"
-                />
+                {blockchainSites[0] && (
+                  <LinkItem
+                    url={blockchainSites[0]}
+                    themeColor="secondary"
+                    padding="12px 18px"
+                  />
+                )}
+                {blockchainSites[1] && (
+                  <LinkItem
+                    url={blockchainSites[1]}
+                    themeColor="secondary"
+                    padding="12px 18px"
+                  />
+                )}
+                {blockchainSites[2] && (
+                  <LinkItem
+                    url={blockchainSites[2]}
+                    themeColor="secondary"
+                    padding="12px 18px"
+                  />
+                )}
               </LinkList>
             )}
           </>

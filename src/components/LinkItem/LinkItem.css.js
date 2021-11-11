@@ -15,7 +15,7 @@ export const LinkItemWrap = styled.div`
   padding: ${(props) => props.padding};
   background: ${(props) => props.theme[props.themeColor]};
   border-radius: 10px;
-
+  word-break: break-all;
   & a:link,
   a:visited {
     text-decoration: none;

@@ -36,7 +36,7 @@ const CoinSummary = (props) => {
             <Img src={image.large} alt="" />
           </ImgWrap>
           {coinName}
-          {hasHomepage && (
+          {hasHomepage && homepageUrl && (
             <LinkItem
               url={homepageUrl}
               themeColor="primary"
