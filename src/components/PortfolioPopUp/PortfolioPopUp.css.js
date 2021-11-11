@@ -171,7 +171,8 @@ export const PopUpContent = styled.div`
 export const PopUpWrap = styled.div`
   height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
+  z-index: 3999;
   top: 0;
   left: 0;
   background-color: rgb(0, 0, 0, 0.6);
