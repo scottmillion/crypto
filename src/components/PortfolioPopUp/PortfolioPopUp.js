@@ -19,7 +19,7 @@ import {
   SearchList,
   SearchListItem,
 } from './PortfolioPopUp.css'
-import { keyGen, getFormattedDate } from 'utils'
+import { keyGen, getYearMonthDayString } from 'utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearData, getSearchData } from 'store/search/actions.js'
 import { addCoin } from 'store/portfolio/actions.js'
@@ -28,12 +28,15 @@ const PortfolioPopUp = (props) => {
   const { data, isLoading, error } = useSelector(
     (state) => state.search.portfolioSearch,
   )
+
   const dispatch = useDispatch()
 
   const [coinData, setCoinData] = useState({})
   const [coinName, setCoinName] = useState('')
   const [amountOwned, setAmountOwned] = useState('')
-  const [purchaseDate, setPurchaseDate] = useState(getFormattedDate())
+  const [purchaseDate, setPurchaseDate] = useState(
+    getYearMonthDayString(new Date()),
+  )
 
   const handleClickSearchListItem = (name) => {
     setTimeout(() => {
