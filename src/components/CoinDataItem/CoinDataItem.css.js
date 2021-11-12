@@ -21,11 +21,24 @@ export const CoinDataLabel = styled.div`
 export const CoinDataItemWrap = styled.div`
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  @media (max-width: 400px) {
+    margin-bottom: 8px;
+  }
 `
 
 export const DivsSameLine = styled.div`
   margin-block: 3px;
   display: flex;
   align-items: center;
+
+  @media (max-width: 400px) {
+    width: 100%;
+    margin: 0px;
+  }
+`
+
+export const Item = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 `
