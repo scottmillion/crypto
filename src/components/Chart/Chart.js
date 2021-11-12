@@ -75,7 +75,7 @@ const Chart = (props) => {
           maxRotation: 0,
           minRotation: 0,
           callback: function (value, index) {
-            return props.dataLabels[index].slice(0, 2)
+            return props.dataLabels[index].slice(3, 5)
           },
           autoSkip: true,
           maxTicksLimit: 15,
