@@ -161,7 +161,12 @@ const Portfolio = () => {
                           %
                         </Item>
                         <Item>
-                          <Label>Purchase date</Label> {purchaseDate}
+                          <Label>Purchase date</Label>
+                          {purchaseDate.slice(3, 5) +
+                            '-' +
+                            purchaseDate.slice(0, 2) +
+                            '-' +
+                            purchaseDate.slice(6)}
                         </Item>
                       </ItemRow>
                     </CoinDataRow>
