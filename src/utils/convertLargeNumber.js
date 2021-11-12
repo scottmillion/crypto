@@ -1,7 +1,16 @@
 export function convertLargeNumber(string) {
   const symbol = string[0]
-  const number = parseInt(string.slice(1).replace(/,/g, ''))
-  return number >= 10000
+  let number = parseFloat(string.slice(1).replace(/,/g, ''))
+
+  if (number >= 1000) {
+    number = number.toFixed()
+  } else if (number >= 1) {
+    number = number.toFixed(2)
+  } else {
+    number = number.toFixed(6)
+  }
+
+  return number >= 1000
     ? symbol + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    : string
+    : symbol + number.toString()
 }
