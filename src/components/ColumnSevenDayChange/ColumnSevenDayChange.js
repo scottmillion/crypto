@@ -4,16 +4,20 @@ import { useSelector } from 'react-redux'
 
 const ColumnSevenDayChange = (props) => {
   const { currency } = useSelector((state) => state.config)
-
+  if (!props.sevenDayChange) {
+    return '-'
+  }
   return (
-    <Cell number={props.sevenDayChange}>
-      {(currency !== props.symbol && (
-        <>
-          {getArrow(props.sevenDayChange)}
-          {Math.abs(props.sevenDayChange.toFixed(2))}%
-        </>
-      )) || <span>-</span>}
-    </Cell>
+    <>
+      <Cell number={props.sevenDayChange}>
+        {(currency !== props.symbol && (
+          <>
+            {getArrow(props.sevenDayChange)}
+            {Math.abs(props.sevenDayChange.toFixed(2))}%
+          </>
+        )) || <span>-</span>}
+      </Cell>
+    </>
   )
 }
 

@@ -1,4 +1,4 @@
-import { CoinDataWrap, MarginLeft } from './CoinData.css'
+import { Br, CoinDataWrap, CoinDataItemWrap, MarginLeft } from './CoinData.css'
 import {
   ColumnCurrentPrice,
   ColumnTwentyFourHourChange,
@@ -20,7 +20,7 @@ const CoinData = (props) => {
 
   const { currency } = useSelector((state) => state.config)
   const { symbol } = props
-  const circulatingSupply = `${circulating_supply} ${symbol.toUpperCase()}`
+  const circulatingSupply = `${circulating_supply.toFixed()} ${symbol.toUpperCase()}`
   const fullyDilutedVal = fully_diluted_valuation[currency]
   const marketCap = market_cap[currency]
   const marketCapChange = market_cap_change_percentage_24h_in_currency[currency]
@@ -30,41 +30,46 @@ const CoinData = (props) => {
   )} ${symbol.toUpperCase()}`
   const volume24hr = total_volume[currency]
   const volumeToMarket =
-    (total_volume[currency] / market_cap[currency]).toString().slice(0, 8) +
-    '...'
+    (total_volume[currency] / market_cap[currency] || '')
+      .toString()
+      .slice(0, 8) + '...'
 
   return (
     <CoinDataWrap>
-      <CoinDataItem label="Market Cap:">
-        <ColumnCurrentPrice price={marketCap} />
-        <MarginLeft>
-          <ColumnTwentyFourHourChange twentyFourHourChange={marketCapChange} />
-        </MarginLeft>
-      </CoinDataItem>
-      <CoinDataItem label="Fully Diluted Valuation:">
-        <ColumnCurrentPrice price={fullyDilutedVal} />
-      </CoinDataItem>
-      <CoinDataItem label="Volume 24h:">
-        <ColumnCurrentPrice price={volume24hr} />
-      </CoinDataItem>
-      <CoinDataItem label="Volume / Market:">{volumeToMarket}</CoinDataItem>
-      <br />
-      <CoinDataItem label="Total Volume:" color="#1ad761">
-        {totalVolume}
-      </CoinDataItem>
-      <CoinDataItem label="Circulating Supply:">
-        {circulatingSupply}
-      </CoinDataItem>
-      <CoinDataItem label="Max Supply:" color="#2172e5">
-        {maxSupply}
-      </CoinDataItem>
+      <CoinDataItemWrap>
+        <CoinDataItem label="Market Cap:">
+          <ColumnCurrentPrice price={marketCap} />
+          <MarginLeft>
+            <ColumnTwentyFourHourChange
+              twentyFourHourChange={marketCapChange}
+            />
+          </MarginLeft>
+        </CoinDataItem>
+        <CoinDataItem label="Fully Diluted Valuation:">
+          <ColumnCurrentPrice price={fullyDilutedVal} />
+        </CoinDataItem>
+        <CoinDataItem label="Volume 24h:">
+          <ColumnCurrentPrice price={volume24hr} />
+        </CoinDataItem>
+        <CoinDataItem label="Volume / Market:">{volumeToMarket}</CoinDataItem>
+        <Br />
+        <CoinDataItem label="Total Volume:" color="#1ad761">
+          {totalVolume}
+        </CoinDataItem>
+        <CoinDataItem label="Circulating Supply:">
+          {circulatingSupply}
+        </CoinDataItem>
+        <CoinDataItem label="Max Supply:" color="#2172e5">
+          {maxSupply}
+        </CoinDataItem>
 
-      <PercentDisplay
-        marginTop={8}
-        val1={total_volume[currency] / current_price[currency]}
-        val2={circulating_supply}
-        total={max_supply || Infinity}
-      />
+        <PercentDisplay
+          marginTop={8}
+          val1={total_volume[currency] / current_price[currency]}
+          val2={circulating_supply}
+          total={max_supply || Infinity}
+        />
+      </CoinDataItemWrap>
     </CoinDataWrap>
   )
 }

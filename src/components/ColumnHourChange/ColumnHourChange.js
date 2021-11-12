@@ -4,13 +4,16 @@ import { useSelector } from 'react-redux'
 
 const ColumnHourChange = (props) => {
   const { currency } = useSelector((state) => state.config)
-  const hourChange = props.hourChange || 0 // sometimes api returns null
+
+  if (!props.hourChange) {
+    return '-'
+  }
   return (
-    <Cell number={hourChange}>
+    <Cell number={props.hourChange}>
       {(currency !== props.symbol && (
         <>
-          {getArrow(hourChange)}
-          {Math.abs(hourChange.toFixed(2))}%
+          {getArrow(props.hourChange)}
+          {Math.abs(props.hourChange.toFixed(2))}%
         </>
       )) || <span>-</span>}
     </Cell>

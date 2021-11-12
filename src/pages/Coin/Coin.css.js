@@ -12,6 +12,7 @@ export const ContentContainer = styled.div`
 `
 export const Description = styled.div`
   background: ${(props) => props.theme.secondary};
+  word-break: break-all;
   margin-inline: 5px;
   padding-inline: 36px;
   padding-block: 18px;

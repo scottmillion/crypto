@@ -24,7 +24,10 @@ const Search = () => {
       dispatch(clearData('navSearch'))
       setValue('')
     }, 10)
-    history.push(`/coin/${coin.id}`)
+
+    window.location.search
+      ? history.push(`/coin/${coin.id}/${window.location.search}`)
+      : history.push(`/coin/${coin.id}`)
   }
 
   const handleChange = (e) => {

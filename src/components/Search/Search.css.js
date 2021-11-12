@@ -49,7 +49,7 @@ export const SearchList = styled.div`
   padding: 0px 20px 0px 20px;
   margin-left: 32px;
   font-size: 12px;
-  z-index: 10000000;
+  z-index: 4004;
 
   @media (min-width: 768px) {
     font-size: 1rem;
@@ -59,7 +59,7 @@ export const SearchList = styled.div`
 
 export const SearchListItem = styled.div`
   padding: 2px 0px;
-  z-index: Infinity;
+  z-index: 4005;
   &:hover {
     background: ${(props) => props.theme.primary};
   }

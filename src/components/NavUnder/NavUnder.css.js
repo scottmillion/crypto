@@ -48,8 +48,9 @@ export const PercentDisplay = styled.div`
   height: 12px;
   background: linear-gradient(
     to right,
-    #fff 0%,
-    #fff ${(props) => props.percent - 10}%,
+    ${(props) => props.theme.secondaryInverted} 0%,
+    ${(props) => props.theme.secondaryInverted}
+      ${(props) => props.percent - 10}%,
     #2172e5 ${(props) => props.percent - 10}%,
     #2172e5 100%
   );

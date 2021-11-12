@@ -14,16 +14,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ThemeContext } from 'styled-components'
 import styled from 'styled-components'
 
+import { useHistory } from 'react-router-dom'
+
 const StyledFilter = styled(Filter)`
   width: 20px;
   margin-left: 1px;
 `
 
 const CoinsTable = React.memo((props) => {
-  const { data, isLoading } = props
+  const { data } = props
   const themeContext = useContext(ThemeContext)
   const dispatch = useDispatch()
   const { config } = useSelector((state) => state.allCoins)
+
+  let history = useHistory()
 
   const useStyles = makeStyles((theme) => ({
     none: {},
@@ -72,6 +76,12 @@ const CoinsTable = React.memo((props) => {
     },
   }))
 
+  const onFilterColumn = (sortByText, label) => {
+    const sortByAsc = !config[label].sortByAsc
+    history.push(`/?sortBy=${sortByText}&sortByAsc=${sortByAsc}`)
+    dispatch(sortBy(sortByText, sortByAsc))
+  }
+
   const classes = useStyles()
 
   const TableCell = withStyles(() => ({
@@ -102,60 +112,52 @@ const CoinsTable = React.memo((props) => {
   }))(TableRow)
 
   return (
-    <>
-      {!isLoading && data.length > 1 && (
-        <TableContainer
-          component={Paper}
-          elevation={0}
-          square={true}
-          className={classes.root}
-        >
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <HeaderRow>
-                {Object.keys(config).map((label, index) => (
-                  <TableCell
-                    key={keyGen()}
-                    className={classes[displayClasses[index]]}
-                  >
-                    {config[label].key}
-                    {config[label].sortBy && (
-                      <StyledFilter
-                        onClick={() =>
-                          dispatch(sortBy(`${config[label].sortBy}`))
-                        }
-                      />
-                    )}
-                  </TableCell>
-                ))}
-              </HeaderRow>
-            </TableHead>
+    <TableContainer
+      component={Paper}
+      elevation={0}
+      square={true}
+      className={classes.root}
+    >
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <HeaderRow>
+            {Object.keys(config).map((label, index) => (
+              <TableCell
+                key={keyGen()}
+                className={classes[displayClasses[index]]}
+              >
+                {config[label].key}
+                {config[label].sortBy && (
+                  <StyledFilter
+                    onClick={() => onFilterColumn(config[label].sortBy, label)}
+                  />
+                )}
+              </TableCell>
+            ))}
+          </HeaderRow>
+        </TableHead>
 
-            <TableBody>
-              {rows(data).map((row) => (
-                <TableRow key={keyGen()}>
-                  <TableCell component="th" scope="row" className={classes.xxs}>
-                    {row.number}
-                  </TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell className={classes.xxxs}>{row.price}</TableCell>
-                  <TableCell className={classes.xs}>{row.hour}</TableCell>
-                  <TableCell className={classes.s}>{row.hour24}</TableCell>
-                  <TableCell className={classes.m}>{row.days7}</TableCell>
-                  <TableCell className={classes.l}>
-                    {row.volumeMarketCap}
-                  </TableCell>
-                  <TableCell className={classes.xl}>
-                    {row.circulatingTotalSupply}
-                  </TableCell>
-                  <TableCell className={classes.xxl}>{row.last7d}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
-    </>
+        <TableBody>
+          {rows(data).map((row) => (
+            <TableRow key={keyGen()}>
+              <TableCell component="th" scope="row" className={classes.xxs}>
+                {row.number}
+              </TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell className={classes.xxxs}>{row.price}</TableCell>
+              <TableCell className={classes.xs}>{row.hour}</TableCell>
+              <TableCell className={classes.s}>{row.hour24}</TableCell>
+              <TableCell className={classes.m}>{row.days7}</TableCell>
+              <TableCell className={classes.l}>{row.volumeMarketCap}</TableCell>
+              <TableCell className={classes.xl}>
+                {row.circulatingTotalSupply}
+              </TableCell>
+              <TableCell className={classes.xxl}>{row.last7d}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 })
 

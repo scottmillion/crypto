@@ -3,7 +3,6 @@ import { currencyList } from 'utils'
 const initialState = {
   currency: 'usd',
   currencySymbol: '$',
-  configLoaded: false,
   data: null,
   displayMenu: false,
   error: false,
@@ -40,9 +39,8 @@ function configReducer(state = initialState, action) {
     case GET_GLOBAL_DATA_SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        ...action.payload,
         isLoading: false,
-        configLoaded: true,
       }
     case TOGGLE_MENU:
       return { ...state, displayMenu: !state.displayMenu }

@@ -1,9 +1,4 @@
-export function getFormattedDate(dateString) {
-  let date = new Date()
-  if (dateString) {
-    date = new Date(dateString)
-  }
-
+export function getYearMonthDayString(date) {
   const year = date.getFullYear()
   let day = date.getDate().toString()
   let month = (date.getMonth() + 1).toString()
@@ -13,5 +8,5 @@ export function getFormattedDate(dateString) {
   if (month.length === 1) {
     month = '0' + month
   }
-  return `${month}-${day}-${year}`
+  return `${year}-${month}-${day}`
 }

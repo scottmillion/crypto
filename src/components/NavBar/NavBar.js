@@ -68,10 +68,26 @@ const NavBar = () => {
                 <NavLeft>
                   <NavLeftUl>
                     <NavLeftLi routeMatches={currentLocation === '/'}>
-                      <StyledLink to="/">Coins</StyledLink>
+                      <StyledLink
+                        to={
+                          window.location.search
+                            ? `/${window.location.search}`
+                            : '/'
+                        }
+                      >
+                        Coins
+                      </StyledLink>
                     </NavLeftLi>
                     <NavLeftLi routeMatches={currentLocation === '/portfolio'}>
-                      <StyledLink to="/portfolio">Portfolio</StyledLink>
+                      <StyledLink
+                        to={
+                          window.location.search
+                            ? `/portfolio/${window.location.search}`
+                            : '/portfolio'
+                        }
+                      >
+                        Portfolio
+                      </StyledLink>
                     </NavLeftLi>
                   </NavLeftUl>
                 </NavLeft>
@@ -124,13 +140,27 @@ const NavBar = () => {
                         routeMatches={currentLocation === '/'}
                         onClick={handleToggleMenu}
                       >
-                        <MobileMenuLink to="/">Coins</MobileMenuLink>
+                        <MobileMenuLink
+                          to={
+                            window.location.search
+                              ? `/${window.location.search}`
+                              : '/'
+                          }
+                        >
+                          Coins
+                        </MobileMenuLink>
                       </MobileMenuItem>
                       <MobileMenuItem
                         routeMatches={currentLocation === '/portfolio'}
                         onClick={handleToggleMenu}
                       >
-                        <MobileMenuLink to="/portfolio">
+                        <MobileMenuLink
+                          to={
+                            window.location.search
+                              ? `/portfolio/${window.location.search}`
+                              : '/portfolio'
+                          }
+                        >
                           Portfolio
                         </MobileMenuLink>
                       </MobileMenuItem>

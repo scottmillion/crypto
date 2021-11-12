@@ -5,8 +5,13 @@ const height = 8
 const maxWidth = 180
 
 const PercentDisplay = (props) => {
-  const val1 = (props.val1 / props.total) * maxWidth
-  const val2 = (props.val2 / props.total) * maxWidth
+  let val1 = (props.val1 / props.total) * maxWidth
+  let val2 = (props.val2 / props.total) * maxWidth
+
+  if (val1 > val2) {
+    val2 = val1
+    val1 = val1 + 5
+  }
 
   return (
     <Total

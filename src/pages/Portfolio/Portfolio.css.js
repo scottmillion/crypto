@@ -86,6 +86,20 @@ export const ContentContainer = styled.div`
   width: 90%;
 `
 
+export const DeleteCoin = styled.div`
+  color: red;
+  line-height: 28px;
+  font-size: 30px;
+  font-weight: 600;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+`
+
 export const H1 = styled.h1`
   margin-left: 3px;
   font-size: 1.4rem;

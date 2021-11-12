@@ -54,6 +54,8 @@ const initialState = {
   coinsData: [],
   dataLabels: [],
   dataPointTimeInterval: 30,
+  latestPrice: null,
+  latestVolume: null,
   priceDataPoints: [],
   volumeDataPoints: [],
   isCoinsDataLoading: false,
@@ -118,19 +120,19 @@ function allCoinsReducer(state = initialState, action) {
         ...action.payload,
       }
     case SORT_BY:
+      const { sortBy, sortByAsc } = action.payload
       const configProperty = Object.entries(state.config).find(
-        (ele) => ele[1].sortBy === action.payload,
+        (ele) => ele[1].sortBy === sortBy,
       )[0]
-      const { payload } = action
 
       return {
         ...state,
         coinsData: state.coinsData.sort((a, b) =>
-          state.config[configProperty].sortByAsc
-            ? a[payload] < b[payload]
+          sortByAsc
+            ? a[sortBy] < b[sortBy]
               ? -1
               : 1
-            : b[payload] < a[payload]
+            : b[sortBy] < a[sortBy]
             ? -1
             : 1,
         ),
@@ -138,7 +140,7 @@ function allCoinsReducer(state = initialState, action) {
           ...state.config,
           [configProperty]: {
             ...state.config[configProperty],
-            sortByAsc: !state.config[configProperty].sortByAsc,
+            sortByAsc,
           },
         },
       }

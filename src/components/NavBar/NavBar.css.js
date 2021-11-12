@@ -23,7 +23,7 @@ export const DisplayMenu = styled.div`
   margin-top: 5px;
   right: 0;
   color: inherit;
-  z-index: 1000000000000000000;
+  z-index: 3000;
   background: ${(props) => props.theme.tertiary};
   padding: 4px 10px 4px 20px;
   font-size: 14px;
@@ -37,7 +37,7 @@ export const MobileMenu = styled.div`
 
 export const MobileMenuItem = styled.div`
   padding-block: 6px;
-  z-index: Infinity;
+  z-index: 3001;
   width: 100%;
   text-align: right;
   &:hover {

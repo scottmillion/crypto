@@ -13,13 +13,28 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `
 
-const ColumnName = (props) => (
-  <Cell>
-    <Img src={props.image} alt={props.name} />
-    <StyledLink to={`/coin/${props.id}`}>
-      {props.name} ({props.symbol.toUpperCase()})
-    </StyledLink>
-  </Cell>
-)
+const ColumnName = (props) => {
+  const name =
+    props.name.length < 11 ? props.name : props.name.slice(0, 8) + '...'
+  let symbol = props.symbol.toUpperCase()
+  if (symbol.length > 9) {
+    symbol = symbol.slice(0, 8) + '...'
+  }
+
+  return (
+    <Cell>
+      <Img src={props.image} alt={props.name} />
+      <StyledLink
+        to={
+          window.location.search
+            ? `/coin/${props.id}/${window.location.search}`
+            : `/coin/${props.id}`
+        }
+      >
+        {name} ({symbol})
+      </StyledLink>
+    </Cell>
+  )
+}
 
 export default ColumnName

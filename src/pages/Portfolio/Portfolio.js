@@ -7,7 +7,7 @@ import {
   PortfolioPopUp,
 } from 'components'
 import { keyGen } from 'utils'
-import { getCoinsData } from 'store/portfolio/actions.js'
+import { deleteCoin, getCoinsData } from 'store/portfolio/actions.js'
 import {
   ButtonContainer,
   ButtonMain,
@@ -16,6 +16,7 @@ import {
   Container,
   Content,
   ContentContainer,
+  DeleteCoin,
   H1,
   Img,
   ImgWrap,
@@ -90,6 +91,9 @@ const Portfolio = () => {
                         <Img src={image} alt={id} />
                       </ImgWrap>
                       {name} ({symbol.toUpperCase()})
+                      <DeleteCoin onClick={() => dispatch(deleteCoin(id))}>
+                        &times;
+                      </DeleteCoin>
                     </CoinInfo>
                   </CoinInfoWrap>
                   <CoinData>
@@ -157,7 +161,12 @@ const Portfolio = () => {
                           %
                         </Item>
                         <Item>
-                          <Label>Purchase date</Label> {purchaseDate}
+                          <Label>Purchase date</Label>
+                          {purchaseDate.slice(3, 5) +
+                            '-' +
+                            purchaseDate.slice(0, 2) +
+                            '-' +
+                            purchaseDate.slice(6)}
                         </Item>
                       </ItemRow>
                     </CoinDataRow>
