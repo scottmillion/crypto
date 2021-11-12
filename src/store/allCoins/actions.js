@@ -68,7 +68,7 @@ export const getChartsData = () => async (dispatch, getState) => {
       if (day.length === 1) {
         day = '0' + day
       }
-      return `${day}-${date.getMonth() + 1}-${date.getFullYear()}`
+      return `${date.getMonth() + 1}-${day}-${date.getFullYear()}`
     })
 
     dispatch({
