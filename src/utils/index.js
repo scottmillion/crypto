@@ -15,6 +15,7 @@ export {
 export { convertLargeNumber } from './convertLargeNumber'
 export { formatChartNumber } from './formatChartNumber'
 export { getArrow } from './getArrow'
+export { getYearMonthDayString } from './getYearMonthDayString'
 export { getFormattedDate } from './getFormattedDate'
 export { keyGen } from './keyGen'
 export { prettierNumber } from './prettierNumber'
