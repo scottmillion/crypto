@@ -24,7 +24,7 @@ const portfolioKeeps = {
 const allCoinsKeeps = {
   key: 'allCoins',
   storage: storage,
-  whitelist: ['dataPointTimeInterval'],
+  whitelist: ['timeInterval'],
 }
 
 // all our reducers. we can access these on any page
