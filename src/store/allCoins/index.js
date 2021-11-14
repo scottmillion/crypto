@@ -53,7 +53,7 @@ const initialState = {
   },
   coinsData: [],
   dataLabels: [],
-  dataPointTimeInterval: 30,
+  timeInterval: 30,
   latestPrice: null,
   latestVolume: null,
   priceDataPoints: [],
