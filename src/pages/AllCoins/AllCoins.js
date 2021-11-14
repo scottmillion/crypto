@@ -28,7 +28,7 @@ const AllCoins = () => {
   const {
     coinsData,
     dataLabels,
-    dataPointTimeInterval,
+    timeInterval,
     priceDataPoints,
     volumeDataPoints,
     isCoinsDataLoading,
@@ -48,7 +48,7 @@ const AllCoins = () => {
   useEffect(() => {
     dispatch(getChartsData())
     // eslint-disable-next-line
-  }, [dataPointTimeInterval])
+  }, [timeInterval])
 
   const onClickSelectItem = (days) => {
     dispatch(setTimeInterval(days))
@@ -107,7 +107,7 @@ const AllCoins = () => {
             return (
               <DataSelectItem
                 onClick={() => onClickSelectItem(days)}
-                highlight={dataPointTimeInterval === days}
+                highlight={timeInterval === days}
                 key={keyGen()}
               >
                 {interval}
