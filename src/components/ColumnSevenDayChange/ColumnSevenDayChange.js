@@ -7,13 +7,17 @@ const ColumnSevenDayChange = (props) => {
   if (!props.sevenDayChange) {
     return '-'
   }
+  let sevenDayChangeAdjusted = Math.abs(props.sevenDayChange.toFixed(2))
+  if (sevenDayChangeAdjusted >= 1000 || sevenDayChangeAdjusted <= -1000) {
+    sevenDayChangeAdjusted = '1000+'
+  }
   return (
     <>
       <Cell number={props.sevenDayChange}>
         {(currency !== props.symbol && (
           <>
             {getArrow(props.sevenDayChange)}
-            {Math.abs(props.sevenDayChange.toFixed(2))}%
+            {sevenDayChangeAdjusted}%
           </>
         )) || <span>-</span>}
       </Cell>
