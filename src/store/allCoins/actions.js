@@ -6,6 +6,10 @@ import {
   GET_CHARTS_DATA_ERROR,
   GET_CHARTS_DATA_PENDING,
   GET_CHARTS_DATA_SUCCESS,
+  SET_ORDER_BY,
+  SET_ORDER_DIR,
+  SET_PAGE,
+  SET_PER_PAGE,
   SET_TIME_INTERVAL,
   SORT_BY,
 } from './index'
@@ -13,11 +17,13 @@ import {
 export const getCoinsData = (queryOrder) => async (dispatch, getState) => {
   const state = getState()
   const currency = state.config.currency
+  const { page, perPage, orderBy, orderDir } = state.allCoins.apiParams
+
   try {
     dispatch({ type: GET_COINS_DATA_PENDING })
     const { data } = await axios(
       `
-      https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d
+      https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=${orderBy}_${orderDir}&per_page=${perPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d
       `,
     )
     dispatch({
@@ -41,12 +47,12 @@ export const getCoinsData = (queryOrder) => async (dispatch, getState) => {
 export const getChartsData = () => async (dispatch, getState) => {
   const state = getState()
   const { currency } = state.config
-  const { dataPointTimeInterval } = state.allCoins
+  const { timeInterval } = state.allCoins
 
   try {
     dispatch({ type: GET_CHARTS_DATA_PENDING })
     const { data } = await axios(
-      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=${dataPointTimeInterval}&interval=daily`,
+      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=${timeInterval}&interval=daily`,
     )
 
     const prices = data.prices
@@ -57,7 +63,7 @@ export const getChartsData = () => async (dispatch, getState) => {
     const volumeDataPoints = volumes.map((volume) => volume[1])
 
     // handles data returning today twice (possibly today and current) and sometimes not
-    if (prices.length === dataPointTimeInterval + 1) {
+    if (prices.length === timeInterval + 1) {
       prices.pop()
       volumes.pop()
     }
@@ -65,10 +71,17 @@ export const getChartsData = () => async (dispatch, getState) => {
     const dataLabels = prices.map((price) => {
       const date = new Date(price[0])
       let day = date.getDate().toString()
+      let month = (date.getMonth() + 1).toString()
+
       if (day.length === 1) {
         day = '0' + day
       }
-      return `${date.getMonth() + 1}-${day}-${date.getFullYear()}`
+
+      if (month.length === 1) {
+        month = '0' + month
+      }
+
+      return `${month}-${day}-${date.getFullYear()}`
     })
 
     dispatch({
@@ -86,9 +99,27 @@ export const getChartsData = () => async (dispatch, getState) => {
   }
 }
 
+export const incrementPageBy = (interval) => ({
+  type: SET_PAGE,
+  payload: interval,
+})
+
+export const setPerPage = (value) => ({
+  type: SET_PER_PAGE,
+  payload: value,
+})
+
 export const setTimeInterval = (interval) => ({
   type: SET_TIME_INTERVAL,
-  payload: { dataPointTimeInterval: interval },
+  payload: { timeInterval: interval },
+})
+
+export const toggleOrderBy = () => ({
+  type: SET_ORDER_BY,
+})
+
+export const toggleOrderDir = () => ({
+  type: SET_ORDER_DIR,
 })
 
 export const sortBy = (sortBy, sortByAsc) => (dispatch) => {

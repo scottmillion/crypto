@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
-
-import { useDispatch, useSelector } from 'react-redux'
 import Media from 'react-media'
+import { useLocation } from 'react-router-dom'
+import queryString from 'query-string'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { ChartDisplay, CoinsTable, ChartSlider, LoadingBox } from 'components'
 import { keyGen, screenSizeWidth, timeIntervals } from 'utils'
-
-import queryString from 'query-string'
 
 import {
   getCoinsData,
@@ -26,9 +25,10 @@ import {
 const AllCoins = () => {
   const dispatch = useDispatch()
   const {
+    apiParams,
     coinsData,
     dataLabels,
-    dataPointTimeInterval,
+    timeInterval,
     priceDataPoints,
     volumeDataPoints,
     isCoinsDataLoading,
@@ -36,19 +36,19 @@ const AllCoins = () => {
   } = useSelector((state) => state.allCoins)
 
   const { currency } = useSelector((state) => state.config)
+
   const location = useLocation()
 
   useEffect(() => {
-    const parsed = queryString.parse(location.search, { parseBooleans: true })
     dispatch(getChartsData())
-    dispatch(getCoinsData(parsed))
     // eslint-disable-next-line
-  }, [currency])
+  }, [currency, timeInterval])
 
   useEffect(() => {
-    dispatch(getChartsData())
+    const parsed = queryString.parse(location.search, { parseBooleans: true })
+    dispatch(getCoinsData(parsed))
     // eslint-disable-next-line
-  }, [dataPointTimeInterval])
+  }, [currency, apiParams])
 
   const onClickSelectItem = (days) => {
     dispatch(setTimeInterval(days))
@@ -107,7 +107,7 @@ const AllCoins = () => {
             return (
               <DataSelectItem
                 onClick={() => onClickSelectItem(days)}
-                highlight={dataPointTimeInterval === days}
+                highlight={timeInterval === days}
                 key={keyGen()}
               >
                 {interval}

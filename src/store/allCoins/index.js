@@ -51,9 +51,15 @@ const initialState = {
       key: 'Last 7d',
     },
   },
+  apiParams: {
+    page: 1,
+    perPage: 50,
+    orderBy: 'market_cap',
+    orderDir: 'desc',
+  },
   coinsData: [],
   dataLabels: [],
-  dataPointTimeInterval: 30,
+  timeInterval: 30,
   latestPrice: null,
   latestVolume: null,
   priceDataPoints: [],
@@ -70,6 +76,10 @@ export const GET_COINS_DATA_SUCCESS = 'GET_COINS_DATA_SUCCESS'
 export const GET_CHARTS_DATA_ERROR = 'GET_CHARTS_DATA_ERROR'
 export const GET_CHARTS_DATA_PENDING = 'GET_CHARTS_DATA_PENDING'
 export const GET_CHARTS_DATA_SUCCESS = 'GET_CHARTS_DATA_SUCCESS'
+export const SET_ORDER_BY = 'SET_ORDER_BY'
+export const SET_ORDER_DIR = 'SET_ORDER_DIR'
+export const SET_PAGE = 'SET_PAGE'
+export const SET_PER_PAGE = 'SET_PER_PAGE'
 export const SET_TIME_INTERVAL = 'SET_TIME_INTERVAL'
 export const SORT_BY = 'SORT_BY'
 
@@ -113,6 +123,56 @@ function allCoinsReducer(state = initialState, action) {
         ...action.payload,
         isChartsDataLoading: false,
         chartsError: false,
+      }
+    case SET_ORDER_BY:
+      let { orderBy } = state.apiParams
+      if (orderBy === 'market_cap') {
+        orderBy = 'volume'
+      } else {
+        orderBy = 'market_cap'
+      }
+      return {
+        ...state,
+        apiParams: {
+          ...state.apiParams,
+          orderBy,
+        },
+      }
+    case SET_ORDER_DIR:
+      let { orderDir } = state.apiParams
+      if (orderDir === 'desc') {
+        orderDir = 'asc'
+      } else {
+        orderDir = 'desc'
+      }
+      return {
+        ...state,
+        apiParams: {
+          ...state.apiParams,
+          orderDir,
+        },
+      }
+
+    case SET_PER_PAGE:
+      return {
+        ...state,
+        apiParams: {
+          ...state.apiParams,
+          perPage: action.payload,
+        },
+      }
+    case SET_PAGE:
+      let { page } = state.apiParams
+      page = page + action.payload
+      if (page === 0) {
+        return { ...state }
+      }
+      return {
+        ...state,
+        apiParams: {
+          ...state.apiParams,
+          page,
+        },
       }
     case SET_TIME_INTERVAL:
       return {

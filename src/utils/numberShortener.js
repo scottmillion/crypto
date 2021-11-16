@@ -24,9 +24,13 @@ export function numberShortener(string) {
   } else if (numArr.length === 5) {
     denomination = 'T'
   } else if (numArr.length === 6) {
-    denomination = 'Q'
+    denomination = 'QD'
+  } else if (numArr.length === 7) {
+    denomination = 'QT'
+  } else if (numArr.length === 8) {
+    denomination = 'SX'
   } else {
-    denomination = 'Error'
+    denomination = 'SP'
   }
 
   let ending

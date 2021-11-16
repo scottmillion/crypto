@@ -8,12 +8,17 @@ const ColumnHourChange = (props) => {
   if (!props.hourChange) {
     return '-'
   }
+
+  let hourChangeAdjusted = Math.abs(props.hourChange.toFixed(2))
+  if (hourChangeAdjusted >= 1000 || hourChangeAdjusted <= -1000) {
+    hourChangeAdjusted = '1000+'
+  }
   return (
     <Cell number={props.hourChange}>
       {(currency !== props.symbol && (
         <>
           {getArrow(props.hourChange)}
-          {Math.abs(props.hourChange.toFixed(2))}%
+          {hourChangeAdjusted}%
         </>
       )) || <span>-</span>}
     </Cell>
